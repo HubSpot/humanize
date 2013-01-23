@@ -35,11 +35,9 @@ module.exports = function(grunt) {
         }
     });
 
-    // Register tasks.
     grunt.loadNpmTasks('grunt-coffee');
     grunt.loadNpmTasks('grunt-jasmine-runner');
 
-    // Default task.
     grunt.registerTask('default', 'coffee min');
     grunt.registerTask('test', 'coffee jasmine');
 };
