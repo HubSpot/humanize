@@ -1,0 +1,32 @@
+{
+    "name": "humanize",
+    "title": "Humanize",
+    "description": "A simple utility library for making the web more humane.",
+    "version": "0.1.0",
+    "homepage": "https://github.com/HubSpot/humanize",
+    "author": {
+        "name": "HubSpotDev",
+        "email": "devteam@hubspot.com",
+        "url": "dev.hubspot.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/HubSpot/humanize.git"
+    },
+    "bugs": {
+        "url": "https://github.com/HubSpot/humanize/issues"
+    },
+    "engines": {
+        "node": ">= 0.6.0"
+    },
+    "scripts": {
+        "test": "grunt jasmine"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "grunt": "~0.3.15",
+        "grunt-coffee": "0.0.x",
+        "grunt-jasmine-runner": "0.6.x"
+    }
+}
