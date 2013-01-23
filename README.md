@@ -157,7 +157,7 @@ Fixes binary rounding issues (eg. (0.615).toFixed(2) === "0.61").
 
 ```javascript
 Humanize.toFixed(0.615, 2)
-// "0.62"
+// "0.61"
 ```
 
 ##### normalizePrecision
