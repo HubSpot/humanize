@@ -6,7 +6,8 @@ module.exports = function(grunt) {
                 dest: 'public/',
                 options: {
                     preserve_dirs: true,
-                    base_path: 'coffee/'
+                    base_path: 'coffee/',
+                    bare: false
                 }
             }
         },
