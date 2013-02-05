@@ -117,6 +117,18 @@ describe 'Converting a list to a readable, oxford commafied string', ->
         expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual('apple, orange, banana' + limitStr)
         expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana')
 
+describe 'Converting a hashmap to a dictionary-like string', ->
+    hash = {'Jonathan': 24, 'Bash': 22, 'Matt': 26}
+
+    it 'should not accept non-objects', ->
+        expect(Humanize.dictionary('String')).toEqual('')
+        expect(Humanize.dictionary((arg) -> 'Function')).toEqual('')
+        expect(Humanize.dictionary([1, 2, 3])).toEqual('')
+
+    it 'should convert a hash to a key-value string', ->
+        expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 22, Matt is 26')
+
+
 describe 'Converting line breaks', ->
 
     it 'should convert /\n to a <br/> tag', ->

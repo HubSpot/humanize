@@ -248,6 +248,26 @@
     return items.slice(0, limitIndex).join(', ') + limitStr;
   };
 
+  this.Humanize.dictionary = function(object, joiner, separator) {
+    var defs, k, result, v;
+    if (joiner == null) {
+      joiner = ' is ';
+    }
+    if (separator == null) {
+      separator = ', ';
+    }
+    result = '';
+    if (object && typeof object === 'object') {
+      defs = [];
+      for (k in object) {
+        v = object[k];
+        defs.push(k + joiner + v);
+      }
+      result = defs.join(separator);
+    }
+    return result;
+  };
+
   this.Humanize.nl2br = function(string, replacement) {
     if (replacement == null) {
       replacement = '<br/>';

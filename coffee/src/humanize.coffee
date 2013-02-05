@@ -194,6 +194,22 @@ isNumber = (value) ->
 
     items.slice(0, limitIndex).join(', ') + limitStr
 
+# Converts an object to a definition-like string
+@Humanize.dictionary = (object, joiner, separator) ->
+    joiner ?= ' is '
+    separator ?= ', '
+    result = ''
+
+    # TODO: Add stronger object checking
+    if object and typeof object is 'object'
+        defs = []
+        for k, v of object
+            defs.push k + joiner + v
+
+        result = defs.join separator
+
+    result
+
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->
     replacement ?= '<br/>'

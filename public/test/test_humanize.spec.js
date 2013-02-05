@@ -133,6 +133,25 @@
     });
   });
 
+  describe('Converting a hashmap to a dictionary-like string', function() {
+    var hash;
+    hash = {
+      'Jonathan': 24,
+      'Bash': 22,
+      'Matt': 26
+    };
+    it('should not accept non-objects', function() {
+      expect(Humanize.dictionary('String')).toEqual('');
+      expect(Humanize.dictionary(function(arg) {
+        return 'Function';
+      })).toEqual('');
+      return expect(Humanize.dictionary([1, 2, 3])).toEqual('');
+    });
+    return it('should convert a hash to a key-value string', function() {
+      return expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 22, Matt is 26');
+    });
+  });
+
   describe('Converting line breaks', function() {
     it('should convert /\n to a <br/> tag', function() {
       return expect(Humanize.nl2br('\n')).toEqual('<br/>');
