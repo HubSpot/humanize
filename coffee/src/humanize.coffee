@@ -135,19 +135,19 @@ isArray = (value) ->
 
     return number + end
 
-#
-@Humanize.times = (value) ->
+# Interprets numbers as occurences. Also accepts an optional array/map of overrides.
+@Humanize.times = (value, overrides={}) ->
     if isFinite(value) and value >= 0
         number = parseFloat value
         switch number
             when 0
-                result = 'never'
+                result = overrides[0]? or 'never'
             when 1
-                result = 'once'
+                result = overrides[1]? or 'once'
             when 2
-                result = 'twice'
+                result = overrides[2]? or 'twice'
             else
-                result = "#{number} times"
+                result = overrides[number] or "#{number} times"
 
     result
 
