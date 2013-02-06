@@ -24,8 +24,13 @@ arrayIndex = [].indexOf or (item) ->
     return -1
 
 isNumber = (value) ->
-    typeof value is 'number' or toString.call(value) is '[object Number]';
+    typeof value is 'number' or toString.call(value) is '[object Number]'
 
+isFinite = (value) ->
+    window.isFinite(value) and not window.isFinite(parseFloat(value))
+
+isArray = (value) ->
+    toString.call(value) is '[object Array]'
 
 @Humanize = {}
 
@@ -130,6 +135,22 @@ isNumber = (value) ->
 
     return number + end
 
+# Interprets numbers as occurences. Also accepts an optional array/map of overrides.
+@Humanize.times = (value, overrides={}) ->
+    if isFinite(value) and value >= 0
+        number = parseFloat value
+        switch number
+            when 0
+                result = overrides[0]? or 'never'
+            when 1
+                result = overrides[1]? or 'once'
+            when 2
+                result = overrides[2]? or 'twice'
+            else
+                result = (overrides[number] or number) + " times"
+
+    result
+
 # Returns the plural version of a given word if the value is not 1. The default suffix is 's'.
 @Humanize.pluralize = (number, singular, plural) ->
     return unless number? and singular?
@@ -168,7 +189,7 @@ isNumber = (value) ->
     ending ?= "+"
     result = null
 
-    if isNumber(num) and isNumber(bound)
+    if isFinite(num) and isFinite(bound)
         result = bound + ending if num > bound
 
     (result or num).toString()
@@ -193,6 +214,20 @@ isNumber = (value) ->
         limitStr = ", and #{items[numItems - 1]}"
 
     items.slice(0, limitIndex).join(', ') + limitStr
+
+# Describes how many times an item appears in a list
+@Humanize.frequency = (list, verb) ->
+    return unless isArray(list)
+
+    len = list.length
+    times = @times len
+
+    if len is 0
+        str = "#{times} #{verb}"
+    else
+        str = "#{verb} #{times}"
+
+    str
 
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->
