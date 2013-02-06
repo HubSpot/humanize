@@ -147,7 +147,7 @@ isArray = (value) ->
             when 2
                 result = overrides[2]? or 'twice'
             else
-                result = overrides[number] or "#{number} times"
+                result = (overrides[number] or number) + " times"
 
     result
 
