@@ -24,8 +24,13 @@ arrayIndex = [].indexOf or (item) ->
     return -1
 
 isNumber = (value) ->
-    typeof value is 'number' or toString.call(value) is '[object Number]';
+    typeof value is 'number' or toString.call(value) is '[object Number]'
 
+isFinite = (value) ->
+    window.isFinite(value) and not window.isFinite(parseFloat(value))
+
+isArray = (value) ->
+    toString.call(value) is '[object Array]'
 
 @Humanize = {}
 
@@ -168,7 +173,7 @@ isNumber = (value) ->
     ending ?= "+"
     result = null
 
-    if isNumber(num) and isNumber(bound)
+    if isFinite(num) and isFinite(bound)
         result = bound + ending if num > bound
 
     (result or num).toString()
