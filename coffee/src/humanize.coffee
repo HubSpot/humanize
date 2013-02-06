@@ -135,6 +135,22 @@ isArray = (value) ->
 
     return number + end
 
+#
+@Humanize.times = (value) ->
+    if isFinite(value) and value >= 0
+        number = parseFloat value
+        switch number
+            when 0
+                result = 'never'
+            when 1
+                result = 'once'
+            when 2
+                result = 'twice'
+            else
+                result = "#{number} times"
+
+    result
+
 # Returns the plural version of a given word if the value is not 1. The default suffix is 's'.
 @Humanize.pluralize = (number, singular, plural) ->
     return unless number? and singular?
@@ -198,6 +214,20 @@ isArray = (value) ->
         limitStr = ", and #{items[numItems - 1]}"
 
     items.slice(0, limitIndex).join(', ') + limitStr
+
+# Describes how many times an item appears in a list
+@Humanize.frequency = (list, verb) ->
+    return unless isArray(list)
+
+    len = list.length
+    times = @times len
+
+    if len is 0
+        str = "#{times} #{verb}"
+    else
+        str = "#{verb} #{times}"
+
+    str
 
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->
