@@ -57,6 +57,26 @@ Humanize.ordinal(22)
 // "22nd"
 ```
 
+##### times
+Interprets numbers as occurences. Also accepts an optional array/map of overrides.
+
+```javascript
+for (i=0; i<5; i++) {
+  Humanize.times(i, {"4": "too many"});
+  // Bonus!
+  if (i === 1) {
+    Humanize.times(1.1);
+  }
+}
+// never
+// once
+// 1.1 times
+// twice
+// 3 times
+// too many times
+// 5 times
+```
+
 ##### filesize
 Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 
@@ -125,6 +145,24 @@ Humanize.oxford(items, 4)
 
 Humanize.oxford(items, 3, "and some other fruits")
 // "apple, orange, banana, and some other fruits"
+```
+
+##### frequency
+Describes how many times an item appears in a list
+
+```javascript
+aznPics = [
+  'http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg',
+  'http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg',
+  'http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg'
+]
+bigfootPics = []
+
+"Asians " + Humanize.frequency(aznPics, "took pictures of food")
+// "Asians took pictures of food 3 times"
+
+"Bigfoot " + Humanize.frequency(bigfootPics, "took pictures of food")
+// "Bigfoot never took pictures of food"
 ```
 
 ##### nl2br and br2nl
