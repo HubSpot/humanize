@@ -74,7 +74,6 @@ for (i=0; i<5; i++) {
 // twice
 // 3 times
 // too many times
-// 5 times
 ```
 
 ##### filesize
