@@ -61,11 +61,11 @@ isArray = (value) ->
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 @Humanize.filesize = (filesize) ->
     if filesize >= 1073741824
-        sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " Gb"
+        sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " GB"
     else if filesize >= 1048576
-        sizeStr = @formatNumber(filesize / 1048576, 2, "") + " Mb"
+        sizeStr = @formatNumber(filesize / 1048576, 2, "") + " MB"
     else if filesize >= 1024
-        sizeStr = @formatNumber(filesize / 1024, 0) + " Kb"
+        sizeStr = @formatNumber(filesize / 1024, 0) + " KB"
     else
         sizeStr = @formatNumber(filesize, 0) + " bytes"
 

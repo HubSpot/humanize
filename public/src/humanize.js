@@ -75,11 +75,11 @@
   this.Humanize.filesize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
-      sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " Gb";
+      sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " GB";
     } else if (filesize >= 1048576) {
-      sizeStr = this.formatNumber(filesize / 1048576, 2, "") + " Mb";
+      sizeStr = this.formatNumber(filesize / 1048576, 2, "") + " MB";
     } else if (filesize >= 1024) {
-      sizeStr = this.formatNumber(filesize / 1024, 0) + " Kb";
+      sizeStr = this.formatNumber(filesize / 1024, 0) + " KB";
     } else {
       sizeStr = this.formatNumber(filesize, 0) + " bytes";
     }
