@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isNumber, objectRef, sortedIndex, toString;
+  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, toString;
 
   objectRef = new function() {};
 
@@ -40,6 +40,18 @@
 
   isNumber = function(value) {
     return typeof value === 'number' || toString.call(value) === '[object Number]';
+  };
+
+  isNaN = function(value) {
+    return isNumber(value) && (value !== +value);
+  };
+
+  isFinite = function(value) {
+    return window.isFinite(value) && !isNaN(parseFloat(value));
+  };
+
+  isArray = function(value) {
+    return toString.call(value) === '[object Array]';
   };
 
   this.Humanize = {};
@@ -167,6 +179,30 @@
     return number + end;
   };
 
+  this.Humanize.times = function(value, overrides) {
+    var number, result;
+    if (overrides == null) {
+      overrides = {};
+    }
+    if (isFinite(value) && value >= 0) {
+      number = parseFloat(value);
+      switch (number) {
+        case 0:
+          result = (overrides[0] != null) || 'never';
+          break;
+        case 1:
+          result = (overrides[1] != null) || 'once';
+          break;
+        case 2:
+          result = (overrides[2] != null) || 'twice';
+          break;
+        default:
+          result = (overrides[number] || number) + " times";
+      }
+    }
+    return result;
+  };
+
   this.Humanize.pluralize = function(number, singular, plural) {
     if (!((number != null) && (singular != null))) {
       return;
@@ -220,7 +256,7 @@
       ending = "+";
     }
     result = null;
-    if (isNumber(num) && isNumber(bound)) {
+    if (isFinite(num) && isFinite(bound)) {
       if (num > bound) {
         result = bound + ending;
       }
@@ -246,6 +282,21 @@
       limitStr = ", and " + items[numItems - 1];
     }
     return items.slice(0, limitIndex).join(', ') + limitStr;
+  };
+
+  this.Humanize.frequency = function(list, verb) {
+    var len, str, times;
+    if (!isArray(list)) {
+      return;
+    }
+    len = list.length;
+    times = this.times(len);
+    if (len === 0) {
+      str = "" + times + " " + verb;
+    } else {
+      str = "" + verb + " " + times;
+    }
+    return str;
   };
 
   this.Humanize.nl2br = function(string, replacement) {
