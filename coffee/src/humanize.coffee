@@ -249,17 +249,18 @@ timeFormats = [
 
     str
 
-@Humanize.pace = (occurencesPerMs, unit='time') ->
-    if occurencesPerMs is 0
+@Humanize.pace = (value, intervalMs, unit='time') ->
+    if value is 0 or intervalMs is 0
         # Needs a better string than this...
-        return "No occurences"
+        return "No #{@pluralize(unit)}"
 
     # Expose these as overridables?
     prefix = 'Approximately'
     timeUnit = null
 
+    rate = value / intervalMs
     for f in timeFormats  # assumes sorted list
-        relativePace = occurencesPerMs * f.value
+        relativePace = rate * f.value
         if relativePace > 1
             timeUnit = f.name
             break
@@ -272,8 +273,8 @@ timeFormats = [
 
     roundedPace = Math.round relativePace
     unit = @pluralize roundedPace, unit
-    return "#{prefix} #{roundedPace} #{unit} per #{timeUnit}"
 
+    "#{prefix} #{roundedPace} #{unit} per #{timeUnit}"
 
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->

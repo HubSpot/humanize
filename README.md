@@ -164,6 +164,24 @@ bigfootPics = []
 // "Bigfoot never took pictures of food"
 ```
 
+##### pace
+Matches a pace (value and interval) with a logical time frame. Very useful for slow paces.
+
+```javascript
+second = 1000
+week = 6.048e8
+decade = 3.156e11
+
+Humanize.pace(1.5, second, "heartbeat")
+// Approximately 2 heartbeats per second
+
+Humanize.pace(4, week)
+// Approximately 4 times per week
+
+Humanize.pace(1, decade, "life crisis")
+// Less than 1 life crisis per week
+```
+
 ##### nl2br and br2nl
 Flexible conversion of `<br/>` tags to newlines and vice versa.
 
@@ -238,5 +256,5 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 
 ## License
-Copyright (c) 2013 HubSpotDev  
+Copyright (c) 2013 HubSpotDev
 Licensed under the MIT license.

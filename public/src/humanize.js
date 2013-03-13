@@ -314,19 +314,20 @@
     return str;
   };
 
-  this.Humanize.pace = function(occurencesPerMs, unit) {
-    var f, prefix, relativePace, roundedPace, timeUnit, _i, _len;
+  this.Humanize.pace = function(value, intervalMs, unit) {
+    var f, prefix, rate, relativePace, roundedPace, timeUnit, _i, _len;
     if (unit == null) {
       unit = 'time';
     }
-    if (occurencesPerMs === 0) {
-      return "No occurences";
+    if (value === 0 || intervalMs === 0) {
+      return "No " + (this.pluralize(unit));
     }
     prefix = 'Approximately';
     timeUnit = null;
+    rate = value / intervalMs;
     for (_i = 0, _len = timeFormats.length; _i < _len; _i++) {
       f = timeFormats[_i];
-      relativePace = occurencesPerMs * f.value;
+      relativePace = rate * f.value;
       if (relativePace > 1) {
         timeUnit = f.name;
         break;
