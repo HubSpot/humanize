@@ -42,8 +42,12 @@
     return typeof value === 'number' || toString.call(value) === '[object Number]';
   };
 
+  isNaN = function(value) {
+    return isNumber(value) && (value !== +value);
+  };
+
   isFinite = function(value) {
-    return window.isFinite(value) && !window.isFinite(parseFloat(value));
+    return window.isFinite(value) && !isNaN(parseFloat(value));
   };
 
   isArray = function(value) {
