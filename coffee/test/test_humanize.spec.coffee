@@ -66,14 +66,14 @@ describe 'Filesize tests for nerds', ->
     it 'should append bytes if it is less than 1024 bytes', ->
         expect(Humanize.filesize(512)).toEqual('512 bytes')
 
-    it 'should return a file in kb if it is more than 1024 bytes', ->
-        expect(Humanize.filesize(1080)).toEqual('1 Kb')
+    it 'should return a file in KB if it is more than 1024 bytes', ->
+        expect(Humanize.filesize(1080)).toEqual('1 KB')
 
-    it 'should return a file in Mb if it is more than a 1024 * 1024 bytes', ->
-        expect(Humanize.filesize(2.22*1024*1024)).toEqual('2.22 Mb')
+    it 'should return a file in MB if it is more than a 1024 * 1024 bytes', ->
+        expect(Humanize.filesize(2.22*1024*1024)).toEqual('2.22 MB')
 
-    it 'should return a file in Gb if it is more than a 1024 * 1024 * 1024 bytes', ->
-        expect(Humanize.filesize(2.22*1024*1024*1024)).toEqual('2.22 Gb')
+    it 'should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', ->
+        expect(Humanize.filesize(2.22*1024*1024*1024)).toEqual('2.22 GB')
 
 describe 'Truncating objects to shorter versions', ->
     objs =
