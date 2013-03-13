@@ -32,6 +32,26 @@ isFinite = (value) ->
 isArray = (value) ->
     toString.call(value) is '[object Array]'
 
+timeFormats = [
+    {
+        name: 'second'
+        value: 1e3
+    }, {
+        name: 'minute'
+        value: 6e4
+    }, {
+        name: 'hour'
+        value: 36e5
+    }, {
+        name: 'day'
+        value: 864e5
+    }, {
+        name: 'week'
+        value: 6048e5
+    }
+]
+
+
 @Humanize = {}
 
 # Converts a large integer to a friendly text representation.
@@ -228,6 +248,32 @@ isArray = (value) ->
         str = "#{verb} #{times}"
 
     str
+
+@Humanize.pace = (occurencesPerMs, unit='time') ->
+    if occurencesPerMs is 0
+        # Needs a better string than this...
+        return "No occurences"
+
+    # Expose these as overridables?
+    prefix = 'Approximately'
+    timeUnit = null
+
+    for f in timeFormats  # assumes sorted list
+        relativePace = occurencesPerMs * f.value
+        if relativePace > 1
+            timeUnit = f.name
+            break
+
+    # Use the last time unit if there is nothing smaller
+    unless timeUnit
+        prefix = 'Less than'
+        relativePace = 1
+        timeUnit = timeFormats[timeFormats.length - 1].name
+
+    roundedPace = Math.round relativePace
+    unit = @pluralize roundedPace, unit
+    return "#{prefix} #{roundedPace} #{unit} per #{timeUnit}"
+
 
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->

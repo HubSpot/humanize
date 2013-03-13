@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isNumber, objectRef, sortedIndex, toString;
+  var arrayIndex, isArray, isFinite, isNumber, objectRef, sortedIndex, timeFormats, toString;
 
   objectRef = new function() {};
 
@@ -41,6 +41,33 @@
   isNumber = function(value) {
     return typeof value === 'number' || toString.call(value) === '[object Number]';
   };
+
+  isFinite = function(value) {
+    return window.isFinite(value) && !window.isFinite(parseFloat(value));
+  };
+
+  isArray = function(value) {
+    return toString.call(value) === '[object Array]';
+  };
+
+  timeFormats = [
+    {
+      name: 'second',
+      value: 1e3
+    }, {
+      name: 'minute',
+      value: 6e4
+    }, {
+      name: 'hour',
+      value: 36e5
+    }, {
+      name: 'day',
+      value: 864e5
+    }, {
+      name: 'week',
+      value: 6048e5
+    }
+  ];
 
   this.Humanize = {};
 
@@ -167,6 +194,30 @@
     return number + end;
   };
 
+  this.Humanize.times = function(value, overrides) {
+    var number, result;
+    if (overrides == null) {
+      overrides = {};
+    }
+    if (isFinite(value) && value >= 0) {
+      number = parseFloat(value);
+      switch (number) {
+        case 0:
+          result = (overrides[0] != null) || 'never';
+          break;
+        case 1:
+          result = (overrides[1] != null) || 'once';
+          break;
+        case 2:
+          result = (overrides[2] != null) || 'twice';
+          break;
+        default:
+          result = (overrides[number] || number) + " times";
+      }
+    }
+    return result;
+  };
+
   this.Humanize.pluralize = function(number, singular, plural) {
     if (!((number != null) && (singular != null))) {
       return;
@@ -220,7 +271,7 @@
       ending = "+";
     }
     result = null;
-    if (isNumber(num) && isNumber(bound)) {
+    if (isFinite(num) && isFinite(bound)) {
       if (num > bound) {
         result = bound + ending;
       }
@@ -246,6 +297,49 @@
       limitStr = ", and " + items[numItems - 1];
     }
     return items.slice(0, limitIndex).join(', ') + limitStr;
+  };
+
+  this.Humanize.frequency = function(list, verb) {
+    var len, str, times;
+    if (!isArray(list)) {
+      return;
+    }
+    len = list.length;
+    times = this.times(len);
+    if (len === 0) {
+      str = "" + times + " " + verb;
+    } else {
+      str = "" + verb + " " + times;
+    }
+    return str;
+  };
+
+  this.Humanize.pace = function(occurencesPerMs, unit) {
+    var f, prefix, relativePace, roundedPace, timeUnit, _i, _len;
+    if (unit == null) {
+      unit = 'time';
+    }
+    if (occurencesPerMs === 0) {
+      return "No occurences";
+    }
+    prefix = 'Approximately';
+    timeUnit = null;
+    for (_i = 0, _len = timeFormats.length; _i < _len; _i++) {
+      f = timeFormats[_i];
+      relativePace = occurencesPerMs * f.value;
+      if (relativePace > 1) {
+        timeUnit = f.name;
+        break;
+      }
+    }
+    if (!timeUnit) {
+      prefix = 'Less than';
+      relativePace = 1;
+      timeUnit = timeFormats[timeFormats.length - 1].name;
+    }
+    roundedPace = Math.round(relativePace);
+    unit = this.pluralize(roundedPace, unit);
+    return "" + prefix + " " + roundedPace + " " + unit + " per " + timeUnit;
   };
 
   this.Humanize.nl2br = function(string, replacement) {
