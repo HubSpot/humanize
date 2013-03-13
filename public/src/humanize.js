@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isArray, isFinite, isNumber, objectRef, sortedIndex, timeFormats, toString;
+  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, timeFormats, toString;
 
   objectRef = new function() {};
 
