@@ -1,4 +1,4 @@
-# Humanize
+# Humanize Plus
 A simple utility library for making the web more humane.
 
 ## Getting Started
@@ -15,6 +15,13 @@ In your web page:
 var capitalized = Humanize.capitalize("ten tiny ducklings.")
 // "Ten tiny ducklings."
 </script>
+```
+
+In your node package.json:
+```javascript
+"dependencies": {
+  "humanize-plus": "1.0.x"
+}
 ```
 
 ### API Methods
