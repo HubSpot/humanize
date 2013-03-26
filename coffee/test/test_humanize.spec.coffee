@@ -117,6 +117,14 @@ describe 'Converting a list to a readable, oxford commafied string', ->
         expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual('apple, orange, banana' + limitStr)
         expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana')
 
+    it 'should convert two pace arguments to a string', ->
+        second = 1000
+        week = 6.048e8
+        decade = 3.156e11
+        expect(Humanize.pace(4, week)).toEqual('Approximately 4 times per week')
+        expect(Humanize.pace(1.5, second, "heartbeat")).toEqual('Approximately 2 heartbeats per second')
+        expect(Humanize.pace(1, decade, "life crisis")).toEqual('Less than 1 life crisis per week')
+
 describe 'Converting line breaks', ->
 
     it 'should convert /\n to a <br/> tag', ->
