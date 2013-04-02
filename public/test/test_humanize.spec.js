@@ -75,14 +75,14 @@
     it('should append bytes if it is less than 1024 bytes', function() {
       return expect(Humanize.filesize(512)).toEqual('512 bytes');
     });
-    it('should return a file in kb if it is more than 1024 bytes', function() {
-      return expect(Humanize.filesize(1080)).toEqual('1 Kb');
+    it('should return a file in KB if it is more than 1024 bytes', function() {
+      return expect(Humanize.filesize(1080)).toEqual('1 KB');
     });
-    it('should return a file in Mb if it is more than a 1024 * 1024 bytes', function() {
-      return expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 Mb');
+    it('should return a file in MB if it is more than a 1024 * 1024 bytes', function() {
+      return expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
     });
-    return it('should return a file in Gb if it is more than a 1024 * 1024 * 1024 bytes', function() {
-      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 Gb');
+    return it('should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', function() {
+      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
     });
   });
 
@@ -137,7 +137,7 @@
     var hash;
     hash = {
       'Jonathan': 24,
-      'Bash': 22,
+      'Bash': 23,
       'Matt': 26
     };
     it('should not accept non-objects', function() {
@@ -148,7 +148,19 @@
       return expect(Humanize.dictionary([1, 2, 3])).toEqual('');
     });
     return it('should convert a hash to a key-value string', function() {
-      return expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 22, Matt is 26');
+      return expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 23, Matt is 26');
+    });
+  });
+
+  describe('Converting pace arguments into strings', function() {
+    return it('should convert two pace arguments to a string', function() {
+      var decade, second, week;
+      second = 1000;
+      week = 6.048e8;
+      decade = 3.156e11;
+      expect(Humanize.pace(4, week)).toEqual('Approximately 4 times per week');
+      expect(Humanize.pace(1.5, second, "heartbeat")).toEqual('Approximately 2 heartbeats per second');
+      return expect(Humanize.pace(1, decade, "life crisis")).toEqual('Less than 1 life crisis per week');
     });
   });
 

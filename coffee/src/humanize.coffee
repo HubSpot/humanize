@@ -24,7 +24,35 @@ arrayIndex = [].indexOf or (item) ->
     return -1
 
 isNumber = (value) ->
-    typeof value is 'number' or toString.call(value) is '[object Number]';
+    typeof value is 'number' or toString.call(value) is '[object Number]'
+
+isNaN = (value) ->
+    isNumber(value) and (value isnt +value)
+
+isFinite = (value) ->
+    window.isFinite(value) and not isNaN(parseFloat(value))
+
+isArray = (value) ->
+    toString.call(value) is '[object Array]'
+
+timeFormats = [
+    {
+        name: 'second'
+        value: 1e3
+    }, {
+        name: 'minute'
+        value: 6e4
+    }, {
+        name: 'hour'
+        value: 36e5
+    }, {
+        name: 'day'
+        value: 864e5
+    }, {
+        name: 'week'
+        value: 6048e5
+    }
+]
 
 
 @Humanize = {}
@@ -56,11 +84,11 @@ isNumber = (value) ->
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 @Humanize.filesize = (filesize) ->
     if filesize >= 1073741824
-        sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " Gb"
+        sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " GB"
     else if filesize >= 1048576
-        sizeStr = @formatNumber(filesize / 1048576, 2, "") + " Mb"
+        sizeStr = @formatNumber(filesize / 1048576, 2, "") + " MB"
     else if filesize >= 1024
-        sizeStr = @formatNumber(filesize / 1024, 0) + " Kb"
+        sizeStr = @formatNumber(filesize / 1024, 0) + " KB"
     else
         sizeStr = @formatNumber(filesize, 0) + " bytes"
 
@@ -130,6 +158,22 @@ isNumber = (value) ->
 
     return number + end
 
+# Interprets numbers as occurences. Also accepts an optional array/map of overrides.
+@Humanize.times = (value, overrides={}) ->
+    if isFinite(value) and value >= 0
+        number = parseFloat value
+        switch number
+            when 0
+                result = overrides[0]? or 'never'
+            when 1
+                result = overrides[1]? or 'once'
+            when 2
+                result = overrides[2]? or 'twice'
+            else
+                result = (overrides[number] or number) + " times"
+
+    result
+
 # Returns the plural version of a given word if the value is not 1. The default suffix is 's'.
 @Humanize.pluralize = (number, singular, plural) ->
     return unless number? and singular?
@@ -168,7 +212,7 @@ isNumber = (value) ->
     ending ?= "+"
     result = null
 
-    if isNumber(num) and isNumber(bound)
+    if isFinite(num) and isFinite(bound)
         result = bound + ending if num > bound
 
     (result or num).toString()
@@ -200,8 +244,7 @@ isNumber = (value) ->
     separator ?= ', '
     result = ''
 
-    # TODO: Add stronger object checking
-    if object and typeof object is 'object'
+    if object? and typeof object is 'object' and Object.prototype.toString.call(object) isnt '[object Array]'
         defs = []
         for k, v of object
             defs.push k + joiner + v
@@ -209,6 +252,47 @@ isNumber = (value) ->
         result = defs.join separator
 
     result
+
+# Describes how many times an item appears in a list
+@Humanize.frequency = (list, verb) ->
+    return unless isArray(list)
+
+    len = list.length
+    times = @times len
+
+    if len is 0
+        str = "#{times} #{verb}"
+    else
+        str = "#{verb} #{times}"
+
+    str
+
+@Humanize.pace = (value, intervalMs, unit='time') ->
+    if value is 0 or intervalMs is 0
+        # Needs a better string than this...
+        return "No #{@pluralize(unit)}"
+
+    # Expose these as overridables?
+    prefix = 'Approximately'
+    timeUnit = null
+
+    rate = value / intervalMs
+    for f in timeFormats  # assumes sorted list
+        relativePace = rate * f.value
+        if relativePace > 1
+            timeUnit = f.name
+            break
+
+    # Use the last time unit if there is nothing smaller
+    unless timeUnit
+        prefix = 'Less than'
+        relativePace = 1
+        timeUnit = timeFormats[timeFormats.length - 1].name
+
+    roundedPace = Math.round relativePace
+    unit = @pluralize roundedPace, unit
+
+    "#{prefix} #{roundedPace} #{unit} per #{timeUnit}"
 
 # Converts newlines to <br/> tags
 @Humanize.nl2br = (string, replacement) ->

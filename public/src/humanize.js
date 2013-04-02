@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isNumber, objectRef, sortedIndex, toString;
+  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, timeFormats, toString;
 
   objectRef = new function() {};
 
@@ -42,6 +42,37 @@
     return typeof value === 'number' || toString.call(value) === '[object Number]';
   };
 
+  isNaN = function(value) {
+    return isNumber(value) && (value !== +value);
+  };
+
+  isFinite = function(value) {
+    return window.isFinite(value) && !isNaN(parseFloat(value));
+  };
+
+  isArray = function(value) {
+    return toString.call(value) === '[object Array]';
+  };
+
+  timeFormats = [
+    {
+      name: 'second',
+      value: 1e3
+    }, {
+      name: 'minute',
+      value: 6e4
+    }, {
+      name: 'hour',
+      value: 36e5
+    }, {
+      name: 'day',
+      value: 864e5
+    }, {
+      name: 'week',
+      value: 6048e5
+    }
+  ];
+
   this.Humanize = {};
 
   this.Humanize.intword = function(number, charWidth, decimals) {
@@ -75,11 +106,11 @@
   this.Humanize.filesize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
-      sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " Gb";
+      sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " GB";
     } else if (filesize >= 1048576) {
-      sizeStr = this.formatNumber(filesize / 1048576, 2, "") + " Mb";
+      sizeStr = this.formatNumber(filesize / 1048576, 2, "") + " MB";
     } else if (filesize >= 1024) {
-      sizeStr = this.formatNumber(filesize / 1024, 0) + " Kb";
+      sizeStr = this.formatNumber(filesize / 1024, 0) + " KB";
     } else {
       sizeStr = this.formatNumber(filesize, 0) + " bytes";
     }
@@ -167,6 +198,30 @@
     return number + end;
   };
 
+  this.Humanize.times = function(value, overrides) {
+    var number, result;
+    if (overrides == null) {
+      overrides = {};
+    }
+    if (isFinite(value) && value >= 0) {
+      number = parseFloat(value);
+      switch (number) {
+        case 0:
+          result = (overrides[0] != null) || 'never';
+          break;
+        case 1:
+          result = (overrides[1] != null) || 'once';
+          break;
+        case 2:
+          result = (overrides[2] != null) || 'twice';
+          break;
+        default:
+          result = (overrides[number] || number) + " times";
+      }
+    }
+    return result;
+  };
+
   this.Humanize.pluralize = function(number, singular, plural) {
     if (!((number != null) && (singular != null))) {
       return;
@@ -220,7 +275,7 @@
       ending = "+";
     }
     result = null;
-    if (isNumber(num) && isNumber(bound)) {
+    if (isFinite(num) && isFinite(bound)) {
       if (num > bound) {
         result = bound + ending;
       }
@@ -257,7 +312,7 @@
       separator = ', ';
     }
     result = '';
-    if (object && typeof object === 'object') {
+    if ((object != null) && typeof object === 'object' && Object.prototype.toString.call(object) !== '[object Array]') {
       defs = [];
       for (k in object) {
         v = object[k];
@@ -266,6 +321,50 @@
       result = defs.join(separator);
     }
     return result;
+  };
+
+  this.Humanize.frequency = function(list, verb) {
+    var len, str, times;
+    if (!isArray(list)) {
+      return;
+    }
+    len = list.length;
+    times = this.times(len);
+    if (len === 0) {
+      str = "" + times + " " + verb;
+    } else {
+      str = "" + verb + " " + times;
+    }
+    return str;
+  };
+
+  this.Humanize.pace = function(value, intervalMs, unit) {
+    var f, prefix, rate, relativePace, roundedPace, timeUnit, _i, _len;
+    if (unit == null) {
+      unit = 'time';
+    }
+    if (value === 0 || intervalMs === 0) {
+      return "No " + (this.pluralize(unit));
+    }
+    prefix = 'Approximately';
+    timeUnit = null;
+    rate = value / intervalMs;
+    for (_i = 0, _len = timeFormats.length; _i < _len; _i++) {
+      f = timeFormats[_i];
+      relativePace = rate * f.value;
+      if (relativePace > 1) {
+        timeUnit = f.name;
+        break;
+      }
+    }
+    if (!timeUnit) {
+      prefix = 'Less than';
+      relativePace = 1;
+      timeUnit = timeFormats[timeFormats.length - 1].name;
+    }
+    roundedPace = Math.round(relativePace);
+    unit = this.pluralize(roundedPace, unit);
+    return "" + prefix + " " + roundedPace + " " + unit + " per " + timeUnit;
   };
 
   this.Humanize.nl2br = function(string, replacement) {

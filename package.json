@@ -1,14 +1,23 @@
 {
-    "name": "humanize",
+    "name": "humanize-plus",
     "title": "Humanize",
     "description": "A simple utility library for making the web more humane.",
-    "version": "0.1.0",
+    "version": "1.0.1",
     "homepage": "https://github.com/HubSpot/humanize",
     "author": {
         "name": "HubSpotDev",
         "email": "devteam@hubspot.com",
         "url": "dev.hubspot.com"
     },
+    "maintainers":[ {
+        "name": "Jonathan Kim",
+        "email": "me@jonathan-kim.com",
+        "web": "http://jonathan-kim.com"
+    }, {
+        "name": "Bryan Ash",
+        "email": "ashbryanct@gmail.com",
+        "web": "http://github.com/b-ash"
+    }],
     "repository": {
         "type": "git",
         "url": "git://github.com/HubSpot/humanize.git"
