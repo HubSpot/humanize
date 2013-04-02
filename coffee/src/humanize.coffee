@@ -238,6 +238,21 @@ timeFormats = [
 
     items.slice(0, limitIndex).join(', ') + limitStr
 
+# Converts an object to a definition-like string
+@Humanize.dictionary = (object, joiner, separator) ->
+    joiner ?= ' is '
+    separator ?= ', '
+    result = ''
+
+    if object? and typeof object is 'object' and Object.prototype.toString.call(object) isnt '[object Array]'
+        defs = []
+        for k, v of object
+            defs.push k + joiner + v
+
+        result = defs.join separator
+
+    result
+
 # Describes how many times an item appears in a list
 @Humanize.frequency = (list, verb) ->
     return unless isArray(list)

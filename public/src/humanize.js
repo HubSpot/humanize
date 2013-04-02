@@ -303,6 +303,26 @@
     return items.slice(0, limitIndex).join(', ') + limitStr;
   };
 
+  this.Humanize.dictionary = function(object, joiner, separator) {
+    var defs, k, result, v;
+    if (joiner == null) {
+      joiner = ' is ';
+    }
+    if (separator == null) {
+      separator = ', ';
+    }
+    result = '';
+    if ((object != null) && typeof object === 'object' && Object.prototype.toString.call(object) !== '[object Array]') {
+      defs = [];
+      for (k in object) {
+        v = object[k];
+        defs.push(k + joiner + v);
+      }
+      result = defs.join(separator);
+    }
+    return result;
+  };
+
   this.Humanize.frequency = function(list, verb) {
     var len, str, times;
     if (!isArray(list)) {
