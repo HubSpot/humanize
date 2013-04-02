@@ -117,6 +117,18 @@ describe 'Converting a list to a readable, oxford commafied string', ->
         expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual('apple, orange, banana' + limitStr)
         expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana')
 
+describe 'Converting a hashmap to a dictionary-like string', ->
+    hash = {'Jonathan': 24, 'Bash': 23, 'Matt': 26}
+
+    it 'should not accept non-objects', ->
+        expect(Humanize.dictionary('String')).toEqual('')
+        expect(Humanize.dictionary((arg) -> 'Function')).toEqual('')
+        expect(Humanize.dictionary([1, 2, 3])).toEqual('')
+
+    it 'should convert a hash to a key-value string', ->
+        expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 23, Matt is 26')
+
+describe 'Converting pace arguments into strings', ->
     it 'should convert two pace arguments to a string', ->
         second = 1000
         week = 6.048e8
@@ -126,7 +138,6 @@ describe 'Converting a list to a readable, oxford commafied string', ->
         expect(Humanize.pace(1, decade, "life crisis")).toEqual('Less than 1 life crisis per week')
 
 describe 'Converting line breaks', ->
-
     it 'should convert /\n to a <br/> tag', ->
         expect(Humanize.nl2br('\n')).toEqual('<br/>')
 
@@ -143,7 +154,6 @@ describe 'Converting line breaks', ->
         expect(Humanize.br2nl('<br            />')).toEqual('\r\n')
 
 describe 'Capitalizing words', ->
-
     it 'should convert "ship it" to "Ship it"', ->
         expect(Humanize.capitalize('ship it')).toEqual('Ship it')
 

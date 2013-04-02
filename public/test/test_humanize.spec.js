@@ -125,12 +125,34 @@
       expect(Humanize.oxford(items.slice(0), 3)).toEqual('apple, orange, banana, and 2 others');
       return expect(Humanize.oxford(items.slice(0), 4)).toEqual('apple, orange, banana, pear, and 1 other');
     });
-    it('should accept custom trucation strings', function() {
+    return it('should accept custom trucation strings', function() {
       var limitStr;
       limitStr = ", and some other fruits";
       expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual('apple, orange, banana' + limitStr);
       return expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana');
     });
+  });
+
+  describe('Converting a hashmap to a dictionary-like string', function() {
+    var hash;
+    hash = {
+      'Jonathan': 24,
+      'Bash': 23,
+      'Matt': 26
+    };
+    it('should not accept non-objects', function() {
+      expect(Humanize.dictionary('String')).toEqual('');
+      expect(Humanize.dictionary(function(arg) {
+        return 'Function';
+      })).toEqual('');
+      return expect(Humanize.dictionary([1, 2, 3])).toEqual('');
+    });
+    return it('should convert a hash to a key-value string', function() {
+      return expect(Humanize.dictionary(hash)).toEqual('Jonathan is 24, Bash is 23, Matt is 26');
+    });
+  });
+
+  describe('Converting pace arguments into strings', function() {
     return it('should convert two pace arguments to a string', function() {
       var decade, second, week;
       second = 1000;
