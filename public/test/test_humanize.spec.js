@@ -125,11 +125,20 @@
       expect(Humanize.oxford(items.slice(0), 3)).toEqual('apple, orange, banana, and 2 others');
       return expect(Humanize.oxford(items.slice(0), 4)).toEqual('apple, orange, banana, pear, and 1 other');
     });
-    return it('should accept custom trucation strings', function() {
+    it('should accept custom trucation strings', function() {
       var limitStr;
       limitStr = ", and some other fruits";
       expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual('apple, orange, banana' + limitStr);
       return expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana');
+    });
+    return it('should convert two pace arguments to a string', function() {
+      var decade, second, week;
+      second = 1000;
+      week = 6.048e8;
+      decade = 3.156e11;
+      expect(Humanize.pace(4, week)).toEqual('Approximately 4 times per week');
+      expect(Humanize.pace(1.5, second, "heartbeat")).toEqual('Approximately 2 heartbeats per second');
+      return expect(Humanize.pace(1, decade, "life crisis")).toEqual('Less than 1 life crisis per week');
     });
   });
 

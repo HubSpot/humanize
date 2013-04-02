@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, toString;
+  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, timeFormats, toString;
 
   objectRef = new function() {};
 
@@ -53,6 +53,25 @@
   isArray = function(value) {
     return toString.call(value) === '[object Array]';
   };
+
+  timeFormats = [
+    {
+      name: 'second',
+      value: 1e3
+    }, {
+      name: 'minute',
+      value: 6e4
+    }, {
+      name: 'hour',
+      value: 36e5
+    }, {
+      name: 'day',
+      value: 864e5
+    }, {
+      name: 'week',
+      value: 6048e5
+    }
+  ];
 
   this.Humanize = {};
 
@@ -297,6 +316,35 @@
       str = "" + verb + " " + times;
     }
     return str;
+  };
+
+  this.Humanize.pace = function(value, intervalMs, unit) {
+    var f, prefix, rate, relativePace, roundedPace, timeUnit, _i, _len;
+    if (unit == null) {
+      unit = 'time';
+    }
+    if (value === 0 || intervalMs === 0) {
+      return "No " + (this.pluralize(unit));
+    }
+    prefix = 'Approximately';
+    timeUnit = null;
+    rate = value / intervalMs;
+    for (_i = 0, _len = timeFormats.length; _i < _len; _i++) {
+      f = timeFormats[_i];
+      relativePace = rate * f.value;
+      if (relativePace > 1) {
+        timeUnit = f.name;
+        break;
+      }
+    }
+    if (!timeUnit) {
+      prefix = 'Less than';
+      relativePace = 1;
+      timeUnit = timeFormats[timeFormats.length - 1].name;
+    }
+    roundedPace = Math.round(relativePace);
+    unit = this.pluralize(roundedPace, unit);
+    return "" + prefix + " " + roundedPace + " " + unit + " per " + timeUnit;
   };
 
   this.Humanize.nl2br = function(string, replacement) {
