@@ -3,7 +3,7 @@ A simple utility library for making the web more humane.
 
 ## Getting Started
 
-Humanize plus is available via node package manager.
+Humanize Plus is available via node package manager.
 
 `npm install humanize-plus`
 
