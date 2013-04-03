@@ -2,7 +2,12 @@
 A simple utility library for making the web more humane.
 
 ## Getting Started
-Download the [minified version][min] or the [full version][max].
+
+Humanize plus is available via node package manager.
+
+`npm install humanize-plus`
+
+Or download the [minified version][min] or the [full version][max].
 
 [min]: https://raw.github.com/HubSpot/humanize/master/public/src/humanize.min.js
 [max]: https://raw.github.com/HubSpot/humanize/master/public/src/humanize.js
