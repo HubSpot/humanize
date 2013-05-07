@@ -311,3 +311,5 @@ timeFormats = [
 # Capitalizes the first letter of each word in a string
 @Humanize.titlecase = (string) ->
     string.replace /(?:^|\s)\S/g, (a) -> a.toUpperCase()
+
+module?.exports = @Humanize
