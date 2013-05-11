@@ -4,6 +4,7 @@
     "description": "A simple utility library for making the web more humane.",
     "version": "1.0.1",
     "homepage": "https://github.com/HubSpot/humanize",
+    "main": "./public/src/humanize.js",
     "author": {
         "name": "HubSpotDev",
         "email": "devteam@hubspot.com",
