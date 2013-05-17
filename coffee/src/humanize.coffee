@@ -23,9 +23,6 @@ arrayIndex = [].indexOf or (item) ->
         return index if arrItem is item
     return -1
 
-isNumber = (value) ->
-    typeof value is 'number' or toString.call(value) is '[object Number]'
-
 isNaN = (value) ->
     value isnt value
 
