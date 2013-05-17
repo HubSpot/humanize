@@ -27,7 +27,7 @@ isNumber = (value) ->
     typeof value is 'number' or toString.call(value) is '[object Number]'
 
 isNaN = (value) ->
-    isNumber(value) and (value isnt +value)
+    value isnt value
 
 isFinite = (value) ->
     window.isFinite(value) and not isNaN(parseFloat(value))
