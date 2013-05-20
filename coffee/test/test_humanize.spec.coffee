@@ -4,11 +4,6 @@ describe 'Millions as word', ->
     	expect(Humanize).toBeDefined()
     	expect(Humanize.intword(123456789, 6)).toEqual('123.45M')
 
-describe 'thousands as word', ->
-    it 'should pass', ->
-    	expect(Humanize).toBeDefined()
-    	expect(Humanize.intword(100, 2)).toEqual('0.1k')
-
 describe 'Ordinal value of numbers Test Suite', ->
 
     describe 'Ordinal value for numbers ending in zero', ->
