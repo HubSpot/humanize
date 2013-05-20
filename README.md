@@ -1,6 +1,6 @@
-# Humanize Plus
+# Humanize Plus [![Build Status](https://travis-ci.org/HubSpot/humanize.png?branch=master)](https://travis-ci.org/HubSpot/humanize)
 
-[![Build Status](https://travis-ci.org/HubSpot/humanize.png?branch=master)](https://travis-ci.org/HubSpot/humanize) A simple utility library for making the web more humane.
+A simple utility library for making the web more humane.
 
 ## Getting Started
 
