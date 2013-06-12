@@ -135,7 +135,7 @@ timeFormats = [
     else if filesize >= 1024
         sizeStr = @formatNumber(filesize / 1024, 0) + " KB"
     else
-        sizeStr = @formatNumber(filesize, 0) + " bytes"
+        sizeStr = @formatNumber(filesize, 0) + @pluralize filesize, " byte"
 
     sizeStr
 

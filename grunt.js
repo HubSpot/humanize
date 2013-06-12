@@ -40,5 +40,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-runner');
 
     grunt.registerTask('default', 'coffee min');
-    grunt.registerTask('test', 'coffee jasmine');
+    grunt.registerTask('test', 'coffee min jasmine');
 };

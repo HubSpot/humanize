@@ -97,6 +97,7 @@
     if (decimals == null) {
       decimals = 0;
     }
+    decimals = Math.max(decimals, 0);
     number = parseInt(input, 10);
     signString = number < 0 ? "-" : "";
     unsignedNumber = Math.abs(number);
@@ -154,7 +155,7 @@
     } else if (filesize >= 1024) {
       sizeStr = this.formatNumber(filesize / 1024, 0) + " KB";
     } else {
-      sizeStr = this.formatNumber(filesize, 0) + " bytes";
+      sizeStr = this.formatNumber(filesize, 0) + this.pluralize(filesize, " byte");
     }
     return sizeStr;
   };

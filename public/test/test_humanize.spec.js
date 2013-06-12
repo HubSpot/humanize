@@ -25,7 +25,7 @@
       expect(Humanize.compactInteger(-9960432253321, 1)).toEqual('-10.0T');
       expect(Humanize.compactInteger(9990432253, 1)).toEqual('10.0B');
       expect(Humanize.compactInteger(100)).toEqual('100');
-      return expect(Humanize.compactInteger(123456789, 1)).toEqual('123.4M');
+      return expect(Humanize.compactInteger(123456789, 1)).toEqual('123.5M');
     });
   });
 
@@ -94,6 +94,9 @@
   });
 
   describe('Filesize tests for nerds', function() {
+    it('should append byte if it is exactly 1 byte', function() {
+      return expect(Humanize.filesize(1)).toEqual('1 byte');
+    });
     it('should append bytes if it is less than 1024 bytes', function() {
       return expect(Humanize.filesize(512)).toEqual('512 bytes');
     });
