@@ -66,7 +66,7 @@ Humanize.intword(10, 'still a nop', 1)
 ```
 
 ##### compactInteger
-Converts an integer into its most compact representation (only for numbers whose abs(x) < 1000).
+Converts an integer into its most compact representation.
 
 ```javascript
 Humanize.compactInteger(123456789, 1)
