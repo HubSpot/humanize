@@ -2,7 +2,7 @@
 describe 'Millions as word', ->
     it 'should pass', ->
         expect(Humanize).toBeDefined()
-        expect(Humanize.intword(123456789, 6)).toEqual('123.45M')
+        expect(Humanize.intword(123456789, 'this is a nop', 2)).toEqual('123.46M')
 
 describe 'compactInteger tests', ->
     it 'should string small numbers', ->

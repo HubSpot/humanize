@@ -3,7 +3,7 @@
   describe('Millions as word', function() {
     return it('should pass', function() {
       expect(Humanize).toBeDefined();
-      return expect(Humanize.intword(123456789, 6)).toEqual('123.45M');
+      return expect(Humanize.intword(123456789, 'this is a nop', 2)).toEqual('123.46M');
     });
   });
 

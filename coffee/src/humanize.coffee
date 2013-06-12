@@ -56,23 +56,11 @@ timeFormats = [
 
 # Converts a large integer to a friendly text representation.
 @Humanize.intword = (number, charWidth, decimals) ->
-    number = parseInt number, 10
-
-    return @intcomma(number) if number.toString().length <= charWidth
-
-    divisorList = [1000, 1000000, 1000000000]
-    unitList = ["k", "M", "B"]
-
-    divisorIndex = arrayIndex.call(divisorList, number)
-    if divisorIndex is -1
-        divisorIndex = sortedIndex(divisorList, number) - 1
-    divisor = divisorList[divisorIndex]
-
-    baseStr = ((number / divisor) + "")[0...charWidth]
-    decimalStr = baseStr.split('.')[1]
-    decimals ?= decimalStr? and parseInt(decimalStr, 10) and decimalStr.length or 0
-
-    @intcomma(baseStr, decimals) + unitList[divisorIndex]
+    ###
+    # This method is deprecated. Please use compactInteger instead.
+    # intword will be going away in the next major version.
+    ###
+    return @compactInteger(number, decimals)
 
 # converts an integer into its most compact representation
 @Humanize.compactInteger = (input, decimals=0) ->

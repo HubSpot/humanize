@@ -72,24 +72,11 @@
   this.Humanize = {};
 
   this.Humanize.intword = function(number, charWidth, decimals) {
-    var baseStr, decimalStr, divisor, divisorIndex, divisorList, unitList;
-    number = parseInt(number, 10);
-    if (number.toString().length <= charWidth) {
-      return this.intcomma(number);
-    }
-    divisorList = [1000, 1000000, 1000000000];
-    unitList = ["k", "M", "B"];
-    divisorIndex = arrayIndex.call(divisorList, number);
-    if (divisorIndex === -1) {
-      divisorIndex = sortedIndex(divisorList, number) - 1;
-    }
-    divisor = divisorList[divisorIndex];
-    baseStr = ((number / divisor) + "").slice(0, charWidth);
-    decimalStr = baseStr.split('.')[1];
-    if (decimals == null) {
-      decimals = (decimalStr != null) && parseInt(decimalStr, 10) && decimalStr.length || 0;
-    }
-    return this.intcomma(baseStr, decimals) + unitList[divisorIndex];
+    /*
+        # This method is deprecated. Please use compactInteger instead.
+        # intword will be going away in the next major version.
+    */
+    return this.compactInteger(number, decimals);
   };
 
   this.Humanize.compactInteger = function(input, decimals) {
