@@ -64,8 +64,10 @@ Humanize.intword(123456789, 9)
 
 ##### compactInteger
 Converts an integer into its most compact representation.
+
 It doesn't touch numbers where abs(x) < 1000.
-if abs(x) > 999,999,999,999,999 we switch to scientific notation
+
+If abs(x) > 999,999,999,999,999 we switch to scientific notation
 because no one knows those abbreviations.
 
 ```javascript

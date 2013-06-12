@@ -21,6 +21,8 @@ describe 'compactInteger tests', ->
         expect(Humanize.compactInteger(-9900432253321, 1)).toEqual('-9.9T')
         expect(Humanize.compactInteger(-9960432253321, 1)).toEqual('-10.0T')
         expect(Humanize.compactInteger(9990432253, 1)).toEqual('10.0B')
+        expect(Humanize.compactInteger(100)).toEqual('100')
+        expect(Humanize.compactInteger(123456789, 1)).toEqual('123.5M')
 
 
 describe 'Ordinal value of numbers Test Suite', ->

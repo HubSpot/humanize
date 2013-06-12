@@ -7,6 +7,28 @@
     });
   });
 
+  describe('compactInteger tests', function() {
+    return it('should string small numbers', function() {
+      expect(Humanize).toBeDefined();
+      expect(Humanize.compactInteger(999)).toEqual('999');
+      expect(Humanize.compactInteger(999, 2)).toEqual('999.00');
+      expect(Humanize.compactInteger(-999)).toEqual('-999');
+      expect(Humanize.compactInteger(-0, 1)).toEqual('0.0');
+      expect(Humanize.compactInteger(15, 0)).toEqual('15');
+      expect(Humanize.compactInteger(7832186132456328967, 2)).toEqual('7.83 x 10^18');
+      expect(Humanize.compactInteger(-7832186132456328967, 4)).toEqual('-7.8322 x 10^18');
+      expect(Humanize.compactInteger(1000, 0)).toEqual('1k');
+      expect(Humanize.compactInteger(-99321, 2)).toEqual('-99.32k');
+      expect(Humanize.compactInteger(3199321, 1)).toEqual('3.2M');
+      expect(Humanize.compactInteger(-37123436321, 5)).toEqual('-37.12344B');
+      expect(Humanize.compactInteger(-9900432253321, 1)).toEqual('-9.9T');
+      expect(Humanize.compactInteger(-9960432253321, 1)).toEqual('-10.0T');
+      expect(Humanize.compactInteger(9990432253, 1)).toEqual('10.0B');
+      expect(Humanize.compactInteger(100)).toEqual('100');
+      return expect(Humanize.compactInteger(123456789, 1)).toEqual('123.4M');
+    });
+  });
+
   describe('Ordinal value of numbers Test Suite', function() {
     describe('Ordinal value for numbers ending in zero', function() {
       it('should return 0 if the number is 0 (cos 0th doesnt read very well)', function() {
