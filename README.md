@@ -66,17 +66,13 @@ Humanize.intword(10, 'still a nop', 1)
 ```
 
 ##### compactInteger
-Converts an integer into its most compact representation.
-
-It doesn't touch numbers where abs(x) < 1000.
-
-If abs(x) > 999,999,999,999,999 we switch to scientific notation
-because no one knows those abbreviations.
+Converts an integer into its most compact representation (only for numbers whose abs(x) < 1000).
 
 ```javascript
 Humanize.compactInteger(123456789, 1)
 // "123.5M"
 
+// Switch to scientific notation for trillons, because no one knows those abbreviations.
 Humanize.compactInteger(-7832186132456328967, 4)
 // "-7.8322 x 10^18"
 
