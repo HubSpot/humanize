@@ -74,6 +74,53 @@ timeFormats = [
 
     @intcomma(baseStr, decimals) + unitList[divisorIndex]
 
+# converts an integer into its most compact representation
+@Humanize.compactInteger = (input, decimals=0) ->
+    number               = parseInt input, 10
+    signString           = if number < 0 then "-" else ""
+    unsignedNumber       = Math.abs number
+    unsignedNumberString = "" + unsignedNumber
+    numberLength         = unsignedNumberString.length
+    numberLengths        = [ 13 ,  10,  7,   4 ]
+    bigNumPrefixes       = [ 'T', 'B', 'M', 'k']
+
+    # small numbers
+    if unsignedNumber < 1000
+        if decimals > 0
+            unsignedNumberString += ".#{ Array(decimals + 1).join('0') }"
+        return "#{ signString }#{ unsignedNumberString }"
+
+    # really big numbers
+    if numberLength > numberLengths[0] + 3
+        return number.toExponential(decimals).replace('e+', ' x 10^')
+
+    # 999 < unsignedNumber < 999,999,999,999,999
+    for _length in numberLengths
+        if numberLength >= _length
+            length = _length
+            break
+
+    decimalIndex = numberLength - length + 1
+    unsignedNumberCharacterArray = unsignedNumberString.split("")
+
+    wholePartArray = unsignedNumberCharacterArray.slice(0, decimalIndex)
+    decimalPartArray = unsignedNumberCharacterArray.slice(decimalIndex, decimalIndex + decimals + 1)
+
+    wholePart = wholePartArray.join("")
+
+    # pad decimalPart if necessary
+    decimalPart = decimalPartArray.join("")
+    if decimalPart.length < decimals
+        decimalPart += "#{ Array(decimals - decimalPart.length + 1).join('0') }"
+
+    if decimals is 0
+        output = "#{ signString }#{ wholePart }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
+    else
+        outputNumber = (+("#{ wholePart }.#{ decimalPart }")).toFixed(decimals)
+        output = "#{ signString }#{ outputNumber }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
+    
+    output
+
 # Converts an integer to a string containing commas every three digits.
 @Humanize.intcomma = (number, decimals = 0) ->
     @formatNumber number, decimals

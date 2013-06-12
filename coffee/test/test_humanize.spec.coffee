@@ -1,17 +1,36 @@
 
 describe 'Millions as word', ->
     it 'should pass', ->
-    	expect(Humanize).toBeDefined()
-    	expect(Humanize.intword(123456789, 6)).toEqual('123.45M')
+        expect(Humanize).toBeDefined()
+        expect(Humanize.intword(123456789, 6)).toEqual('123.45M')
+
+describe 'compactInteger tests', ->
+    it 'should string small numbers', ->
+        expect(Humanize).toBeDefined()
+        expect(Humanize.compactInteger(999)).toEqual('999')
+        expect(Humanize.compactInteger(999, 2)).toEqual('999.00')
+        expect(Humanize.compactInteger(-999)).toEqual('-999')
+        expect(Humanize.compactInteger(-0, 1)).toEqual('0.0')
+        expect(Humanize.compactInteger(15, 0)).toEqual('15')
+        expect(Humanize.compactInteger(7832186132456328967, 2)).toEqual('7.83 x 10^18')
+        expect(Humanize.compactInteger(-7832186132456328967, 4)).toEqual('-7.8322 x 10^18')
+        expect(Humanize.compactInteger(1000, 0)).toEqual('1k')
+        expect(Humanize.compactInteger(-99321, 2)).toEqual('-99.32k')
+        expect(Humanize.compactInteger(3199321, 1)).toEqual('3.2M')
+        expect(Humanize.compactInteger(-37123436321, 5)).toEqual('-37.12344B')
+        expect(Humanize.compactInteger(-9900432253321, 1)).toEqual('-9.9T')
+        expect(Humanize.compactInteger(-9960432253321, 1)).toEqual('-10.0T')
+        expect(Humanize.compactInteger(9990432253, 1)).toEqual('10.0B')
+
 
 describe 'Ordinal value of numbers Test Suite', ->
 
     describe 'Ordinal value for numbers ending in zero', ->
-    	it 'should return 0 if the number is 0 (cos 0th doesnt read very well)', ->
-    	    expect(Humanize.ordinal(0)).toEqual(0)
+        it 'should return 0 if the number is 0 (cos 0th doesnt read very well)', ->
+            expect(Humanize.ordinal(0)).toEqual(0)
 
-    	it 'should return the number with suffix th', ->
-    	    expect(Humanize.ordinal(10)).toEqual('10th')
+        it 'should return the number with suffix th', ->
+            expect(Humanize.ordinal(10)).toEqual('10th')
 
     describe 'Ordinal value for numbers ending in one', ->
         it 'should end in st for numbers not ending in 11', ->
@@ -20,8 +39,8 @@ describe 'Ordinal value of numbers Test Suite', ->
             expect(Humanize.ordinal(21)).toEqual('21st')
 
         it 'should be 11th for numbers ending in 11', ->
-    	    expect(Humanize.ordinal(11)).toEqual('11th')
-    	    expect(Humanize.ordinal(111)).toEqual('111th')
+            expect(Humanize.ordinal(11)).toEqual('11th')
+            expect(Humanize.ordinal(111)).toEqual('111th')
 
     describe 'Ordinal value for numbers ending in two', ->
         it 'should end in nd for numbers not ending in 12', ->
