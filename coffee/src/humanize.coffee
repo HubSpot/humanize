@@ -76,6 +76,7 @@ timeFormats = [
 
 # converts an integer into its most compact representation
 @Humanize.compactInteger = (input, decimals=0) ->
+    decimals = Math.max decimals, 0
     number               = parseInt input, 10
     signString           = if number < 0 then "-" else ""
     unsignedNumber       = Math.abs number
