@@ -37,6 +37,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "grunt-cli": "~0.1.9",
     "grunt": "~0.4.1",
     "grunt-contrib-jasmine": "~0.4.2",
     "grunt-contrib-coffee": "~0.7.0",
