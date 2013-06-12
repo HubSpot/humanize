@@ -55,24 +55,60 @@ timeFormats = [
 @Humanize = {}
 
 # Converts a large integer to a friendly text representation.
-@Humanize.intword = (number, charWidth, decimals) ->
-    number = parseInt number, 10
+@Humanize.intword = (number, charWidth, decimals=2) ->
+    ###
+    # This method is deprecated. Please use compactInteger instead.
+    # intword will be going away in the next major version.
+    ###
+    return @compactInteger(number, decimals)
 
-    return @intcomma(number) if number.toString().length <= charWidth
+# converts an integer into its most compact representation
+@Humanize.compactInteger = (input, decimals=0) ->
+    decimals = Math.max decimals, 0
+    number               = parseInt input, 10
+    signString           = if number < 0 then "-" else ""
+    unsignedNumber       = Math.abs number
+    unsignedNumberString = "" + unsignedNumber
+    numberLength         = unsignedNumberString.length
+    numberLengths        = [ 13 ,  10,  7,   4 ]
+    bigNumPrefixes       = [ 'T', 'B', 'M', 'k']
 
-    divisorList = [1000, 1000000, 1000000000]
-    unitList = ["k", "M", "B"]
+    # small numbers
+    if unsignedNumber < 1000
+        if decimals > 0
+            unsignedNumberString += ".#{ Array(decimals + 1).join('0') }"
+        return "#{ signString }#{ unsignedNumberString }"
 
-    divisorIndex = arrayIndex.call(divisorList, number)
-    if divisorIndex is -1
-        divisorIndex = sortedIndex(divisorList, number) - 1
-    divisor = divisorList[divisorIndex]
+    # really big numbers
+    if numberLength > numberLengths[0] + 3
+        return number.toExponential(decimals).replace('e+', ' x 10^')
 
-    baseStr = ((number / divisor) + "")[0...charWidth]
-    decimalStr = baseStr.split('.')[1]
-    decimals ?= decimalStr? and parseInt(decimalStr, 10) and decimalStr.length or 0
+    # 999 < unsignedNumber < 999,999,999,999,999
+    for _length in numberLengths
+        if numberLength >= _length
+            length = _length
+            break
 
-    @intcomma(baseStr, decimals) + unitList[divisorIndex]
+    decimalIndex = numberLength - length + 1
+    unsignedNumberCharacterArray = unsignedNumberString.split("")
+
+    wholePartArray = unsignedNumberCharacterArray.slice(0, decimalIndex)
+    decimalPartArray = unsignedNumberCharacterArray.slice(decimalIndex, decimalIndex + decimals + 1)
+
+    wholePart = wholePartArray.join("")
+
+    # pad decimalPart if necessary
+    decimalPart = decimalPartArray.join("")
+    if decimalPart.length < decimals
+        decimalPart += "#{ Array(decimals - decimalPart.length + 1).join('0') }"
+
+    if decimals is 0
+        output = "#{ signString }#{ wholePart }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
+    else
+        outputNumber = (+("#{ wholePart }.#{ decimalPart }")).toFixed(decimals)
+        output = "#{ signString }#{ outputNumber }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
+    
+    output
 
 # Converts an integer to a string containing commas every three digits.
 @Humanize.intcomma = (number, decimals = 0) ->

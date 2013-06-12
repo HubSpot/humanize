@@ -48,18 +48,36 @@ Humanize.intcomma(123456789)
 // "123,456,789"
 ```
 
-##### intword
+##### intword (DEPRECATED! This method will not be present in the next major version)
 Converts a large integer to a friendly text representation.
+This method is now a thin wrapper around compactInteger
+
+`Humanize.intword(num, ch, de) === Humanize(num, de)`
 
 ```javascript
-Humanize.intword(123456789, 5)
-// "123.4M"
+Humanize.intword(123456789, 'nopnopnopnop', 1)
+// "123.5M"
 
-Humanize.intword(123456789, 6)
-// "123.45M"
+Humanize.intword(123456789, 'this is a nop', 3)
+// "123.457M"
 
-Humanize.intword(123456789, 9)
-// "123,456,789"
+Humanize.intword(10, 'still a nop', 1)
+// "10.0"
+```
+
+##### compactInteger
+Converts an integer into its most compact representation.
+
+```javascript
+Humanize.compactInteger(123456789, 1)
+// "123.5M"
+
+// Switch to scientific notation for trillons, because no one knows those abbreviations.
+Humanize.compactInteger(-7832186132456328967, 4)
+// "-7.8322 x 10^18"
+
+Humanize.compactInteger(-100, 2)
+// "-100.00"
 ```
 
 ##### ordinal

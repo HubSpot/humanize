@@ -72,24 +72,62 @@
   this.Humanize = {};
 
   this.Humanize.intword = function(number, charWidth, decimals) {
-    var baseStr, decimalStr, divisor, divisorIndex, divisorList, unitList;
-    number = parseInt(number, 10);
-    if (number.toString().length <= charWidth) {
-      return this.intcomma(number);
-    }
-    divisorList = [1000, 1000000, 1000000000];
-    unitList = ["k", "M", "B"];
-    divisorIndex = arrayIndex.call(divisorList, number);
-    if (divisorIndex === -1) {
-      divisorIndex = sortedIndex(divisorList, number) - 1;
-    }
-    divisor = divisorList[divisorIndex];
-    baseStr = ((number / divisor) + "").slice(0, charWidth);
-    decimalStr = baseStr.split('.')[1];
     if (decimals == null) {
-      decimals = (decimalStr != null) && parseInt(decimalStr, 10) && decimalStr.length || 0;
+      decimals = 2;
     }
-    return this.intcomma(baseStr, decimals) + unitList[divisorIndex];
+    /*
+        # This method is deprecated. Please use compactInteger instead.
+        # intword will be going away in the next major version.
+    */
+
+    return this.compactInteger(number, decimals);
+  };
+
+  this.Humanize.compactInteger = function(input, decimals) {
+    var bigNumPrefixes, decimalIndex, decimalPart, decimalPartArray, length, number, numberLength, numberLengths, output, outputNumber, signString, unsignedNumber, unsignedNumberCharacterArray, unsignedNumberString, wholePart, wholePartArray, _i, _len, _length;
+    if (decimals == null) {
+      decimals = 0;
+    }
+    decimals = Math.max(decimals, 0);
+    number = parseInt(input, 10);
+    signString = number < 0 ? "-" : "";
+    unsignedNumber = Math.abs(number);
+    unsignedNumberString = "" + unsignedNumber;
+    numberLength = unsignedNumberString.length;
+    numberLengths = [13, 10, 7, 4];
+    bigNumPrefixes = ['T', 'B', 'M', 'k'];
+    if (unsignedNumber < 1000) {
+      if (decimals > 0) {
+        unsignedNumberString += "." + (Array(decimals + 1).join('0'));
+      }
+      return "" + signString + unsignedNumberString;
+    }
+    if (numberLength > numberLengths[0] + 3) {
+      return number.toExponential(decimals).replace('e+', ' x 10^');
+    }
+    for (_i = 0, _len = numberLengths.length; _i < _len; _i++) {
+      _length = numberLengths[_i];
+      if (numberLength >= _length) {
+        length = _length;
+        break;
+      }
+    }
+    decimalIndex = numberLength - length + 1;
+    unsignedNumberCharacterArray = unsignedNumberString.split("");
+    wholePartArray = unsignedNumberCharacterArray.slice(0, decimalIndex);
+    decimalPartArray = unsignedNumberCharacterArray.slice(decimalIndex, decimalIndex + decimals + 1);
+    wholePart = wholePartArray.join("");
+    decimalPart = decimalPartArray.join("");
+    if (decimalPart.length < decimals) {
+      decimalPart += "" + (Array(decimals - decimalPart.length + 1).join('0'));
+    }
+    if (decimals === 0) {
+      output = "" + signString + wholePart + bigNumPrefixes[numberLengths.indexOf(length)];
+    } else {
+      outputNumber = (+("" + wholePart + "." + decimalPart)).toFixed(decimals);
+      output = "" + signString + outputNumber + bigNumPrefixes[numberLengths.indexOf(length)];
+    }
+    return output;
   };
 
   this.Humanize.intcomma = function(number, decimals) {
