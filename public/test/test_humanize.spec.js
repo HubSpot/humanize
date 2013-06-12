@@ -214,8 +214,20 @@
     it('should convert "ship it" to "Ship it"', function() {
       return expect(Humanize.capitalize('ship it')).toEqual('Ship it');
     });
-    return it('should convert "ship it" to "Ship It"', function() {
-      return expect(Humanize.titlecase('ship it', true)).toEqual('Ship It');
+    it('should convert "ship it" to "Ship It"', function() {
+      return expect(Humanize.titlecase('ship it')).toEqual('Ship It');
+    });
+    it('should convert "" to ""', function() {
+      return expect(Humanize.titlecase('')).toEqual('');
+    });
+    it('should convert "the boss is O\'Mally\'s brother." to "The Boss is O\'Mally\'s Brother."', function() {
+      return expect(Humanize.titlecase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.');
+    });
+    it('should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', function() {
+      return expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
+    });
+    return it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
+      return expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
     });
   });
 

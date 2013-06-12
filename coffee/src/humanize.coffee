@@ -342,7 +342,28 @@ timeFormats = [
     string.charAt(0).toUpperCase() + string.slice(1)
 
 # Capitalizes the first letter of each word in a string
-@Humanize.titlecase = (string) ->
+@Humanize.capitalizeAll = (string) ->
     string.replace /(?:^|\s)\S/g, (a) -> a.toUpperCase()
+
+# Titlecase words in a string.
+@Humanize.titlecase = (string) ->
+    smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
+    internalCaps = /\S+[A-Z]+\S*/
+    stringArray = string.split /(?:^|\s)/
+    titleCasedArray = []
+
+    for word, index in stringArray
+        if index is 0 or index is stringArray.length - 1
+            titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
+        else
+            if internalCaps.test(word)
+                titleCasedArray.push(word)
+            else if smallWords.test(word)
+                titleCasedArray.push(word.toLowerCase())
+            else
+                titleCasedArray.push(@capitalize(word))
+
+    titleCasedArray.join(" ")
+
 
 module?.exports = @Humanize
