@@ -228,17 +228,23 @@ Humanize.capitalize("some boring string")
 // "Some boring string"
 ```
 
-#### titlecase
+#### capitalizeAll
 Captializes the first letter of every word in a string.
 
 ```javascript
-Humanize.titlecase("some boring string")
+Humanize.capitalizeAll("some boring string")
 // "Some Boring String"
+```
 
+#### titlecase
+Intelligently capitalizes eligible words in a string.
+
+```javascript
+Humanize.titlecase("some of a boring string")
+// "Some of a Boring String"
 
 Humanize.titlecase("cool the iTunes cake, O'Malley!")
 // "Cool the iTunes Cake, O'Malley!"
-
 ```
 
 ### Utility methods
