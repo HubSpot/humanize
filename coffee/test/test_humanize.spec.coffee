@@ -180,7 +180,7 @@ describe 'Converting line breaks', ->
     it 'should convert a malformed <br/> tag to /\r/\n (new line)', ->
         expect(Humanize.br2nl('<br            />')).toEqual('\r\n')
 
-describe 'Capitalizing words', ->
+describe 'Capitalizing words appropriately', ->
     it 'should convert "ship it" to "Ship it"', ->
         expect(Humanize.capitalize('ship it')).toEqual('Ship it')
 
