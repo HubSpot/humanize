@@ -1,5 +1,4 @@
 (function() {
-
   describe('Millions as word', function() {
     return it('should pass', function() {
       expect(Humanize).toBeDefined();
