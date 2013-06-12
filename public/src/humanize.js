@@ -419,10 +419,33 @@
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  this.Humanize.titlecase = function(string) {
+  this.Humanize.capitalizeAll = function(string) {
     return string.replace(/(?:^|\s)\S/g, function(a) {
       return a.toUpperCase();
     });
+  };
+
+  this.Humanize.titlecase = function(string) {
+    var index, internalCaps, smallWords, stringArray, titleCasedArray, word, _i, _len;
+    smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
+    internalCaps = /\S+[A-Z]+\S*/;
+    stringArray = string.split(/(?:^|\s)/);
+    titleCasedArray = [];
+    for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
+      word = stringArray[index];
+      if (index === 0 || index === stringArray.length - 1) {
+        titleCasedArray.push(internalCaps.test(word) ? word : this.capitalize(word));
+      } else {
+        if (internalCaps.test(word)) {
+          titleCasedArray.push(word);
+        } else if (smallWords.test(word)) {
+          titleCasedArray.push(word.toLowerCase());
+        } else {
+          titleCasedArray.push(this.capitalize(word));
+        }
+      }
+    }
+    return titleCasedArray.join(" ");
   };
 
   if (typeof module !== "undefined" && module !== null) {
