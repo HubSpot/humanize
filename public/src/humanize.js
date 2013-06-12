@@ -1,5 +1,5 @@
 (function() {
-  var arrayIndex, isArray, isFinite, isNaN, isNumber, objectRef, sortedIndex, timeFormats, toString;
+  var arrayIndex, isArray, isFinite, isNaN, objectRef, sortedIndex, timeFormats, toString;
 
   objectRef = new function() {};
 
@@ -38,12 +38,8 @@
     return -1;
   };
 
-  isNumber = function(value) {
-    return typeof value === 'number' || toString.call(value) === '[object Number]';
-  };
-
   isNaN = function(value) {
-    return isNumber(value) && (value !== +value);
+    return value !== value;
   };
 
   isFinite = function(value) {
