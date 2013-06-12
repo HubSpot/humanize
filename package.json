@@ -18,6 +18,10 @@
         "name": "Bryan Ash",
         "email": "ashbryanct@gmail.com",
         "web": "http://github.com/b-ash"
+    }, {
+        "name": "Andy Aylward",
+        "email": "aaylward@gmail.com",
+        "web": "http://github.com/aaylward"
     }],
     "repository": {
         "type": "git",
