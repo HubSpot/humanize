@@ -180,9 +180,23 @@ describe 'Converting line breaks', ->
     it 'should convert a malformed <br/> tag to /\r/\n (new line)', ->
         expect(Humanize.br2nl('<br            />')).toEqual('\r\n')
 
-describe 'Capitalizing words', ->
+describe 'Capitalizing words appropriately', ->
     it 'should convert "ship it" to "Ship it"', ->
         expect(Humanize.capitalize('ship it')).toEqual('Ship it')
 
     it 'should convert "ship it" to "Ship It"', ->
-        expect(Humanize.titlecase('ship it', true)).toEqual('Ship It')
+        expect(Humanize.titlecase('ship it')).toEqual('Ship It')
+
+    it 'should convert "" to ""', ->
+        expect(Humanize.titlecase('')).toEqual('')
+
+    it 'should convert "the boss is O\'Mally\'s brother." to "The Boss is O\'Mally\'s Brother."', ->
+        expect(Humanize.titlecase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.')
+
+    it 'should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', ->
+        expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?')
+
+    it 'should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', ->
+        expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
+        
+
