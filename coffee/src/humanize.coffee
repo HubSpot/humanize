@@ -55,7 +55,7 @@ timeFormats = [
 @Humanize = {}
 
 # Converts a large integer to a friendly text representation.
-@Humanize.intword = (number, charWidth, decimals) ->
+@Humanize.intword = (number, charWidth, decimals=2) ->
     ###
     # This method is deprecated. Please use compactInteger instead.
     # intword will be going away in the next major version.

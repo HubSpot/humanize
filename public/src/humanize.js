@@ -72,10 +72,14 @@
   this.Humanize = {};
 
   this.Humanize.intword = function(number, charWidth, decimals) {
+    if (decimals == null) {
+      decimals = 2;
+    }
     /*
         # This method is deprecated. Please use compactInteger instead.
         # intword will be going away in the next major version.
     */
+
     return this.compactInteger(number, decimals);
   };
 
