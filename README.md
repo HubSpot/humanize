@@ -220,7 +220,7 @@ Flexible conversion of `<br/>` tags to newlines and vice versa.
 // Use your imagination
 ```
 
-#### capitalize
+##### capitalize
 Capitalizes the first letter in a string.
 
 ```javascript
@@ -228,7 +228,7 @@ Humanize.capitalize("some boring string")
 // "Some boring string"
 ```
 
-#### capitalizeAll
+##### capitalizeAll
 Captializes the first letter of every word in a string.
 
 ```javascript
@@ -236,7 +236,7 @@ Humanize.capitalizeAll("some boring string")
 // "Some Boring String"
 ```
 
-#### titlecase
+##### titlecase
 Intelligently capitalizes eligible words in a string.
 
 ```javascript
