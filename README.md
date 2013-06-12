@@ -26,7 +26,7 @@ var capitalized = Humanize.capitalize("ten tiny ducklings.")
 In your node package.json:
 ```javascript
 "dependencies": {
-  "humanize-plus": "1.0.x"
+  "humanize-plus": "1.3.x"
 }
 ```
 
