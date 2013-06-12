@@ -72,6 +72,9 @@
   });
 
   describe('Filesize tests for nerds', function() {
+    it('should append byte if it is exactly 1 byte', function() {
+      return expect(Humanize.filesize(1)).toEqual('1 byte');
+    });
     it('should append bytes if it is less than 1024 bytes', function() {
       return expect(Humanize.filesize(512)).toEqual('512 bytes');
     });
