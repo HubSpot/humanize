@@ -348,7 +348,7 @@ timeFormats = [
 # Titlecase words in a string.
 @Humanize.titlecase = (string) ->
     doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
-        smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
+        smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
         internalCaps = /\S+[A-Z]+\S*/
         splitOnWhiteSpaceRegex = /\s+/
         splitOnHyphensRegex = /-/

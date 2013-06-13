@@ -436,7 +436,7 @@
       if (firstOrLast == null) {
         firstOrLast = true;
       }
-      smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
+      smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
       internalCaps = /\S+[A-Z]+\S*/;
       splitOnWhiteSpaceRegex = /\s+/;
       splitOnHyphensRegex = /-/;
@@ -446,9 +446,9 @@
         word = stringArray[index];
         if (word.indexOf("-") !== -1) {
           if (index === 0 || index === stringArray.length - 1) {
-            titleCasedArray.push(doTitlecase(word, true, true, self));
+            titleCasedArray.push(doTitlecase(word, true, true));
           } else {
-            titleCasedArray.push(doTitlecase(word, true, false, self));
+            titleCasedArray.push(doTitlecase(word, true, false));
           }
         } else {
           if ((index === 0 || index === stringArray.length - 1) && firstOrLast) {
