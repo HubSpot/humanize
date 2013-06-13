@@ -81,7 +81,7 @@ timeFormats = [
 
     # really big numbers
     if numberLength > numberLengths[0] + 3
-        return number.toExponential(decimals).replace('e+', ' x 10^')
+        return number.toExponential(decimals).replace('e+', 'x10^')
 
     # 999 < unsignedNumber < 999,999,999,999,999
     for _length in numberLengths
