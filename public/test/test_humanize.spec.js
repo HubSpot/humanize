@@ -210,7 +210,7 @@
     });
   });
 
-  describe('Capitalizing words', function() {
+  describe('Capitalizing words appropriately', function() {
     it('should convert "ship it" to "Ship it"', function() {
       return expect(Humanize.capitalize('ship it')).toEqual('Ship it');
     });
