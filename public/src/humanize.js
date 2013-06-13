@@ -103,7 +103,7 @@
       return "" + signString + unsignedNumberString;
     }
     if (numberLength > numberLengths[0] + 3) {
-      return number.toExponential(decimals).replace('e+', ' x 10^');
+      return number.toExponential(decimals).replace('e+', 'x10^');
     }
     for (_i = 0, _len = numberLengths.length; _i < _len; _i++) {
       _length = numberLengths[_i];
