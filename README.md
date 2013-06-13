@@ -74,7 +74,7 @@ Humanize.compactInteger(123456789, 1)
 
 // Switch to scientific notation for trillons, because no one knows those abbreviations.
 Humanize.compactInteger(-7832186132456328967, 4)
-// "-7.8322 x 10^18"
+// "-7.8322x10^18"
 
 Humanize.compactInteger(-100, 2)
 // "-100.00"
