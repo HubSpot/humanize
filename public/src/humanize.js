@@ -426,26 +426,47 @@
   };
 
   this.Humanize.titlecase = function(string) {
-    var index, internalCaps, smallWords, stringArray, titleCasedArray, word, _i, _len;
-    smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
-    internalCaps = /\S+[A-Z]+\S*/;
-    stringArray = string.split(/(?:^|\s)/);
-    titleCasedArray = [];
-    for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
-      word = stringArray[index];
-      if (index === 0 || index === stringArray.length - 1) {
-        titleCasedArray.push(internalCaps.test(word) ? word : this.capitalize(word));
-      } else {
-        if (internalCaps.test(word)) {
-          titleCasedArray.push(word);
-        } else if (smallWords.test(word)) {
-          titleCasedArray.push(word.toLowerCase());
+    var doTitlecase,
+      _this = this;
+    doTitlecase = function(_string, hyphenated, firstOrLast) {
+      var index, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex, stringArray, titleCasedArray, word, _i, _len;
+      if (hyphenated == null) {
+        hyphenated = false;
+      }
+      if (firstOrLast == null) {
+        firstOrLast = true;
+      }
+      smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
+      internalCaps = /\S+[A-Z]+\S*/;
+      splitOnWhiteSpaceRegex = /\s+/;
+      splitOnHyphensRegex = /-/;
+      titleCasedArray = [];
+      stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
+      for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
+        word = stringArray[index];
+        if (word.indexOf("-") !== -1) {
+          if (index === 0 || index === stringArray.length - 1) {
+            titleCasedArray.push(doTitlecase(word, true, true, self));
+          } else {
+            titleCasedArray.push(doTitlecase(word, true, false, self));
+          }
         } else {
-          titleCasedArray.push(this.capitalize(word));
+          if ((index === 0 || index === stringArray.length - 1) && firstOrLast) {
+            titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
+          } else {
+            if (internalCaps.test(word)) {
+              titleCasedArray.push(word);
+            } else if (smallWords.test(word)) {
+              titleCasedArray.push(word.toLowerCase());
+            } else {
+              titleCasedArray.push(_this.capitalize(word));
+            }
+          }
         }
       }
-    }
-    return titleCasedArray.join(" ");
+      return titleCasedArray.join(hyphenated ? '-' : " ");
+    };
+    return doTitlecase(string);
   };
 
   if (typeof module !== "undefined" && module !== null) {

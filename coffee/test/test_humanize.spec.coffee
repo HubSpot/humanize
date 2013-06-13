@@ -202,4 +202,9 @@ describe 'Capitalizing words appropriately', ->
     it 'should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', ->
         expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
         
-
+    it 'should convert "by-the-book ultra-book By iTunes" to "By-the-Book Ultra-Book by iTunes"', ->
+        expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes')
+        
+    it 'should convert "by-the-book ultra-book by-the-by iTunes" to "By-the-Book Ultra-Book by-the-by iTunes"', ->
+        expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes')
+        
