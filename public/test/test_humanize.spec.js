@@ -18,8 +18,8 @@
       expect(Humanize.compactInteger(-999)).toEqual('-999');
       expect(Humanize.compactInteger(-0, 1)).toEqual('0.0');
       expect(Humanize.compactInteger(15, 0)).toEqual('15');
-      expect(Humanize.compactInteger(7832186132456328967, 2)).toEqual('7.83 x 10^18');
-      expect(Humanize.compactInteger(-7832186132456328967, 4)).toEqual('-7.8322 x 10^18');
+      expect(Humanize.compactInteger(7832186132456328967, 2)).toEqual('7.83x10^18');
+      expect(Humanize.compactInteger(-7832186132456328967, 4)).toEqual('-7.8322x10^18');
       expect(Humanize.compactInteger(1000, 0)).toEqual('1k');
       expect(Humanize.compactInteger(-99321, 2)).toEqual('-99.32k');
       expect(Humanize.compactInteger(3199321, 1)).toEqual('3.2M');
