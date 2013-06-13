@@ -226,8 +226,11 @@
     it('should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', function() {
       return expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
     });
-    return it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
+    it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
       return expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
+    });
+    return it('should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', function() {
+      return expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes');
     });
   });
 
