@@ -328,13 +328,11 @@ timeFormats = [
     "#{prefix} #{roundedPace} #{unit} per #{timeUnit}"
 
 # Converts newlines to <br/> tags
-@Humanize.nl2br = (string, replacement) ->
-    replacement ?= '<br/>'
+@Humanize.nl2br = (string, replacement='<br/>') ->
     string.replace /\n/g, replacement
 
 # Converts <br/> tags to newlines
-@Humanize.br2nl = (string, replacement) ->
-    replacement ?= '\r\n'
+@Humanize.br2nl = (string, replacement='\r\n') ->
     string.replace /\<br\s*\/?\>/g, replacement
 
 # Capitalizes first letter in a string
