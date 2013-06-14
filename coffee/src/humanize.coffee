@@ -347,23 +347,33 @@ timeFormats = [
 
 # Titlecase words in a string.
 @Humanize.titlecase = (string) ->
-    smallWords = /\b(a|an|and|at|but|by|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
+    smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
     internalCaps = /\S+[A-Z]+\S*/
-    stringArray = string.split /(?:^|\s)/
-    titleCasedArray = []
+    splitOnWhiteSpaceRegex = /\s+/
+    splitOnHyphensRegex = /-/
 
-    for word, index in stringArray
-        if index is 0 or index is stringArray.length - 1
-            titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
-        else
-            if internalCaps.test(word)
-                titleCasedArray.push(word)
-            else if smallWords.test(word)
-                titleCasedArray.push(word.toLowerCase())
+    doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
+        titleCasedArray = []
+        stringArray = _string.split(if hyphenated then splitOnHyphensRegex else splitOnWhiteSpaceRegex)
+        for word, index in stringArray
+            if word.indexOf("-") isnt -1
+                if index is 0 or index is stringArray.length - 1
+                    titleCasedArray.push(doTitlecase(word, true, true))
+                else
+                    titleCasedArray.push(doTitlecase(word, true, false))
             else
-                titleCasedArray.push(@capitalize(word))
+                if (index is 0 or index is stringArray.length - 1) and firstOrLast
+                    titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
+                else
+                    if internalCaps.test(word)
+                        titleCasedArray.push(word)
+                    else if smallWords.test(word)
+                        titleCasedArray.push(word.toLowerCase())
+                    else
+                        titleCasedArray.push(@capitalize(word))
 
-    titleCasedArray.join(" ")
+        titleCasedArray.join(if hyphenated then '-' else " ")
+    doTitlecase(string)
 
 
 module?.exports = @Humanize

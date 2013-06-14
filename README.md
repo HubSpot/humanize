@@ -237,13 +237,13 @@ Humanize.capitalizeAll("some boring string")
 ```
 
 ##### titlecase
-Intelligently capitalizes eligible words in a string.
+Intelligently capitalizes eligible words in a string and normalizes internal whitespace.
 
 ```javascript
 Humanize.titlecase("some of a boring string")
 // "Some of a Boring String"
 
-Humanize.titlecase("cool the iTunes cake, O'Malley!")
+Humanize.titlecase("cool the          iTunes cake, O'Malley!")
 // "Cool the iTunes Cake, O'Malley!"
 ```
 
