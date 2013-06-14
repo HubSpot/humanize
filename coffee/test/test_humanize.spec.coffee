@@ -19,7 +19,6 @@ describe 'compactInteger tests', ->
         expect(Humanize.compactInteger(100)).toEqual('100')
         expect(Humanize.compactInteger(123456789, 1)).toEqual('123.5M')
 
-
 describe 'Ordinal value of numbers Test Suite', ->
 
     describe 'Ordinal value for numbers ending in zero', ->
