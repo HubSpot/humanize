@@ -426,20 +426,20 @@
   };
 
   this.Humanize.titlecase = function(string) {
-    var doTitlecase,
+    var doTitlecase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
       _this = this;
+    smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
+    internalCaps = /\S+[A-Z]+\S*/;
+    splitOnWhiteSpaceRegex = /\s+/;
+    splitOnHyphensRegex = /-/;
     doTitlecase = function(_string, hyphenated, firstOrLast) {
-      var index, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex, stringArray, titleCasedArray, word, _i, _len;
+      var index, stringArray, titleCasedArray, word, _i, _len;
       if (hyphenated == null) {
         hyphenated = false;
       }
       if (firstOrLast == null) {
         firstOrLast = true;
       }
-      smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
-      internalCaps = /\S+[A-Z]+\S*/;
-      splitOnWhiteSpaceRegex = /\s+/;
-      splitOnHyphensRegex = /-/;
       titleCasedArray = [];
       stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
       for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {

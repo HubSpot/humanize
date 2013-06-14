@@ -347,13 +347,13 @@ timeFormats = [
 
 # Titlecase words in a string.
 @Humanize.titlecase = (string) ->
-    doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
-        smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
-        internalCaps = /\S+[A-Z]+\S*/
-        splitOnWhiteSpaceRegex = /\s+/
-        splitOnHyphensRegex = /-/
-        titleCasedArray = []
+    smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
+    internalCaps = /\S+[A-Z]+\S*/
+    splitOnWhiteSpaceRegex = /\s+/
+    splitOnHyphensRegex = /-/
 
+    doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
+        titleCasedArray = []
         stringArray = _string.split(if hyphenated then splitOnHyphensRegex else splitOnWhiteSpaceRegex)
         for word, index in stringArray
             if word.indexOf("-") isnt -1
