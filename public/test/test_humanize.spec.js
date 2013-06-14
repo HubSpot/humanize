@@ -226,8 +226,23 @@
     it('should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', function() {
       return expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
     });
-    return it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
+    it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
       return expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
+    });
+    it('should convert "cul-de-sac        drive-by" to "Cul-de-Sac Drive-By"', function() {
+      return expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By');
+    });
+    it('should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', function() {
+      return expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes');
+    });
+    it('should convert "by-the-book ultra-book By iTunes" to "By-the-Book Ultra-Book by iTunes"', function() {
+      return expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes');
+    });
+    it('should convert "by-the-book ultra-book by-the-by iTunes" to "By-the-Book Ultra-Book by-the-by iTunes"', function() {
+      return expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes');
+    });
+    return it('should convert "by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book" to "By-the-by Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book"', function() {
+      return expect(Humanize.titlecase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book');
     });
   });
 
