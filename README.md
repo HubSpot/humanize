@@ -30,6 +30,10 @@ In your node package.json:
 }
 ```
 
+### Requires
+requires node >= 0.8.0
+uses [Grunt ~0.4.1](http://gruntjs.com/getting-started)
+
 ### API Methods
 
 ##### formatNumber
