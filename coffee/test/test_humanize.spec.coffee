@@ -199,8 +199,8 @@ describe 'Capitalizing words appropriately', ->
     it 'should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', ->
         expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
         
-    it 'should convert "cul-de-sac drive-by" to "Cul-de-Sac Drive-By"', ->
-        expect(Humanize.titlecase('cul-de-sac drive-by')).toEqual('Cul-de-Sac Drive-By')
+    it 'should convert "cul-de-sac        drive-by" to "Cul-de-Sac Drive-By"', ->
+        expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By')
         
     it 'should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', ->
         expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
