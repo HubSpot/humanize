@@ -404,7 +404,7 @@
   };
 
   this.Humanize.capitalize = function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
   this.Humanize.capitalizeAll = function(string) {
