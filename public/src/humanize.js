@@ -432,27 +432,23 @@
       stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
       for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
         word = stringArray[index];
-        if (word.indexOf("-") !== -1) {
-          if (index === 0 || index === stringArray.length - 1) {
-            titleCasedArray.push(doTitlecase(word, true, true));
-          } else {
-            titleCasedArray.push(doTitlecase(word, true, false));
-          }
+        if (word.indexOf('-') !== -1) {
+          titleCasedArray.push(doTitlecase(word, true, index === 0 || index === stringArray.length - 1));
+          continue;
+        }
+        if (firstOrLast && (index === 0 || index === stringArray.length - 1)) {
+          titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
+          continue;
+        }
+        if (internalCaps.test(word)) {
+          titleCasedArray.push(word);
+        } else if (smallWords.test(word)) {
+          titleCasedArray.push(word.toLowerCase());
         } else {
-          if ((index === 0 || index === stringArray.length - 1) && firstOrLast) {
-            titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
-          } else {
-            if (internalCaps.test(word)) {
-              titleCasedArray.push(word);
-            } else if (smallWords.test(word)) {
-              titleCasedArray.push(word.toLowerCase());
-            } else {
-              titleCasedArray.push(_this.capitalize(word));
-            }
-          }
+          titleCasedArray.push(_this.capitalize(word));
         }
       }
-      return titleCasedArray.join(hyphenated ? '-' : " ");
+      return titleCasedArray.join(hyphenated ? '-' : ' ');
     };
     return doTitlecase(string);
   };

@@ -329,7 +329,7 @@ timeFormats = [
 
 # Capitalizes first letter in a string
 @Humanize.capitalize = (string) ->
-    string.charAt(0).toUpperCase() + string.slice(1)
+    string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 
 # Capitalizes the first letter of each word in a string
 @Humanize.capitalizeAll = (string) ->
@@ -346,23 +346,22 @@ timeFormats = [
         titleCasedArray = []
         stringArray = _string.split(if hyphenated then splitOnHyphensRegex else splitOnWhiteSpaceRegex)
         for word, index in stringArray
-            if word.indexOf("-") isnt -1
-                if index is 0 or index is stringArray.length - 1
-                    titleCasedArray.push(doTitlecase(word, true, true))
-                else
-                    titleCasedArray.push(doTitlecase(word, true, false))
-            else
-                if (index is 0 or index is stringArray.length - 1) and firstOrLast
-                    titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
-                else
-                    if internalCaps.test(word)
-                        titleCasedArray.push(word)
-                    else if smallWords.test(word)
-                        titleCasedArray.push(word.toLowerCase())
-                    else
-                        titleCasedArray.push(@capitalize(word))
+            if word.indexOf('-') isnt -1
+                titleCasedArray.push(doTitlecase(word, true, (index is 0 or index is stringArray.length - 1)))
+                continue
 
-        titleCasedArray.join(if hyphenated then '-' else " ")
+            if firstOrLast and (index is 0 or index is stringArray.length - 1)
+                titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
+                continue
+
+            if internalCaps.test(word)
+                titleCasedArray.push(word)
+            else if smallWords.test(word)
+                titleCasedArray.push(word.toLowerCase())
+            else
+                titleCasedArray.push(@capitalize(word))
+
+        titleCasedArray.join(if hyphenated then '-' else ' ')
     doTitlecase(string)
 
 
