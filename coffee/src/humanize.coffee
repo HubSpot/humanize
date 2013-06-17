@@ -329,7 +329,7 @@ timeFormats = [
 
 # Capitalizes first letter in a string
 @Humanize.capitalize = (string) ->
-    string.charAt(0).toUpperCase() + string.slice(1)
+    string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 
 # Capitalizes the first letter of each word in a string
 @Humanize.capitalizeAll = (string) ->
