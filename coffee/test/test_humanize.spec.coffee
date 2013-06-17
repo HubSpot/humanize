@@ -175,6 +175,12 @@ describe 'Capitalizing words appropriately', ->
     it 'should convert "ship it" to "Ship it"', ->
         expect(Humanize.capitalize('ship it')).toEqual('Ship it')
 
+    it 'should convert "wHOaAa!" to "WHOaAa!"', ->
+        expect(Humanize.capitalize('wHOaAa!')).toEqual('WHOaAa!')
+
+    it 'should convert "wHOaAa!" to "Whoaaa!"', ->
+        expect(Humanize.capitalize('wHOaAa!', true)).toEqual('Whoaaa!')
+
     it 'should convert "ship it" to "Ship It"', ->
         expect(Humanize.titlecase('ship it')).toEqual('Ship It')
 

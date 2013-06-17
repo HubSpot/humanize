@@ -203,6 +203,12 @@
     it('should convert "ship it" to "Ship it"', function() {
       return expect(Humanize.capitalize('ship it')).toEqual('Ship it');
     });
+    it('should convert "wHOaAa!" to "WHOaAa!"', function() {
+      return expect(Humanize.capitalize('wHOaAa!')).toEqual('WHOaAa!');
+    });
+    it('should convert "wHOaAa!" to "Whoaaa!"', function() {
+      return expect(Humanize.capitalize('wHOaAa!', true)).toEqual('Whoaaa!');
+    });
     it('should convert "ship it" to "Ship It"', function() {
       return expect(Humanize.titlecase('ship it')).toEqual('Ship It');
     });
