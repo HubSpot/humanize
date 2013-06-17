@@ -208,11 +208,17 @@ Flexible conversion of `<br/>` tags to newlines and vice versa.
 ```
 
 ##### capitalize
-Capitalizes the first letter in a string.
+Capitalizes the first letter in a string, optionally downcasing the rest of the string.
 
 ```javascript
 Humanize.capitalize("some boring string")
 // "Some boring string"
+
+Humanize.capitalize("wHoaAa!")
+// "WHoaAa!"
+
+Humanize.capitalize("wHoaAa!", true)
+// "Whoaaa!"
 ```
 
 ##### capitalizeAll
