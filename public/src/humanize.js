@@ -403,8 +403,14 @@
     return string.replace(/\<br\s*\/?\>/g, replacement);
   };
 
-  this.Humanize.capitalize = function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  this.Humanize.capitalize = function(string, downCaseTail) {
+    var tail, _tail;
+    if (downCaseTail == null) {
+      downCaseTail = false;
+    }
+    _tail = string.slice(1);
+    tail = (downCaseTail && _tail.toLowerCase()) || _tail;
+    return string.charAt(0).toUpperCase() + tail;
   };
 
   this.Humanize.capitalizeAll = function(string) {
