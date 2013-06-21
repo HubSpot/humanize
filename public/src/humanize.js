@@ -43,7 +43,7 @@
   };
 
   isFinite = function(value) {
-    return window.isFinite(value) && !isNaN(parseFloat(value));
+    return ((typeof window !== "undefined" && window !== null ? window.isFinite : void 0) || global.isFinite)(value) && !isNaN(parseFloat(value));
   };
 
   isArray = function(value) {
@@ -118,14 +118,14 @@
     return output;
   };
 
-  this.Humanize.intcomma = function(number, decimals) {
+  this.Humanize.intComma = function(number, decimals) {
     if (decimals == null) {
       decimals = 0;
     }
     return this.formatNumber(number, decimals);
   };
 
-  this.Humanize.filesize = function(filesize) {
+  this.Humanize.fileSize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
       sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " GB";
@@ -217,7 +217,7 @@
       default:
         end = "th";
     }
-    return number + end;
+    return "" + number + end;
   };
 
   this.Humanize.times = function(value, overrides) {
@@ -263,7 +263,7 @@
       length = 100;
     }
     if (ending == null) {
-      ending = "...";
+      ending = '...';
     }
     if (str.length > length) {
       return str.substring(0, length - ending.length) + ending;
@@ -272,7 +272,7 @@
     }
   };
 
-  this.Humanize.truncatewords = function(string, length) {
+  this.Humanize.truncateWords = function(string, length) {
     var array, i, result;
     array = string.split(" ");
     result = "";
@@ -288,13 +288,13 @@
     }
   };
 
-  this.Humanize.truncatenumber = function(num, bound, ending) {
+  this.Humanize.boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;
     }
     if (ending == null) {
-      ending = "+";
+      ending = '+';
     }
     result = null;
     if (isFinite(num) && isFinite(bound)) {
@@ -334,7 +334,7 @@
       separator = ', ';
     }
     result = '';
-    if ((object != null) && typeof object === 'object' && Object.prototype.toString.call(object) !== '[object Array]') {
+    if ((object != null) && typeof object === 'object' && !isArray(object)) {
       defs = [];
       for (k in object) {
         v = object[k];
@@ -419,14 +419,14 @@
     });
   };
 
-  this.Humanize.titlecase = function(string) {
-    var doTitlecase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
+  this.Humanize.titleCase = function(string) {
+    var doTitleCase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
       _this = this;
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
     internalCaps = /\S+[A-Z]+\S*/;
     splitOnWhiteSpaceRegex = /\s+/;
     splitOnHyphensRegex = /-/;
-    doTitlecase = function(_string, hyphenated, firstOrLast) {
+    doTitleCase = function(_string, hyphenated, firstOrLast) {
       var index, stringArray, titleCasedArray, word, _i, _len;
       if (hyphenated == null) {
         hyphenated = false;
@@ -439,7 +439,7 @@
       for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
         word = stringArray[index];
         if (word.indexOf('-') !== -1) {
-          titleCasedArray.push(doTitlecase(word, true, index === 0 || index === stringArray.length - 1));
+          titleCasedArray.push(doTitleCase(word, true, index === 0 || index === stringArray.length - 1));
           continue;
         }
         if (firstOrLast && (index === 0 || index === stringArray.length - 1)) {
@@ -456,7 +456,7 @@
       }
       return titleCasedArray.join(hyphenated ? '-' : ' ');
     };
-    return doTitlecase(string);
+    return doTitleCase(string);
   };
 
   if (typeof module !== "undefined" && module !== null) {

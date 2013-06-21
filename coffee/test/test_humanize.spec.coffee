@@ -64,6 +64,20 @@ describe 'Ordinal value of numbers Test Suite', ->
             expect(Humanize.ordinal(14)).toEqual('14th')
             expect(Humanize.ordinal(24)).toEqual('24th')
 
+describe 'Times tests', ->
+
+    it 'should say never', ->
+        expect(Humanize.times(0)).toEqual('never')
+
+    it 'should say once', ->
+        expect(Humanize.times(1)).toEqual('once')
+
+    it 'should say twice', ->
+        expect(Humanize.times(2)).toEqual('twice')
+
+    it 'should say 12 times', ->
+        expect(Humanize.times(12)).toEqual('12 times')
+
 describe 'Pluralize tests', ->
 
     it 'should append an s as the default', ->
@@ -79,19 +93,19 @@ describe 'Pluralize tests', ->
 describe 'Filesize tests for nerds', ->
 
     it 'should append byte if it is exactly 1 byte', ->
-        expect(Humanize.filesize(1)).toEqual('1 byte')
+        expect(Humanize.fileSize(1)).toEqual('1 byte')
 
     it 'should append bytes if it is less than 1024 bytes', ->
-        expect(Humanize.filesize(512)).toEqual('512 bytes')
+        expect(Humanize.fileSize(512)).toEqual('512 bytes')
 
     it 'should return a file in KB if it is more than 1024 bytes', ->
-        expect(Humanize.filesize(1080)).toEqual('1 KB')
+        expect(Humanize.fileSize(1080)).toEqual('1 KB')
 
     it 'should return a file in MB if it is more than a 1024 * 1024 bytes', ->
-        expect(Humanize.filesize(2.22*1024*1024)).toEqual('2.22 MB')
+        expect(Humanize.fileSize(2.22*1024*1024)).toEqual('2.22 MB')
 
     it 'should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', ->
-        expect(Humanize.filesize(2.22*1024*1024*1024)).toEqual('2.22 GB')
+        expect(Humanize.fileSize(2.22*1024*1024*1024)).toEqual('2.22 GB')
 
 describe 'Truncating objects to shorter versions', ->
     objs =
@@ -104,11 +118,11 @@ describe 'Truncating objects to shorter versions', ->
         expect(Humanize.truncate(objs.str, 14, '...kidding')).toEqual('abcd...kidding')
 
     it 'should truncate a number to an upper bound', ->
-        expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+')
+        expect(Humanize.boundedNumber(objs.num, 500)).toEqual('500+')
 
     it 'should not trucate things that are too short', ->
         expect(Humanize.truncate(objs.str, objs.str.length + 1)).toEqual(objs.str)
-        expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual("#{objs.num}")
+        expect(Humanize.boundedNumber(objs.num, objs.num + 1)).toEqual("#{objs.num}")
 
 describe 'Converting a list to a readable, oxford commafied string', ->
     items = ['apple', 'orange', 'banana', 'pear', 'pineapple']
@@ -182,32 +196,32 @@ describe 'Capitalizing words appropriately', ->
         expect(Humanize.capitalize('wHOaAa!', true)).toEqual('Whoaaa!')
 
     it 'should convert "ship it" to "Ship It"', ->
-        expect(Humanize.titlecase('ship it')).toEqual('Ship It')
+        expect(Humanize.titleCase('ship it')).toEqual('Ship It')
 
     it 'should convert "" to ""', ->
-        expect(Humanize.titlecase('')).toEqual('')
+        expect(Humanize.titleCase('')).toEqual('')
 
     it 'should convert "the boss is O\'Mally\'s brother." to "The Boss is O\'Mally\'s Brother."', ->
-        expect(Humanize.titlecase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.')
+        expect(Humanize.titleCase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.')
 
     it 'should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', ->
-        expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?')
+        expect(Humanize.titleCase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?')
 
     it 'should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', ->
-        expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
+        expect(Humanize.titleCase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
         
     it 'should convert "cul-de-sac        drive-by" to "Cul-de-Sac Drive-By"', ->
-        expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By')
+        expect(Humanize.titleCase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By')
         
     it 'should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', ->
-        expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
+        expect(Humanize.titleCase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
         
     it 'should convert "by-the-book ultra-book By iTunes" to "By-the-Book Ultra-Book by iTunes"', ->
-        expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes')
+        expect(Humanize.titleCase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes')
         
     it 'should convert "by-the-book ultra-book by-the-by iTunes" to "By-the-Book Ultra-Book by-the-by iTunes"', ->
-        expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes')
+        expect(Humanize.titleCase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes')
         
     it 'should convert "by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book" to "By-the-by Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book"', ->
-        expect(Humanize.titlecase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book')
+        expect(Humanize.titleCase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book')
         
