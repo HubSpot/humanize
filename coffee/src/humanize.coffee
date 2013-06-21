@@ -99,7 +99,7 @@ timeFormats = [
     output
 
 # Converts an integer to a string containing commas every three digits.
-@Humanize.intComma = (number, decimals = 0) -> @formatNumber number, decimals
+@Humanize.intComma = (number, decimals=0) -> @formatNumber number, decimals
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 @Humanize.fileSize = (filesize) ->
@@ -116,7 +116,7 @@ timeFormats = [
 
 # Formats a number to a human-readable string.
 # Localize by overriding the precision, thousand and decimal arguments.
-@Humanize.formatNumber = (number, precision = 0, thousand = ",", decimal = ".") ->
+@Humanize.formatNumber = (number, precision=0, thousand=",", decimal=".") ->
 
     # Create some private utility functions to make the computational
     # code that follows much easier to read.
