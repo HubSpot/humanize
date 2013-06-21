@@ -240,9 +240,7 @@ timeFormats = [
     result += "..." if array.length > length
 
 # Truncates a number to an upper bound.
-@Humanize.truncatenumber = @Humanize.truncateNumber = (num, bound, ending) ->
-    bound ?= 100
-    ending ?= "+"
+@Humanize.truncatenumber = @Humanize.boundedNumber = (num, bound=100, ending="+") ->
     result = null
 
     if isFinite(num) and isFinite(bound)

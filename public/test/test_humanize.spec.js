@@ -151,12 +151,12 @@
     });
     it('should truncate a number to an upper bound', function() {
       expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+');
-      return expect(Humanize.truncateNumber(objs.num, 500)).toEqual('500+');
+      return expect(Humanize.boundedNumber(objs.num, 500)).toEqual('500+');
     });
     return it('should not trucate things that are too short', function() {
       expect(Humanize.truncate(objs.str, objs.str.length + 1)).toEqual(objs.str);
       expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
-      return expect(Humanize.truncateNumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
+      return expect(Humanize.boundedNumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
     });
   });
 

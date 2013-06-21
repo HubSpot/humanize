@@ -300,7 +300,7 @@
     }
   };
 
-  this.Humanize.truncatenumber = this.Humanize.truncateNumber = function(num, bound, ending) {
+  this.Humanize.truncatenumber = this.Humanize.boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;

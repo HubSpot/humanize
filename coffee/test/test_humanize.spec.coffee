@@ -136,12 +136,12 @@ describe 'Truncating objects to shorter versions', ->
 
     it 'should truncate a number to an upper bound', ->
         expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+')
-        expect(Humanize.truncateNumber(objs.num, 500)).toEqual('500+')
+        expect(Humanize.boundedNumber(objs.num, 500)).toEqual('500+')
 
     it 'should not trucate things that are too short', ->
         expect(Humanize.truncate(objs.str, objs.str.length + 1)).toEqual(objs.str)
         expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual("#{objs.num}")
-        expect(Humanize.truncateNumber(objs.num, objs.num + 1)).toEqual("#{objs.num}")
+        expect(Humanize.boundedNumber(objs.num, objs.num + 1)).toEqual("#{objs.num}")
 
 describe 'Converting a list to a readable, oxford commafied string', ->
     items = ['apple', 'orange', 'banana', 'pear', 'pineapple']
