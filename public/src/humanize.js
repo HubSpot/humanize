@@ -130,14 +130,14 @@
     return output;
   };
 
-  this.Humanize.intcomma = function(number, decimals) {
+  this.Humanize.intcomma = this.Humanize.intComma = function(number, decimals) {
     if (decimals == null) {
       decimals = 0;
     }
     return this.formatNumber(number, decimals);
   };
 
-  this.Humanize.filesize = function(filesize) {
+  this.Humanize.filesize = this.Humanize.fileSize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
       sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " GB";
@@ -284,7 +284,7 @@
     }
   };
 
-  this.Humanize.truncatewords = function(string, length) {
+  this.Humanize.truncatewords = this.Humanize.truncateWords = function(string, length) {
     var array, i, result;
     array = string.split(" ");
     result = "";
@@ -300,7 +300,7 @@
     }
   };
 
-  this.Humanize.truncatenumber = function(num, bound, ending) {
+  this.Humanize.truncatenumber = this.Humanize.boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;
@@ -425,14 +425,14 @@
     });
   };
 
-  this.Humanize.titlecase = function(string) {
-    var doTitlecase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
+  this.Humanize.titlecase = this.Humanize.titleCase = function(string) {
+    var doTitleCase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
       _this = this;
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
     internalCaps = /\S+[A-Z]+\S*/;
     splitOnWhiteSpaceRegex = /\s+/;
     splitOnHyphensRegex = /-/;
-    doTitlecase = function(_string, hyphenated, firstOrLast) {
+    doTitleCase = function(_string, hyphenated, firstOrLast) {
       var index, stringArray, titleCasedArray, word, _i, _len;
       if (hyphenated == null) {
         hyphenated = false;
@@ -444,29 +444,25 @@
       stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
       for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
         word = stringArray[index];
-        if (word.indexOf("-") !== -1) {
-          if (index === 0 || index === stringArray.length - 1) {
-            titleCasedArray.push(doTitlecase(word, true, true));
-          } else {
-            titleCasedArray.push(doTitlecase(word, true, false));
-          }
+        if (word.indexOf('-') !== -1) {
+          titleCasedArray.push(doTitleCase(word, true, index === 0 || index === stringArray.length - 1));
+          continue;
+        }
+        if (firstOrLast && (index === 0 || index === stringArray.length - 1)) {
+          titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
+          continue;
+        }
+        if (internalCaps.test(word)) {
+          titleCasedArray.push(word);
+        } else if (smallWords.test(word)) {
+          titleCasedArray.push(word.toLowerCase());
         } else {
-          if ((index === 0 || index === stringArray.length - 1) && firstOrLast) {
-            titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
-          } else {
-            if (internalCaps.test(word)) {
-              titleCasedArray.push(word);
-            } else if (smallWords.test(word)) {
-              titleCasedArray.push(word.toLowerCase());
-            } else {
-              titleCasedArray.push(_this.capitalize(word));
-            }
-          }
+          titleCasedArray.push(_this.capitalize(word));
         }
       }
-      return titleCasedArray.join(hyphenated ? '-' : " ");
+      return titleCasedArray.join(hyphenated ? '-' : ' ');
     };
-    return doTitlecase(string);
+    return doTitleCase(string);
   };
 
   if (typeof module !== "undefined" && module !== null) {
