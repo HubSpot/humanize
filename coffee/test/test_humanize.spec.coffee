@@ -87,7 +87,7 @@ describe 'Ordinal value of numbers Test Suite', ->
         it 'should say 12 times', ->
             expect(Humanize.times(12)).toEqual('12 times')
 
-        it 'should say 12 times', ->
+        it 'should allow number overrides for specified values', ->
             expect(Humanize.times(12, {12:'too many'})).toEqual('too many times')
 
 describe 'Pluralize tests', ->
