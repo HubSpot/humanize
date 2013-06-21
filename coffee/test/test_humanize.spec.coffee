@@ -73,6 +73,20 @@ describe 'Ordinal value of numbers Test Suite', ->
             expect(Humanize.ordinal(14)).toEqual('14th')
             expect(Humanize.ordinal(24)).toEqual('24th')
 
+    describe 'Times tests', ->
+
+        it 'should say never', ->
+            expect(Humanize.times(0)).toEqual('never')
+
+        it 'should say once', ->
+            expect(Humanize.times(1)).toEqual('once')
+
+        it 'should say twice', ->
+            expect(Humanize.times(2)).toEqual('twice')
+
+        it 'should say 12 times', ->
+            expect(Humanize.times(12)).toEqual('12 times')
+
 describe 'Pluralize tests', ->
 
     it 'should append an s as the default', ->
