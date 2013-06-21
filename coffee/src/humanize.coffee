@@ -27,7 +27,7 @@ isNaN = (value) ->
     value isnt value
 
 isFinite = (value) ->
-    window.isFinite(value) and not isNaN(parseFloat(value))
+    (window?.isFinite or global.isFinite)(value) and not isNaN(parseFloat(value))
 
 isArray = (value) ->
     toString.call(value) is '[object Array]'
