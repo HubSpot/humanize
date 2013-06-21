@@ -43,7 +43,7 @@
   };
 
   isFinite = function(value) {
-    return window.isFinite(value) && !isNaN(parseFloat(value));
+    return ((typeof window !== "undefined" && window !== null ? window.isFinite : void 0) || global.isFinite)(value) && !isNaN(parseFloat(value));
   };
 
   isArray = function(value) {
