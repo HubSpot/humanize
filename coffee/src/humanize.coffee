@@ -111,11 +111,11 @@ timeFormats = [
     output
 
 # Converts an integer to a string containing commas every three digits.
-@Humanize.intcomma = (number, decimals = 0) ->
+@Humanize.intcomma = @Humanize.intComma = (number, decimals = 0) ->
     @formatNumber number, decimals
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
-@Humanize.filesize = (filesize) ->
+@Humanize.filesize = @Humanize.fileSize = (filesize) ->
     if filesize >= 1073741824
         sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " GB"
     else if filesize >= 1048576
@@ -129,7 +129,7 @@ timeFormats = [
 
 # Formats a number to a human-readable string.
 # Localize by overriding the precision, thousand and decimal arguments.
-@Humanize.formatNumber = (number, precision = 0, thousand = ",", decimal = ".") ->
+@Humanize.formatNumber = (number, precision=0, thousand=",", decimal=".") ->
 
     # Create some private utility functions to make the computational
     # code that follows much easier to read.
@@ -226,7 +226,7 @@ timeFormats = [
         str
 
 # Truncates a string after a certain number of words.
-@Humanize.truncatewords = (string, length) ->
+@Humanize.truncatewords = @Humanize.truncateWords = (string, length) ->
     array = string.split " "
     result = ""
     i = 0
@@ -240,7 +240,7 @@ timeFormats = [
     result += "..." if array.length > length
 
 # Truncates a number to an upper bound.
-@Humanize.truncatenumber = (num, bound, ending) ->
+@Humanize.truncatenumber = @Humanize.truncateNumber = (num, bound, ending) ->
     bound ?= 100
     ending ?= "+"
     result = null
@@ -344,34 +344,32 @@ timeFormats = [
     string.replace /(?:^|\s)\S/g, (a) -> a.toUpperCase()
 
 # Titlecase words in a string.
-@Humanize.titlecase = (string) ->
+@Humanize.titlecase = @Humanize.titleCase = (string) ->
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
     internalCaps = /\S+[A-Z]+\S*/
     splitOnWhiteSpaceRegex = /\s+/
     splitOnHyphensRegex = /-/
 
-    doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
+    doTitleCase = (_string, hyphenated=false, firstOrLast=true) =>
         titleCasedArray = []
         stringArray = _string.split(if hyphenated then splitOnHyphensRegex else splitOnWhiteSpaceRegex)
         for word, index in stringArray
-            if word.indexOf("-") isnt -1
-                if index is 0 or index is stringArray.length - 1
-                    titleCasedArray.push(doTitlecase(word, true, true))
-                else
-                    titleCasedArray.push(doTitlecase(word, true, false))
+            if word.indexOf('-') isnt -1
+                titleCasedArray.push(doTitleCase(word, true, (index is 0 or index is stringArray.length - 1)))
+                continue
+
+            if firstOrLast and (index is 0 or index is stringArray.length - 1)
+                titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
+                continue
+
+            if internalCaps.test(word)
+                titleCasedArray.push(word)
+            else if smallWords.test(word)
+                titleCasedArray.push(word.toLowerCase())
             else
-                if (index is 0 or index is stringArray.length - 1) and firstOrLast
-                    titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
-                else
-                    if internalCaps.test(word)
-                        titleCasedArray.push(word)
-                    else if smallWords.test(word)
-                        titleCasedArray.push(word.toLowerCase())
-                    else
-                        titleCasedArray.push(@capitalize(word))
+                titleCasedArray.push(@capitalize(word))
 
-        titleCasedArray.join(if hyphenated then '-' else " ")
-    doTitlecase(string)
-
+        titleCasedArray.join(if hyphenated then '-' else ' ')
+    doTitleCase(string)
 
 module?.exports = @Humanize
