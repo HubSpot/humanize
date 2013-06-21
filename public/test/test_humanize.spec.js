@@ -94,7 +94,7 @@
       it('should say 12 times', function() {
         return expect(Humanize.times(12)).toEqual('12 times');
       });
-      return it('should say 12 times', function() {
+      return it('should allow number overrides for specified values', function() {
         return expect(Humanize.times(12, {
           12: 'too many'
         })).toEqual('too many times');
