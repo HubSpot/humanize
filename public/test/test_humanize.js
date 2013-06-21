@@ -72,6 +72,21 @@
     });
   });
 
+  describe('Times tests', function() {
+    it('should say never', function() {
+      return expect(Humanize.times(0)).toEqual('never');
+    });
+    it('should say once', function() {
+      return expect(Humanize.times(1)).toEqual('once');
+    });
+    it('should say twice', function() {
+      return expect(Humanize.times(2)).toEqual('twice');
+    });
+    return it('should say 12 times', function() {
+      return expect(Humanize.times(12)).toEqual('12 times');
+    });
+  });
+
   describe('Pluralize tests', function() {
     it('should append an s as the default', function() {
       expect(Humanize.pluralize(1, 'cupcake')).toEqual('cupcake');
