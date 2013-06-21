@@ -74,11 +74,25 @@
         return expect(Humanize.ordinal(113)).toEqual('113th');
       });
     });
-    return describe('Ordinal value for numbers ending in four', function() {
+    describe('Ordinal value for numbers ending in four', function() {
       return it('should end in th for numbers', function() {
         expect(Humanize.ordinal(4)).toEqual('4th');
         expect(Humanize.ordinal(14)).toEqual('14th');
         return expect(Humanize.ordinal(24)).toEqual('24th');
+      });
+    });
+    return describe('Times tests', function() {
+      it('should say never', function() {
+        return expect(Humanize.times(0)).toEqual('never');
+      });
+      it('should say once', function() {
+        return expect(Humanize.times(1)).toEqual('once');
+      });
+      it('should say twice', function() {
+        return expect(Humanize.times(2)).toEqual('twice');
+      });
+      return it('should say 12 times', function() {
+        return expect(Humanize.times(12)).toEqual('12 times');
       });
     });
   });
