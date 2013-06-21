@@ -300,14 +300,14 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ### 1.4.0
 
-• add camelCase aliases
- - `intComma`       -> `intcomma`
- - `fileSize`       -> `filesize`
- - `truncateWords`  -> `truncatewords`
- - `truncateNumber` -> `truncatenumber`
- - `titleCase`      -> `titlecase`
+- add camelCase aliases
+ • `intComma`       -> `intcomma`
+ • `fileSize`       -> `filesize`
+ • `truncateWords`  -> `truncatewords`
+ • `truncateNumber` -> `truncatenumber`
+ • `titleCase`      -> `titlecase`
 
-• optimize internal `doTitleCase` method
+- optimize internal `doTitleCase` method
 
 ## License
 Copyright (c) 2013 HubSpotDev
