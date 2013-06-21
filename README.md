@@ -296,6 +296,18 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 * [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
 * [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
+## Release Notes
+
+### 1.4.0
+
+• add camelCase aliases
+ - `intComma`       -> `intcomma`
+ - `fileSize`       -> `filesize`
+ - `truncateWords`  -> `truncatewords`
+ - `truncateNumber` -> `truncatenumber`
+ - `titleCase`      -> `titlecase`
+
+• optimize internal `doTitleCase` method
 
 ## License
 Copyright (c) 2013 HubSpotDev
