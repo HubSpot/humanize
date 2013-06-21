@@ -288,13 +288,13 @@
     }
   };
 
-  this.Humanize.truncateNumber = function(num, bound, ending) {
+  this.Humanize.boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;
     }
     if (ending == null) {
-      ending = "+";
+      ending = '+';
     }
     result = null;
     if (isFinite(num) && isFinite(bound)) {
