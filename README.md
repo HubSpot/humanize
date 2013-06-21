@@ -309,6 +309,10 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 - optimize internal `doTitleCase` method
 
+### 1.3.3
+
+- fix [#27](https://github.com/HubSpot/humanize/issues/27)
+
 ## License
 Copyright (c) 2013 HubSpotDev
 Licensed under the MIT license.
