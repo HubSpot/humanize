@@ -311,7 +311,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ### 1.3.3
 
-- fix [#27](https://github.com/HubSpot/humanize/issues/27)
+- fix [#27](https://github.com/HubSpot/humanize/issues/27) (affected node users on all versions <= 1.3.2)
 
 ## License
 Copyright (c) 2013 HubSpotDev
