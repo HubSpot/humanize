@@ -336,6 +336,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
    - `titleCase`      -> `titlecase`
 
 - optimize internal `doTitleCase` method
+- remove unused helper methods
 
 ### 1.3.3
 
