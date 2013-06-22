@@ -2,35 +2,12 @@
 objectRef = new ->
 toString = objectRef.toString
 
+# Helper methods
+isNaN = (value) -> value isnt value
 
-# Identifies where in a sequential list a new value should be added.
-sortedIndex = (array, candidate, iterator) ->
-    iterator ?= (value) -> value
-    value = iterator candidate
+isFinite = (value) -> (window?.isFinite or global.isFinite)(value) and not isNaN(parseFloat(value))
 
-    low = 0
-    high = array.length
-
-    while (low < high)
-      mid = (low + high) >> 1
-      if iterator(array[mid]) < value then low = mid + 1 else high = mid
-
-    return low
-
-arrayIndex = [].indexOf or (item) ->
-    arr = @
-    for arrItem, index in arr
-        return index if arrItem is item
-    return -1
-
-isNaN = (value) ->
-    value isnt value
-
-isFinite = (value) ->
-    (window?.isFinite or global.isFinite)(value) and not isNaN(parseFloat(value))
-
-isArray = (value) ->
-    toString.call(value) is '[object Array]'
+isArray = (value) -> toString.call(value) is '[object Array]'
 
 timeFormats = [
     {

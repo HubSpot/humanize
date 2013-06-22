@@ -1,42 +1,9 @@
 (function() {
-  var arrayIndex, isArray, isFinite, isNaN, objectRef, sortedIndex, timeFormats, toString;
+  var isArray, isFinite, isNaN, objectRef, timeFormats, toString;
 
   objectRef = new function() {};
 
   toString = objectRef.toString;
-
-  sortedIndex = function(array, candidate, iterator) {
-    var high, low, mid, value;
-    if (iterator == null) {
-      iterator = function(value) {
-        return value;
-      };
-    }
-    value = iterator(candidate);
-    low = 0;
-    high = array.length;
-    while (low < high) {
-      mid = (low + high) >> 1;
-      if (iterator(array[mid]) < value) {
-        low = mid + 1;
-      } else {
-        high = mid;
-      }
-    }
-    return low;
-  };
-
-  arrayIndex = [].indexOf || function(item) {
-    var arr, arrItem, index, _i, _len;
-    arr = this;
-    for (index = _i = 0, _len = arr.length; _i < _len; index = ++_i) {
-      arrItem = arr[index];
-      if (arrItem === item) {
-        return index;
-      }
-    }
-    return -1;
-  };
 
   isNaN = function(value) {
     return value !== value;
