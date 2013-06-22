@@ -47,11 +47,11 @@ Converts an integer to a string containing commas every three digits.
 Humanize.intComma(123456789)
 // "123,456,789"
 ```
-##### intcomma (DEPRECATED! This method will not be present in the next major version)
+##### intcomma - DEPRECATED - This method will not be present in the next major version.
 Alias for `intComma`
 
 
-##### intword (DEPRECATED! This method will not be present in the next major version)
+##### intword - DEPRECATED - This method will not be present in the next major version.
 Converts a large integer to a friendly text representation.
 This method is now a thin wrapper around compactInteger
 
@@ -123,7 +123,7 @@ Humanize.fileSize(1024 * 2000)
 Humanize.fileSize(Math.pow(1000, 4))
 // "931.32 Gb"
 ```
-##### filesize (DEPRECATED! This method will not be present in the next major version)
+##### filesize - DEPRECATED - This method will not be present in the next major version.
 Alias for `fileSize`
 
 
@@ -163,7 +163,7 @@ Humanize.truncateWords('long text is good for you', 5)
 // "long text is good for ..."
 ```
 
-##### truncatewords (DEPRECATED! This method will not be present in the next major version)
+##### truncatewords - DEPRECATED - This method will not be present in the next major version.
 Alias for `truncateWords`
 
 
@@ -178,7 +178,7 @@ Humanize.boundedNumber(50, 100)
 // "50"
 ```
 
-##### truncatenumber (DEPRECATED! This method will not be present in the next major version)
+##### truncatenumber - DEPRECATED - This method will not be present in the next major version.
 Alias for `boundedNumber`
 
 
@@ -272,7 +272,7 @@ Humanize.titleCase("cool the          iTunes cake, O'Malley!")
 // "Cool the iTunes Cake, O'Malley!"
 ```
 
-##### titlecase (DEPRECATED! This method will not be present in the next major version)
+##### titlecase - DEPRECATED - This method will not be present in the next major version.
 Alias for `titleCase`
 
 ### Utility methods
