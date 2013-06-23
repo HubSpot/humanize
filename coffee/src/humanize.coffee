@@ -195,17 +195,11 @@ timeFormats = [
 @Humanize.times = (value, overrides={}) ->
     if isFinite(value) and value >= 0
         number = parseFloat value
-        switch number
-            when 0
-                result = overrides[0]? or 'never'
-            when 1
-                result = overrides[1]? or 'once'
-            when 2
-                result = overrides[2]? or 'twice'
-            else
-                result = (overrides[number] or number) + " times"
-
-    result
+        smallTimes = { 0: 'never', 1: 'once', 2: 'twice' }
+        if overrides[number]?
+            "#{overrides[number]} times"
+        else
+            "#{smallTimes[number]?.toString() or number.toString() + ' times'}"
 
 # Returns the plural version of a given word if the value is not 1. The default suffix is 's'.
 @Humanize.pluralize = (number, singular, plural) ->

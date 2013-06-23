@@ -233,27 +233,23 @@
   };
 
   this.Humanize.times = function(value, overrides) {
-    var number, result;
+    var number, smallTimes, _ref;
     if (overrides == null) {
       overrides = {};
     }
     if (isFinite(value) && value >= 0) {
       number = parseFloat(value);
-      switch (number) {
-        case 0:
-          result = (overrides[0] != null) || 'never';
-          break;
-        case 1:
-          result = (overrides[1] != null) || 'once';
-          break;
-        case 2:
-          result = (overrides[2] != null) || 'twice';
-          break;
-        default:
-          result = (overrides[number] || number) + " times";
+      smallTimes = {
+        0: 'never',
+        1: 'once',
+        2: 'twice'
+      };
+      if (overrides[number] != null) {
+        return "" + overrides[number] + " times";
+      } else {
+        return "" + (((_ref = smallTimes[number]) != null ? _ref.toString() : void 0) || number.toString() + ' times');
       }
     }
-    return result;
   };
 
   this.Humanize.pluralize = function(number, singular, plural) {
