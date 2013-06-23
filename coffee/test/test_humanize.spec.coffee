@@ -83,7 +83,7 @@ describe 'Ordinal value of numbers Test Suite', ->
 
         it 'should say twice', ->
             expect(Humanize.times(2)).toEqual('twice')
-            expect(Humanize.times(2, {2: 'twump'})).toEqual('twump')
+            expect(Humanize.times(2, {2: 'dos'})).toEqual('dos times')
 
         it 'should say 12 times', ->
             expect(Humanize.times(12)).toEqual('12 times')

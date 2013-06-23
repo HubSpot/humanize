@@ -91,8 +91,8 @@
       it('should say twice', function() {
         expect(Humanize.times(2)).toEqual('twice');
         return expect(Humanize.times(2, {
-          2: 'twump'
-        })).toEqual('twice');
+          2: 'dos'
+        })).toEqual('dos times');
       });
       it('should say 12 times', function() {
         return expect(Humanize.times(12)).toEqual('12 times');
