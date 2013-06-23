@@ -88,7 +88,7 @@ timeFormats = [
     output
 
 # Converts an integer to a string containing commas every three digits.
-@Humanize.intcomma = @Humanize.intComma = (number, decimals = 0) ->
+@Humanize.intcomma = @Humanize.intComma = (number, decimals=0) ->
     @formatNumber number, decimals
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
