@@ -326,31 +326,27 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ## Release Notes
 
-<<<<<<< HEAD
 ### 1.4.0
 
 - add camelCase aliases
    - `intComma`       -> `intcomma`
    - `fileSize`       -> `filesize`
    - `truncateWords`  -> `truncatewords`
-   - `truncateNumber` -> `truncatenumber`
+   - `boundedNumber`  -> `truncatenumber`
    - `titleCase`      -> `titlecase`
 
 - optimize internal `doTitleCase` method
 - remove unused helper methods
 
-### 1.3.3
-
-- fix [#27](https://github.com/HubSpot/humanize/issues/27) (affected node users on all versions <= 1.3.2)
-=======
 ### 1.3.5
-- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
 - [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README
+
+### 1.3.4
+- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
 
 ### 1.3.3
 
 - fix [#27](https://github.com/HubSpot/humanize/issues/27) (affected node users for version <= 1.3.2)
->>>>>>> master
 
 ## License
 Copyright (c) 2013 HubSpotDev
