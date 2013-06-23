@@ -296,6 +296,15 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 * [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
 * [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
+## Release Notes
+
+### 1.3.5
+- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
+- [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README
+
+### 1.3.3
+
+- fix [#27](https://github.com/HubSpot/humanize/issues/27) (affected node users for version <= 1.3.2)
 
 ## License
 Copyright (c) 2013 HubSpotDev
