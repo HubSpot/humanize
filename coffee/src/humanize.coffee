@@ -172,7 +172,7 @@ timeFormats = [
         number = parseFloat value
         smallTimes = { 0: 'never', 1: 'once', 2: 'twice' }
         if overrides[number]?
-            "#{overrides[number]} times"
+            "#{overrides[number]}"
         else
             "#{smallTimes[number]?.toString() or number.toString() + ' times'}"
 
@@ -199,8 +199,7 @@ timeFormats = [
 
     while i < length
         if array[i]?
-            result += array[i] + " "
-
+            result += "#{array[i]} "
         i++
 
     result += "..." if array.length > length
@@ -241,8 +240,8 @@ timeFormats = [
 
     if object? and typeof object is 'object' and Object.prototype.toString.call(object) isnt '[object Array]'
         defs = []
-        for k, v of object
-            defs.push k + joiner + v
+        for key, val of object
+            defs.push "#{ key }#{ joiner }#{ val }"
 
         result = defs.join separator
 

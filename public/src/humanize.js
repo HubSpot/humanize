@@ -212,7 +212,7 @@
         2: 'twice'
       };
       if (overrides[number] != null) {
-        return "" + overrides[number] + " times";
+        return "" + overrides[number];
       } else {
         return "" + (((_ref = smallTimes[number]) != null ? _ref.toString() : void 0) || number.toString() + ' times');
       }
@@ -254,7 +254,7 @@
     i = 0;
     while (i < length) {
       if (array[i] != null) {
-        result += array[i] + " ";
+        result += "" + array[i] + " ";
       }
       i++;
     }
@@ -301,7 +301,7 @@
   };
 
   this.Humanize.dictionary = function(object, joiner, separator) {
-    var defs, k, result, v;
+    var defs, key, result, val;
     if (joiner == null) {
       joiner = ' is ';
     }
@@ -311,9 +311,9 @@
     result = '';
     if ((object != null) && typeof object === 'object' && Object.prototype.toString.call(object) !== '[object Array]') {
       defs = [];
-      for (k in object) {
-        v = object[k];
-        defs.push(k + joiner + v);
+      for (key in object) {
+        val = object[key];
+        defs.push("" + key + joiner + val);
       }
       result = defs.join(separator);
     }
