@@ -2,35 +2,12 @@
 objectRef = new ->
 toString = objectRef.toString
 
+# Helper methods
+isNaN = (value) -> value isnt value
 
-# Identifies where in a sequential list a new value should be added.
-sortedIndex = (array, candidate, iterator) ->
-    iterator ?= (value) -> value
-    value = iterator candidate
+isFinite = (value) -> (window?.isFinite or global.isFinite)(value) and not isNaN(parseFloat(value))
 
-    low = 0
-    high = array.length
-
-    while (low < high)
-      mid = (low + high) >> 1
-      if iterator(array[mid]) < value then low = mid + 1 else high = mid
-
-    return low
-
-arrayIndex = [].indexOf or (item) ->
-    arr = @
-    for arrItem, index in arr
-        return index if arrItem is item
-    return -1
-
-isNaN = (value) ->
-    value isnt value
-
-isFinite = (value) ->
-    (window?.isFinite or global.isFinite)(value) and not isNaN(parseFloat(value))
-
-isArray = (value) ->
-    toString.call(value) is '[object Array]'
+isArray = (value) -> toString.call(value) is '[object Array]'
 
 timeFormats = [
     {
@@ -50,7 +27,6 @@ timeFormats = [
         value: 6048e5
     }
 ]
-
 
 @Humanize = {}
 
@@ -107,15 +83,14 @@ timeFormats = [
     else
         outputNumber = (+("#{ wholePart }.#{ decimalPart }")).toFixed(decimals)
         output = "#{ signString }#{ outputNumber }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
-    
+
     output
 
 # Converts an integer to a string containing commas every three digits.
-@Humanize.intcomma = (number, decimals = 0) ->
-    @formatNumber number, decimals
+@Humanize.intcomma = @Humanize.intComma = (number, decimals=0) -> @formatNumber number, decimals
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
-@Humanize.filesize = (filesize) ->
+@Humanize.filesize = @Humanize.fileSize = (filesize) ->
     if filesize >= 1073741824
         sizeStr = @formatNumber(filesize / 1073741824, 2, "") + " GB"
     else if filesize >= 1048576
@@ -129,15 +104,15 @@ timeFormats = [
 
 # Formats a number to a human-readable string.
 # Localize by overriding the precision, thousand and decimal arguments.
-@Humanize.formatNumber = (number, precision = 0, thousand = ",", decimal = ".") ->
+@Humanize.formatNumber = (number, precision=0, thousand=",", decimal=".") ->
 
     # Create some private utility functions to make the computational
     # code that follows much easier to read.
 
-    firstComma = (number, thousand, position) =>
+    firstComma = (number, thousand, position) ->
         if position then number.substr(0, position) + thousand else ""
 
-    commas = (number, thousand, position) =>
+    commas = (number, thousand, position) ->
         number.substr(position).replace /(\d{3})(?=\d)/g, "$1" + thousand
 
     decimals = (number, decimal, usePrecision) =>
@@ -176,7 +151,7 @@ timeFormats = [
     return value if number is 0
 
     specialCase = number % 100
-    return number + "th" if specialCase in [11, 12, 13]
+    return "#{ number }th" if specialCase in [11, 12, 13]
 
     leastSignificant = number % 10
     switch leastSignificant
@@ -189,15 +164,15 @@ timeFormats = [
         else
             end = "th"
 
-    return number + end
+    "#{ number }#{ end }"
 
 # Interprets numbers as occurences. Also accepts an optional array/map of overrides.
 @Humanize.times = (value, overrides={}) ->
     if isFinite(value) and value >= 0
         number = parseFloat value
-        smallTimes = { 0: 'never', 1: 'once', 2: 'twice' }
+        smallTimes = ['never', 'once', 'twice']
         if overrides[number]?
-            "#{overrides[number]} times"
+            "#{overrides[number]}"
         else
             "#{smallTimes[number]?.toString() or number.toString() + ' times'}"
 
@@ -210,33 +185,27 @@ timeFormats = [
     if parseInt(number, 10) is 1 then singular else plural
 
 # Truncates a string if it is longer than the specified number of characters (inclusive). Truncated strings will end with a translatable ellipsis sequence ("…").
-@Humanize.truncate = (str, length, ending) ->
-    length ?= 100
-    ending ?= "..."
-
+@Humanize.truncate = (str, length=100, ending='...') ->
     if str.length > length
         str.substring(0, length - ending.length) + ending
     else
         str
 
 # Truncates a string after a certain number of words.
-@Humanize.truncatewords = (string, length) ->
+@Humanize.truncatewords = @Humanize.truncateWords = (string, length) ->
     array = string.split " "
     result = ""
     i = 0
 
     while i < length
         if array[i]?
-            result += array[i] + " "
-
+            result += "#{array[i]} "
         i++
 
     result += "..." if array.length > length
 
 # Truncates a number to an upper bound.
-@Humanize.truncatenumber = (num, bound, ending) ->
-    bound ?= 100
-    ending ?= "+"
+@Humanize.truncatenumber = @Humanize.boundedNumber = (num, bound=100, ending="+") ->
     result = null
 
     if isFinite(num) and isFinite(bound)
@@ -266,15 +235,13 @@ timeFormats = [
     items.slice(0, limitIndex).join(', ') + limitStr
 
 # Converts an object to a definition-like string
-@Humanize.dictionary = (object, joiner, separator) ->
-    joiner ?= ' is '
-    separator ?= ', '
+@Humanize.dictionary = (object, joiner=' is ', separator=', ') ->
     result = ''
 
     if object? and typeof object is 'object' and Object.prototype.toString.call(object) isnt '[object Array]'
         defs = []
-        for k, v of object
-            defs.push k + joiner + v
+        for key, val of object
+            defs.push "#{ key }#{ joiner }#{ val }"
 
         result = defs.join separator
 
@@ -330,42 +297,40 @@ timeFormats = [
     string.replace /\<br\s*\/?\>/g, replacement
 
 # Capitalizes first letter in a string
-@Humanize.capitalize = (string) ->
-    string.charAt(0).toUpperCase() + string.slice(1)
+@Humanize.capitalize = (string, downCaseTail=false) ->
+    "#{ string.charAt(0).toUpperCase() }#{ if downCaseTail then string.slice(1).toLowerCase() else string.slice(1) }"
 
 # Capitalizes the first letter of each word in a string
 @Humanize.capitalizeAll = (string) ->
     string.replace /(?:^|\s)\S/g, (a) -> a.toUpperCase()
 
 # Titlecase words in a string.
-@Humanize.titlecase = (string) ->
+@Humanize.titlecase = @Humanize.titleCase = (string) ->
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i
     internalCaps = /\S+[A-Z]+\S*/
     splitOnWhiteSpaceRegex = /\s+/
     splitOnHyphensRegex = /-/
 
-    doTitlecase = (_string, hyphenated=false, firstOrLast=true) =>
+    doTitleCase = (_string, hyphenated=false, firstOrLast=true) =>
         titleCasedArray = []
         stringArray = _string.split(if hyphenated then splitOnHyphensRegex else splitOnWhiteSpaceRegex)
         for word, index in stringArray
-            if word.indexOf("-") isnt -1
-                if index is 0 or index is stringArray.length - 1
-                    titleCasedArray.push(doTitlecase(word, true, true))
-                else
-                    titleCasedArray.push(doTitlecase(word, true, false))
+            if word.indexOf('-') isnt -1
+                titleCasedArray.push(doTitleCase(word, true, (index is 0 or index is stringArray.length - 1)))
+                continue
+
+            if firstOrLast and (index is 0 or index is stringArray.length - 1)
+                titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
+                continue
+
+            if internalCaps.test(word)
+                titleCasedArray.push(word)
+            else if smallWords.test(word)
+                titleCasedArray.push(word.toLowerCase())
             else
-                if (index is 0 or index is stringArray.length - 1) and firstOrLast
-                    titleCasedArray.push if internalCaps.test(word) then word else @capitalize(word)
-                else
-                    if internalCaps.test(word)
-                        titleCasedArray.push(word)
-                    else if smallWords.test(word)
-                        titleCasedArray.push(word.toLowerCase())
-                    else
-                        titleCasedArray.push(@capitalize(word))
+                titleCasedArray.push(@capitalize(word))
 
-        titleCasedArray.join(if hyphenated then '-' else " ")
-    doTitlecase(string)
-
+        titleCasedArray.join(if hyphenated then '-' else ' ')
+    doTitleCase(string)
 
 module?.exports = @Humanize

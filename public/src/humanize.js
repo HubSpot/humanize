@@ -1,42 +1,9 @@
 (function() {
-  var arrayIndex, isArray, isFinite, isNaN, objectRef, sortedIndex, timeFormats, toString;
+  var isArray, isFinite, isNaN, objectRef, timeFormats, toString;
 
   objectRef = new function() {};
 
   toString = objectRef.toString;
-
-  sortedIndex = function(array, candidate, iterator) {
-    var high, low, mid, value;
-    if (iterator == null) {
-      iterator = function(value) {
-        return value;
-      };
-    }
-    value = iterator(candidate);
-    low = 0;
-    high = array.length;
-    while (low < high) {
-      mid = (low + high) >> 1;
-      if (iterator(array[mid]) < value) {
-        low = mid + 1;
-      } else {
-        high = mid;
-      }
-    }
-    return low;
-  };
-
-  arrayIndex = [].indexOf || function(item) {
-    var arr, arrItem, index, _i, _len;
-    arr = this;
-    for (index = _i = 0, _len = arr.length; _i < _len; index = ++_i) {
-      arrItem = arr[index];
-      if (arrItem === item) {
-        return index;
-      }
-    }
-    return -1;
-  };
 
   isNaN = function(value) {
     return value !== value;
@@ -130,14 +97,14 @@
     return output;
   };
 
-  this.Humanize.intcomma = function(number, decimals) {
+  this.Humanize.intcomma = this.Humanize.intComma = function(number, decimals) {
     if (decimals == null) {
       decimals = 0;
     }
     return this.formatNumber(number, decimals);
   };
 
-  this.Humanize.filesize = function(filesize) {
+  this.Humanize.filesize = this.Humanize.fileSize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
       sizeStr = this.formatNumber(filesize / 1073741824, 2, "") + " GB";
@@ -213,7 +180,7 @@
     }
     specialCase = number % 100;
     if (specialCase === 11 || specialCase === 12 || specialCase === 13) {
-      return number + "th";
+      return "" + number + "th";
     }
     leastSignificant = number % 10;
     switch (leastSignificant) {
@@ -229,7 +196,7 @@
       default:
         end = "th";
     }
-    return number + end;
+    return "" + number + end;
   };
 
   this.Humanize.times = function(value, overrides) {
@@ -239,13 +206,9 @@
     }
     if (isFinite(value) && value >= 0) {
       number = parseFloat(value);
-      smallTimes = {
-        0: 'never',
-        1: 'once',
-        2: 'twice'
-      };
+      smallTimes = ['never', 'once', 'twice'];
       if (overrides[number] != null) {
-        return "" + overrides[number] + " times";
+        return "" + overrides[number];
       } else {
         return "" + (((_ref = smallTimes[number]) != null ? _ref.toString() : void 0) || number.toString() + ' times');
       }
@@ -271,7 +234,7 @@
       length = 100;
     }
     if (ending == null) {
-      ending = "...";
+      ending = '...';
     }
     if (str.length > length) {
       return str.substring(0, length - ending.length) + ending;
@@ -280,14 +243,14 @@
     }
   };
 
-  this.Humanize.truncatewords = function(string, length) {
+  this.Humanize.truncatewords = this.Humanize.truncateWords = function(string, length) {
     var array, i, result;
     array = string.split(" ");
     result = "";
     i = 0;
     while (i < length) {
       if (array[i] != null) {
-        result += array[i] + " ";
+        result += "" + array[i] + " ";
       }
       i++;
     }
@@ -296,7 +259,7 @@
     }
   };
 
-  this.Humanize.truncatenumber = function(num, bound, ending) {
+  this.Humanize.truncatenumber = this.Humanize.boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;
@@ -334,7 +297,7 @@
   };
 
   this.Humanize.dictionary = function(object, joiner, separator) {
-    var defs, k, result, v;
+    var defs, key, result, val;
     if (joiner == null) {
       joiner = ' is ';
     }
@@ -344,9 +307,9 @@
     result = '';
     if ((object != null) && typeof object === 'object' && Object.prototype.toString.call(object) !== '[object Array]') {
       defs = [];
-      for (k in object) {
-        v = object[k];
-        defs.push(k + joiner + v);
+      for (key in object) {
+        val = object[key];
+        defs.push("" + key + joiner + val);
       }
       result = defs.join(separator);
     }
@@ -411,8 +374,11 @@
     return string.replace(/\<br\s*\/?\>/g, replacement);
   };
 
-  this.Humanize.capitalize = function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  this.Humanize.capitalize = function(string, downCaseTail) {
+    if (downCaseTail == null) {
+      downCaseTail = false;
+    }
+    return "" + (string.charAt(0).toUpperCase()) + (downCaseTail ? string.slice(1).toLowerCase() : string.slice(1));
   };
 
   this.Humanize.capitalizeAll = function(string) {
@@ -421,14 +387,14 @@
     });
   };
 
-  this.Humanize.titlecase = function(string) {
-    var doTitlecase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
+  this.Humanize.titlecase = this.Humanize.titleCase = function(string) {
+    var doTitleCase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
       _this = this;
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
     internalCaps = /\S+[A-Z]+\S*/;
     splitOnWhiteSpaceRegex = /\s+/;
     splitOnHyphensRegex = /-/;
-    doTitlecase = function(_string, hyphenated, firstOrLast) {
+    doTitleCase = function(_string, hyphenated, firstOrLast) {
       var index, stringArray, titleCasedArray, word, _i, _len;
       if (hyphenated == null) {
         hyphenated = false;
@@ -440,29 +406,25 @@
       stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
       for (index = _i = 0, _len = stringArray.length; _i < _len; index = ++_i) {
         word = stringArray[index];
-        if (word.indexOf("-") !== -1) {
-          if (index === 0 || index === stringArray.length - 1) {
-            titleCasedArray.push(doTitlecase(word, true, true));
-          } else {
-            titleCasedArray.push(doTitlecase(word, true, false));
-          }
+        if (word.indexOf('-') !== -1) {
+          titleCasedArray.push(doTitleCase(word, true, index === 0 || index === stringArray.length - 1));
+          continue;
+        }
+        if (firstOrLast && (index === 0 || index === stringArray.length - 1)) {
+          titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
+          continue;
+        }
+        if (internalCaps.test(word)) {
+          titleCasedArray.push(word);
+        } else if (smallWords.test(word)) {
+          titleCasedArray.push(word.toLowerCase());
         } else {
-          if ((index === 0 || index === stringArray.length - 1) && firstOrLast) {
-            titleCasedArray.push(internalCaps.test(word) ? word : _this.capitalize(word));
-          } else {
-            if (internalCaps.test(word)) {
-              titleCasedArray.push(word);
-            } else if (smallWords.test(word)) {
-              titleCasedArray.push(word.toLowerCase());
-            } else {
-              titleCasedArray.push(_this.capitalize(word));
-            }
-          }
+          titleCasedArray.push(_this.capitalize(word));
         }
       }
-      return titleCasedArray.join(hyphenated ? '-' : " ");
+      return titleCasedArray.join(hyphenated ? '-' : ' ');
     };
-    return doTitlecase(string);
+    return doTitleCase(string);
   };
 
   if (typeof module !== "undefined" && module !== null) {

@@ -91,15 +91,24 @@
       it('should say twice', function() {
         expect(Humanize.times(2)).toEqual('twice');
         return expect(Humanize.times(2, {
-          2: 'dos'
+          2: 'dos times'
         })).toEqual('dos times');
       });
+      it('should say thrice or three times', function() {
+        expect(Humanize.times(3)).toEqual('3 times');
+        return expect(Humanize.times(3, {
+          3: 'thrice'
+        })).toEqual('thrice');
+      });
       it('should say 12 times', function() {
-        return expect(Humanize.times(12)).toEqual('12 times');
+        expect(Humanize.times(12)).toEqual('12 times');
+        return expect(Humanize.times(12, {
+          12: 'douze times'
+        })).toEqual('douze times');
       });
       return it('should allow number overrides for specified values', function() {
         return expect(Humanize.times(12, {
-          12: 'too many'
+          12: 'too many times'
         })).toEqual('too many times');
       });
     });
@@ -120,19 +129,24 @@
 
   describe('Filesize tests for nerds', function() {
     it('should append byte if it is exactly 1 byte', function() {
-      return expect(Humanize.filesize(1)).toEqual('1 byte');
+      expect(Humanize.filesize(1)).toEqual('1 byte');
+      return expect(Humanize.fileSize(1)).toEqual('1 byte');
     });
     it('should append bytes if it is less than 1024 bytes', function() {
-      return expect(Humanize.filesize(512)).toEqual('512 bytes');
+      expect(Humanize.filesize(512)).toEqual('512 bytes');
+      return expect(Humanize.fileSize(512)).toEqual('512 bytes');
     });
     it('should return a file in KB if it is more than 1024 bytes', function() {
-      return expect(Humanize.filesize(1080)).toEqual('1 KB');
+      expect(Humanize.filesize(1080)).toEqual('1 KB');
+      return expect(Humanize.fileSize(1080)).toEqual('1 KB');
     });
     it('should return a file in MB if it is more than a 1024 * 1024 bytes', function() {
-      return expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
+      expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
+      return expect(Humanize.fileSize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
     });
     return it('should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', function() {
-      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
+      expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
+      return expect(Humanize.fileSize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
     });
   });
 
@@ -148,11 +162,13 @@
       return expect(Humanize.truncate(objs.str, 14, '...kidding')).toEqual('abcd...kidding');
     });
     it('should truncate a number to an upper bound', function() {
-      return expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+');
+      expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+');
+      return expect(Humanize.boundedNumber(objs.num, 500)).toEqual('500+');
     });
     return it('should not trucate things that are too short', function() {
       expect(Humanize.truncate(objs.str, objs.str.length + 1)).toEqual(objs.str);
-      return expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
+      expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
+      return expect(Humanize.boundedNumber(objs.num, objs.num + 1)).toEqual("" + objs.num);
     });
   });
 
@@ -234,37 +250,49 @@
 
   describe('Capitalizing words appropriately', function() {
     it('should convert "ship it" to "Ship it"', function() {
-      return expect(Humanize.capitalize('ship it')).toEqual('Ship it');
+      expect(Humanize.capitalize('ship it')).toEqual('Ship it');
+      expect(Humanize.capitalize('wHoOaA!')).toEqual('WHoOaA!');
+      return expect(Humanize.capitalize('wHoOaA!', true)).toEqual('Whooaa!');
     });
     it('should convert "ship it" to "Ship It"', function() {
-      return expect(Humanize.titlecase('ship it')).toEqual('Ship It');
+      expect(Humanize.titlecase('ship it')).toEqual('Ship It');
+      return expect(Humanize.titleCase('ship it')).toEqual('Ship It');
     });
     it('should convert "" to ""', function() {
-      return expect(Humanize.titlecase('')).toEqual('');
+      expect(Humanize.titlecase('')).toEqual('');
+      return expect(Humanize.titleCase('')).toEqual('');
     });
     it('should convert "the boss is O\'Mally\'s brother." to "The Boss is O\'Mally\'s Brother."', function() {
-      return expect(Humanize.titlecase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.');
+      expect(Humanize.titlecase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.');
+      return expect(Humanize.titleCase('the boss likes O\'Mally\'s little brother a lot.')).toEqual('The Boss Likes O\'Mally\'s Little Brother a Lot.');
     });
     it('should convert "you get the cake an iTunes hat is West wacky?" to "You Get the Cake an iTunes Hat Is West Wacky?"', function() {
-      return expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
+      expect(Humanize.titlecase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
+      return expect(Humanize.titleCase('you get the cake an iTunes hat is West wacky?')).toEqual('You Get the Cake an iTunes Hat Is West Wacky?');
     });
     it('should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', function() {
-      return expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
+      expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
+      return expect(Humanize.titleCase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!');
     });
     it('should convert "cul-de-sac        drive-by" to "Cul-de-Sac Drive-By"', function() {
-      return expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By');
+      expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By');
+      return expect(Humanize.titleCase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By');
     });
     it('should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', function() {
-      return expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes');
+      expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes');
+      return expect(Humanize.titleCase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes');
     });
     it('should convert "by-the-book ultra-book By iTunes" to "By-the-Book Ultra-Book by iTunes"', function() {
-      return expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes');
+      expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes');
+      return expect(Humanize.titleCase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes');
     });
     it('should convert "by-the-book ultra-book by-the-by iTunes" to "By-the-Book Ultra-Book by-the-by iTunes"', function() {
-      return expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes');
+      expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes');
+      return expect(Humanize.titleCase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes');
     });
     return it('should convert "by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book" to "By-the-by Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book"', function() {
-      return expect(Humanize.titlecase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book');
+      expect(Humanize.titlecase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book');
+      return expect(Humanize.titleCase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book');
     });
   });
 

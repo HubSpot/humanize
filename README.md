@@ -26,11 +26,13 @@ var capitalized = Humanize.capitalize("ten tiny ducklings.")
 In your node package.json:
 ```javascript
 "dependencies": {
-  "humanize-plus": "1.3.x"
+  "humanize-plus": "1.4.x"
 }
 ```
 
-### API Methods
+## API Methods
+
+### Numbers
 
 ##### formatNumber
 Formats a number to a human-readable string. Localize by overriding the precision, thousand and decimal arguments.
@@ -40,15 +42,18 @@ Humanize.formatNumber(123456789, 2)
 // "123,456,789.00"
 ```
 
-##### intcomma
+##### intComma
 Converts an integer to a string containing commas every three digits.
 
 ```javascript
-Humanize.intcomma(123456789)
+Humanize.intComma(123456789)
 // "123,456,789"
 ```
+##### intcomma - DEPRECATED - This method will not be present in the next major version.
+Alias for `intComma`
 
-##### intword (DEPRECATED! This method will not be present in the next major version)
+
+##### intword - DEPRECATED - This method will not be present in the next major version.
 Converts a large integer to a friendly text representation.
 This method is now a thin wrapper around compactInteger
 
@@ -80,6 +85,20 @@ Humanize.compactInteger(-100, 2)
 // "-100.00"
 ```
 
+##### boundedNumber
+Bounds a value from above. Modified values have customizable ending strings ('+' by default)
+
+```javascript
+Humanize.boundedNumber(110, 100)
+// "100+"
+
+Humanize.boundedNumber(50, 100)
+// "50"
+```
+
+##### truncatenumber - DEPRECATED - This method will not be present in the next major version.
+Alias for `boundedNumber`
+
 ##### ordinal
 Converts an integer to its ordinal as a string.
 
@@ -107,19 +126,40 @@ for (i=0; i<5; i++) {
 // too many times
 ```
 
-##### filesize
+##### pace
+Matches a pace (value and interval) with a logical time frame. Very useful for slow paces.
+
+```javascript
+second = 1000
+week = 6.048e8
+decade = 3.156e11
+
+Humanize.pace(1.5, second, "heartbeat")
+// Approximately 2 heartbeats per second
+
+Humanize.pace(4, week)
+// Approximately 4 times per week
+
+Humanize.pace(1, decade, "life crisis")
+// Less than 1 life crisis per week
+```
+
+##### fileSize
 Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 
 ```javascript
-Humanize.filesize(1024 * 20)
+Humanize.fileSize(1024 * 20)
 // "20 Kb"
 
-Humanize.filesize(1024 * 2000)
+Humanize.fileSize(1024 * 2000)
 // "1.95 Mb"
 
-Humanize.filesize(Math.pow(1000, 4))
+Humanize.fileSize(Math.pow(1000, 4))
 // "931.32 Gb"
 ```
+##### filesize - DEPRECATED - This method will not be present in the next major version.
+Alias for `fileSize`
+
 
 ##### pluralize
 Returns the plural version of a given word if the value is not 1. The default suffix is 's'.
@@ -135,6 +175,8 @@ Humanize.pluralize(3, "duck", "duckies")
 // "duckies"
 ```
 
+### Strings
+
 ##### truncate
 Truncates a string if it is longer than the specified number of characters. Truncated strings will end with a translatable ellipsis sequence ("…").
 
@@ -149,13 +191,62 @@ Humanize.truncate('long text is good for you', 19, '... etc')
 // "long text is... etc"
 ```
 
-##### truncatewords
+##### truncateWords
 Truncates a string after a certain number of words.
 
 ```javascript
-Humanize.truncatewords('long text is good for you', 5)
+Humanize.truncateWords('long text is good for you', 5)
 // "long text is good for ..."
 ```
+
+##### truncatewords - DEPRECATED - This method will not be present in the next major version.
+Alias for `truncateWords`
+
+##### nl2br and br2nl
+Flexible conversion of `<br/>` tags to newlines and vice versa.
+
+```javascript
+// Use your imagination
+```
+
+##### capitalize
+Capitalizes the first letter in a string, optionally downcasing the tail.
+
+```javascript
+Humanize.capitalize("some boring string")
+// "Some boring string"
+
+Humanize.capitalize("wHoOaA!")
+// "WHoOaA!"
+
+Humanize.capitalize("wHoOaA!", true)
+// "Whooaa!"
+```
+
+##### capitalizeAll
+Captializes the first letter of every word in a string.
+
+```javascript
+Humanize.capitalizeAll("some boring string")
+// "Some Boring String"
+```
+
+##### titleCase
+Intelligently capitalizes eligible words in a string and normalizes internal whitespace.
+
+```javascript
+Humanize.titleCase("some of a boring string")
+// "Some of a Boring String"
+
+Humanize.titleCase("cool the          iTunes cake, O'Malley!")
+// "Cool the iTunes Cake, O'Malley!"
+```
+
+##### titlecase - DEPRECATED - This method will not be present in the next major version.
+Alias for `titleCase`
+
+
+### Arrays
 
 ##### oxford
 Converts a list of items to a human readable string with an optional limit.
@@ -195,57 +286,6 @@ bigfootPics = []
 // "Bigfoot never took pictures of food"
 ```
 
-##### pace
-Matches a pace (value and interval) with a logical time frame. Very useful for slow paces.
-
-```javascript
-second = 1000
-week = 6.048e8
-decade = 3.156e11
-
-Humanize.pace(1.5, second, "heartbeat")
-// Approximately 2 heartbeats per second
-
-Humanize.pace(4, week)
-// Approximately 4 times per week
-
-Humanize.pace(1, decade, "life crisis")
-// Less than 1 life crisis per week
-```
-
-##### nl2br and br2nl
-Flexible conversion of `<br/>` tags to newlines and vice versa.
-
-```javascript
-// Use your imagination
-```
-
-##### capitalize
-Capitalizes the first letter in a string.
-
-```javascript
-Humanize.capitalize("some boring string")
-// "Some boring string"
-```
-
-##### capitalizeAll
-Captializes the first letter of every word in a string.
-
-```javascript
-Humanize.capitalizeAll("some boring string")
-// "Some Boring String"
-```
-
-##### titlecase
-Intelligently capitalizes eligible words in a string and normalizes internal whitespace.
-
-```javascript
-Humanize.titlecase("some of a boring string")
-// "Some of a Boring String"
-
-Humanize.titlecase("cool the          iTunes cake, O'Malley!")
-// "Cool the iTunes Cake, O'Malley!"
-```
 
 ### Utility methods
 
@@ -298,9 +338,25 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ## Release Notes
 
+### 1.4.0
+
+- add optional `downCaseTail` argument to [Humanize.capitalize](https://github.com/HubSpot/humanize#capitalize)
+- add camelCase aliases
+   - `intComma`       -> `intcomma`
+   - `fileSize`       -> `filesize`
+   - `truncateWords`  -> `truncatewords`
+   - `boundedNumber`  -> `truncatenumber`
+   - `titleCase`      -> `titlecase`
+
+- optimize internal `doTitleCase` method
+- remove unused helper methods
+- add default arguments for `truncate`
+
 ### 1.3.5
-- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
 - [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README
+
+### 1.3.4
+- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
 
 ### 1.3.3
 
