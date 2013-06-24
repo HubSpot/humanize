@@ -83,7 +83,7 @@ timeFormats = [
     else
         outputNumber = (+("#{ wholePart }.#{ decimalPart }")).toFixed(decimals)
         output = "#{ signString }#{ outputNumber }#{ bigNumPrefixes[numberLengths.indexOf(length)] }"
-    
+
     output
 
 # Converts an integer to a string containing commas every three digits.
@@ -170,7 +170,7 @@ timeFormats = [
 @Humanize.times = (value, overrides={}) ->
     if isFinite(value) and value >= 0
         number = parseFloat value
-        smallTimes = { 0: 'never', 1: 'once', 2: 'twice' }
+        smallTimes = ['never', 'once', 'twice']
         if overrides[number]?
             "#{overrides[number]}"
         else

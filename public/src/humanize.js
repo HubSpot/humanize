@@ -206,11 +206,7 @@
     }
     if (isFinite(value) && value >= 0) {
       number = parseFloat(value);
-      smallTimes = {
-        0: 'never',
-        1: 'once',
-        2: 'twice'
-      };
+      smallTimes = ['never', 'once', 'twice'];
       if (overrides[number] != null) {
         return "" + overrides[number];
       } else {
