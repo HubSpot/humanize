@@ -88,8 +88,7 @@ timeFormats = [
     output
 
 # Converts an integer to a string containing commas every three digits.
-@Humanize.intcomma = @Humanize.intComma = (number, decimals=0) ->
-    @formatNumber number, decimals
+@Humanize.intcomma = @Humanize.intComma = (number, decimals=0) -> @formatNumber number, decimals
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 @Humanize.filesize = @Humanize.fileSize = (filesize) ->
@@ -153,7 +152,7 @@ timeFormats = [
     return value if number is 0
 
     specialCase = number % 100
-    return number + "th" if specialCase in [11, 12, 13]
+    return "#{ number }th" if specialCase in [11, 12, 13]
 
     leastSignificant = number % 10
     switch leastSignificant
@@ -166,7 +165,7 @@ timeFormats = [
         else
             end = "th"
 
-    return number + end
+    "#{ number }#{ end }"
 
 # Interprets numbers as occurences. Also accepts an optional array/map of overrides.
 @Humanize.times = (value, overrides={}) ->

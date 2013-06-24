@@ -180,7 +180,7 @@
     }
     specialCase = number % 100;
     if (specialCase === 11 || specialCase === 12 || specialCase === 13) {
-      return number + "th";
+      return "" + number + "th";
     }
     leastSignificant = number % 10;
     switch (leastSignificant) {
@@ -196,7 +196,7 @@
       default:
         end = "th";
     }
-    return number + end;
+    return "" + number + end;
   };
 
   this.Humanize.times = function(value, overrides) {
