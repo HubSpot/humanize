@@ -91,15 +91,24 @@
       it('should say twice', function() {
         expect(Humanize.times(2)).toEqual('twice');
         return expect(Humanize.times(2, {
-          2: 'dos'
+          2: 'dos times'
         })).toEqual('dos times');
       });
+      it('should say thrice or three times', function() {
+        expect(Humanize.times(3)).toEqual('3 times');
+        return expect(Humanize.times(3, {
+          3: 'thrice'
+        })).toEqual('thrice');
+      });
       it('should say 12 times', function() {
-        return expect(Humanize.times(12)).toEqual('12 times');
+        expect(Humanize.times(12)).toEqual('12 times');
+        return expect(Humanize.times(12, {
+          12: 'douze times'
+        })).toEqual('douze times');
       });
       return it('should allow number overrides for specified values', function() {
         return expect(Humanize.times(12, {
-          12: 'too many'
+          12: 'too many times'
         })).toEqual('too many times');
       });
     });
