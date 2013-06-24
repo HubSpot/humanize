@@ -305,8 +305,8 @@ timeFormats = [
     string.replace /\<br\s*\/?\>/g, replacement
 
 # Capitalizes first letter in a string
-@Humanize.capitalize = (string) ->
-    string.charAt(0).toUpperCase() + string.slice(1)
+@Humanize.capitalize = (string, downCaseTail=false) ->
+    "#{ string.charAt(0).toUpperCase() }#{ if downCaseTail then string.slice(1).toLowerCase() else string.slice(1) }"
 
 # Capitalizes the first letter of each word in a string
 @Humanize.capitalizeAll = (string) ->
