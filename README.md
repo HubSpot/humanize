@@ -335,7 +335,6 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 ### 1.4.0
 
 - add optional `downCaseTail` argument to [Humanize.capitalize](https://github.com/HubSpot/humanize#capitalize)
-
 - add camelCase aliases
    - `intComma`       -> `intcomma`
    - `fileSize`       -> `filesize`
@@ -345,6 +344,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 - optimize internal `doTitleCase` method
 - remove unused helper methods
+- add default arguments for `truncate`
 
 ### 1.3.5
 - [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README

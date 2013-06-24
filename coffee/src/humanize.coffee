@@ -28,7 +28,6 @@ timeFormats = [
     }
 ]
 
-
 @Humanize = {}
 
 # Converts a large integer to a friendly text representation.
@@ -110,10 +109,10 @@ timeFormats = [
     # Create some private utility functions to make the computational
     # code that follows much easier to read.
 
-    firstComma = (number, thousand, position) =>
+    firstComma = (number, thousand, position) ->
         if position then number.substr(0, position) + thousand else ""
 
-    commas = (number, thousand, position) =>
+    commas = (number, thousand, position) ->
         number.substr(position).replace /(\d{3})(?=\d)/g, "$1" + thousand
 
     decimals = (number, decimal, usePrecision) =>
@@ -186,10 +185,7 @@ timeFormats = [
     if parseInt(number, 10) is 1 then singular else plural
 
 # Truncates a string if it is longer than the specified number of characters (inclusive). Truncated strings will end with a translatable ellipsis sequence ("…").
-@Humanize.truncate = (str, length, ending) ->
-    length ?= 100
-    ending ?= "..."
-
+@Humanize.truncate = (str, length=100, ending='...') ->
     if str.length > length
         str.substring(0, length - ending.length) + ending
     else
@@ -240,9 +236,7 @@ timeFormats = [
     items.slice(0, limitIndex).join(', ') + limitStr
 
 # Converts an object to a definition-like string
-@Humanize.dictionary = (object, joiner, separator) ->
-    joiner ?= ' is '
-    separator ?= ', '
+@Humanize.dictionary = (object, joiner=' is ', separator=', ') ->
     result = ''
 
     if object? and typeof object is 'object' and Object.prototype.toString.call(object) isnt '[object Array]'
