@@ -241,7 +241,9 @@
 
   describe('Capitalizing words appropriately', function() {
     it('should convert "ship it" to "Ship it"', function() {
-      return expect(Humanize.capitalize('ship it')).toEqual('Ship it');
+      expect(Humanize.capitalize('ship it')).toEqual('Ship it');
+      expect(Humanize.capitalize('wHoOaA!')).toEqual('WHoOaA!');
+      return expect(Humanize.capitalize('wHoOaA!', true)).toEqual('Whooaa!');
     });
     it('should convert "ship it" to "Ship It"', function() {
       expect(Humanize.titlecase('ship it')).toEqual('Ship It');

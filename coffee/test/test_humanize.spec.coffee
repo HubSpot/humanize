@@ -208,6 +208,8 @@ describe 'Converting line breaks', ->
 describe 'Capitalizing words appropriately', ->
     it 'should convert "ship it" to "Ship it"', ->
         expect(Humanize.capitalize('ship it')).toEqual('Ship it')
+        expect(Humanize.capitalize('wHoOaA!')).toEqual('WHoOaA!')
+        expect(Humanize.capitalize('wHoOaA!', true)).toEqual('Whooaa!')
 
     it 'should convert "ship it" to "Ship It"', ->
         expect(Humanize.titlecase('ship it')).toEqual('Ship It')
