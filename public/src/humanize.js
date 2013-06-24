@@ -378,8 +378,11 @@
     return string.replace(/\<br\s*\/?\>/g, replacement);
   };
 
-  this.Humanize.capitalize = function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  this.Humanize.capitalize = function(string, downCaseTail) {
+    if (downCaseTail == null) {
+      downCaseTail = false;
+    }
+    return "" + (string.charAt(0).toUpperCase()) + (downCaseTail ? string.slice(1).toLowerCase() : string.slice(1));
   };
 
   this.Humanize.capitalizeAll = function(string) {

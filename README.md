@@ -246,11 +246,17 @@ Flexible conversion of `<br/>` tags to newlines and vice versa.
 ```
 
 ##### capitalize
-Capitalizes the first letter in a string.
+Capitalizes the first letter in a string, optionally downcasing the tail.
 
 ```javascript
 Humanize.capitalize("some boring string")
 // "Some boring string"
+
+Humanize.capitalize("wHoOaA!")
+// "WHoOaA!"
+
+Humanize.capitalize("wHoOaA!", true)
+// "Whooaa!"
 ```
 
 ##### capitalizeAll
@@ -327,6 +333,8 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 ## Release Notes
 
 ### 1.4.0
+
+- add optional `downCaseTail` argument to [Humanize.capitalize](https://github.com/HubSpot/humanize#capitalize)
 
 - add camelCase aliases
    - `intComma`       -> `intcomma`
