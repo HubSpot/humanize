@@ -30,6 +30,8 @@ In your node package.json:
 }
 ```
 
+For recent changes, see the [Release Notes](https://github.com/HubSpot/humanize#release-notes) section.
+
 ## API Methods
 
 ### Numbers
