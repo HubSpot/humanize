@@ -1,5 +1,15 @@
 (function() {
 
+  describe('When using method via destructured assignment', function() {
+    return it('should properly reference other Humanize methods', function() {
+      var titlecase;
+      spyOn(Humanize, 'capitalize').andCallThrough();
+      titlecase = Humanize.titlecase;
+      expect(titlecase('ship it')).toEqual('Ship It');
+      return expect(Humanize.capitalize).toHaveBeenCalled();
+    });
+  });
+
   describe('Millions as word', function() {
     return it('should pass', function() {
       expect(Humanize).toBeDefined();

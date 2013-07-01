@@ -1,3 +1,10 @@
+describe 'When using method via destructured assignment', ->
+    it 'should properly reference other Humanize methods', ->
+        spyOn(Humanize, 'capitalize').andCallThrough()
+
+        {titlecase} = Humanize
+        expect(titlecase('ship it')).toEqual('Ship It')
+        expect(Humanize.capitalize).toHaveBeenCalled()
 
 describe 'Millions as word', ->
     it 'should pass', ->
@@ -235,24 +242,24 @@ describe 'Capitalizing words appropriately', ->
     it 'should convert "cool the iTunes cake, O\'Malley!" to "Cool the iTunes Cake, O\'Malley!"', ->
         expect(Humanize.titlecase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
         expect(Humanize.titleCase('cool the iTunes cake, O\'Malley!')).toEqual('Cool the iTunes Cake, O\'Malley!')
-        
+
     it 'should convert "cul-de-sac        drive-by" to "Cul-de-Sac Drive-By"', ->
         expect(Humanize.titlecase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By')
         expect(Humanize.titleCase('cul-de-sac         drive-by')).toEqual('Cul-de-Sac Drive-By')
-        
+
     it 'should convert "ultra-book By iTunes" to "Ultra-Book by iTunes"', ->
         expect(Humanize.titlecase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
         expect(Humanize.titleCase('ultra-book By iTunes')).toEqual('Ultra-Book by iTunes')
-        
+
     it 'should convert "by-the-book ultra-book By iTunes" to "By-the-Book Ultra-Book by iTunes"', ->
         expect(Humanize.titlecase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes')
         expect(Humanize.titleCase('by-the-book ultra-book By iTunes')).toEqual('By-the-Book Ultra-Book by iTunes')
-        
+
     it 'should convert "by-the-book ultra-book by-the-by iTunes" to "By-the-Book Ultra-Book by-the-by iTunes"', ->
         expect(Humanize.titlecase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes')
         expect(Humanize.titleCase('by-the-book ultra-book by-the-by iTunes')).toEqual('By-the-Book Ultra-Book by-the-by iTunes')
-        
+
     it 'should convert "by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book" to "By-the-by Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book"', ->
         expect(Humanize.titlecase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book')
         expect(Humanize.titleCase('by-the-by is not iTunes-O\'Malley\'s favorite of the new-on-a-book')).toEqual('By-the-By Is Not iTunes-O\'Malley\'s Favorite of the New-on-a-Book')
-        
+
