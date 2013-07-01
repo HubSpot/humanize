@@ -332,32 +332,32 @@ titlecase = titleCase = (string) ->
     doTitleCase(string)
 
 @Humanize = {
-    intword
-  , compactInteger
-  , intcomma
-  , intComma
-  , filesize
-  , fileSize
-  , formatNumber
-  , toFixed
-  , normalizePrecision
-  , ordinal
-  , times
-  , pluralize
-  , truncate
-  , truncatewords
-  , truncateWords
-  , truncatenumber
-  , boundedNumber
-  , oxford
-  , dictionary
-  , frequency
-  , pace
-  , nl2br
-  , br2nl
-  , capitalize
-  , capitalizeAll
-  , titlecase
-  , titleCase
+    intword,
+    compactInteger,
+    intcomma,
+    intComma,
+    filesize,
+    fileSize,
+    formatNumber,
+    toFixed,
+    normalizePrecision,
+    ordinal,
+    times,
+    pluralize,
+    truncate,
+    truncatewords,
+    truncateWords,
+    truncatenumber,
+    boundedNumber,
+    oxford,
+    dictionary,
+    frequency,
+    pace,
+    nl2br,
+    br2nl,
+    capitalize,
+    capitalizeAll,
+    titlecase,
+    titleCase
 }
 module?.exports = @Humanize
