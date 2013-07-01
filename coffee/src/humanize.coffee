@@ -33,6 +33,8 @@ class Humanize
     @instance: null
 
     class PrivateHumanize
+        
+        constructor: -> Object.freeze? @
 
         # Converts a large integer to a friendly text representation.
         intword: (number, charWidth, decimals=2) =>

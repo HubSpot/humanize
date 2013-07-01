@@ -74,7 +74,7 @@
         this.intcomma = __bind(this.intcomma, this);
 
         this.intword = __bind(this.intword, this);
-
+        Object.freeze(this);
       }
 
       PrivateHumanize.prototype.intword = function(number, charWidth, decimals) {
