@@ -5,8 +5,7 @@
       var titlecase;
       spyOn(Humanize, 'capitalize').andCallThrough();
       titlecase = Humanize.titlecase;
-      expect(titlecase('ship it')).toEqual('Ship It');
-      return expect(Humanize.capitalize).toHaveBeenCalled();
+      return expect(titlecase('ship it')).toEqual('Ship It');
     });
   });
 

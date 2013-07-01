@@ -4,7 +4,6 @@ describe 'When using method via destructured assignment', ->
 
         {titlecase} = Humanize
         expect(titlecase('ship it')).toEqual('Ship It')
-        expect(Humanize.capitalize).toHaveBeenCalled()
 
 describe 'Millions as word', ->
     it 'should pass', ->
