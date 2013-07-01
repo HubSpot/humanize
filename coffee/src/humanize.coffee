@@ -349,8 +349,7 @@ class Humanize
                 titleCasedArray.join(if hyphenated then '-' else ' ')
             doTitleCase(string)
 
-    @get: ->
-        @instance ?= new PrivateHumanize
+    @get: -> @instance ?= new PrivateHumanize
 
 @Humanize = Humanize.get()
 module?.exports = @Humanize
