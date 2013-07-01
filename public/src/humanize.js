@@ -1,5 +1,5 @@
 (function() {
-  var Humanize, isArray, isFinite, isNaN, objectRef, timeFormats, toString;
+  var boundedNumber, br2nl, capitalize, capitalizeAll, compactInteger, dictionary, fileSize, filesize, formatNumber, frequency, intComma, intcomma, intword, isArray, isFinite, isNaN, nl2br, normalizePrecision, objectRef, ordinal, oxford, pace, pluralize, timeFormats, times, titleCase, titlecase, toFixed, toString, truncate, truncateWords, truncatenumber, truncatewords;
 
   objectRef = new function() {};
 
@@ -36,9 +36,7 @@
     }
   ];
 
-  Humanize = {};
-
-  Humanize.intword = function(number, charWidth, decimals) {
+  intword = function(number, charWidth, decimals) {
     if (decimals == null) {
       decimals = 2;
     }
@@ -47,10 +45,10 @@
         # intword will be going away in the next major version.
     */
 
-    return Humanize.compactInteger(number, decimals);
+    return compactInteger(number, decimals);
   };
 
-  Humanize.compactInteger = function(input, decimals) {
+  compactInteger = function(input, decimals) {
     var bigNumPrefixes, decimalIndex, decimalPart, decimalPartArray, length, number, numberLength, numberLengths, output, outputNumber, signString, unsignedNumber, unsignedNumberCharacterArray, unsignedNumberString, wholePart, wholePartArray, _i, _len, _length;
     if (decimals == null) {
       decimals = 0;
@@ -97,28 +95,28 @@
     return output;
   };
 
-  Humanize.intcomma = Humanize.intComma = function(number, decimals) {
+  intcomma = intComma = function(number, decimals) {
     if (decimals == null) {
       decimals = 0;
     }
-    return Humanize.formatNumber(number, decimals);
+    return formatNumber(number, decimals);
   };
 
-  Humanize.filesize = Humanize.fileSize = function(filesize) {
+  filesize = fileSize = function(filesize) {
     var sizeStr;
     if (filesize >= 1073741824) {
-      sizeStr = Humanize.formatNumber(filesize / 1073741824, 2, "") + " GB";
+      sizeStr = formatNumber(filesize / 1073741824, 2, "") + " GB";
     } else if (filesize >= 1048576) {
-      sizeStr = Humanize.formatNumber(filesize / 1048576, 2, "") + " MB";
+      sizeStr = formatNumber(filesize / 1048576, 2, "") + " MB";
     } else if (filesize >= 1024) {
-      sizeStr = Humanize.formatNumber(filesize / 1024, 0) + " KB";
+      sizeStr = formatNumber(filesize / 1024, 0) + " KB";
     } else {
-      sizeStr = Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, " byte");
+      sizeStr = formatNumber(filesize, 0) + pluralize(filesize, " byte");
     }
     return sizeStr;
   };
 
-  Humanize.formatNumber = function(number, precision, thousand, decimal) {
+  formatNumber = function(number, precision, thousand, decimal) {
     var base, commas, decimals, firstComma, mod, negative, usePrecision,
       _this = this;
     if (precision == null) {
@@ -142,28 +140,28 @@
     };
     decimals = function(number, decimal, usePrecision) {
       if (usePrecision) {
-        return decimal + Humanize.toFixed(Math.abs(number), usePrecision).split(".")[1];
+        return decimal + toFixed(Math.abs(number), usePrecision).split(".")[1];
       } else {
         return "";
       }
     };
-    usePrecision = Humanize.normalizePrecision(precision);
+    usePrecision = normalizePrecision(precision);
     negative = number < 0 && "-" || "";
-    base = parseInt(Humanize.toFixed(Math.abs(number || 0), usePrecision), 10) + "";
+    base = parseInt(toFixed(Math.abs(number || 0), usePrecision), 10) + "";
     mod = base.length > 3 ? base.length % 3 : 0;
     return negative + firstComma(base, thousand, mod) + commas(base, thousand, mod) + decimals(number, decimal, usePrecision);
   };
 
-  Humanize.toFixed = function(value, precision) {
+  toFixed = function(value, precision) {
     var power;
     if (precision == null) {
-      precision = Humanize.normalizePrecision(precision, 0);
+      precision = normalizePrecision(precision, 0);
     }
     power = Math.pow(10, precision);
     return (Math.round(value * power) / power).toFixed(precision);
   };
 
-  Humanize.normalizePrecision = function(value, base) {
+  normalizePrecision = function(value, base) {
     value = Math.round(Math.abs(value));
     if (isNaN(value)) {
       return base;
@@ -172,7 +170,7 @@
     }
   };
 
-  Humanize.ordinal = function(value) {
+  ordinal = function(value) {
     var end, leastSignificant, number, specialCase;
     number = parseInt(value, 10);
     if (number === 0) {
@@ -199,7 +197,7 @@
     return "" + number + end;
   };
 
-  Humanize.times = function(value, overrides) {
+  times = function(value, overrides) {
     var number, smallTimes, _ref;
     if (overrides == null) {
       overrides = {};
@@ -215,7 +213,7 @@
     }
   };
 
-  Humanize.pluralize = function(number, singular, plural) {
+  pluralize = function(number, singular, plural) {
     if (!((number != null) && (singular != null))) {
       return;
     }
@@ -229,7 +227,7 @@
     }
   };
 
-  Humanize.truncate = function(str, length, ending) {
+  truncate = function(str, length, ending) {
     if (length == null) {
       length = 100;
     }
@@ -243,7 +241,7 @@
     }
   };
 
-  Humanize.truncatewords = Humanize.truncateWords = function(string, length) {
+  truncatewords = truncateWords = function(string, length) {
     var array, i, result;
     array = string.split(" ");
     result = "";
@@ -259,7 +257,7 @@
     }
   };
 
-  Humanize.truncatenumber = Humanize.boundedNumber = function(num, bound, ending) {
+  truncatenumber = boundedNumber = function(num, bound, ending) {
     var result;
     if (bound == null) {
       bound = 100;
@@ -276,7 +274,7 @@
     return (result || num).toString();
   };
 
-  Humanize.oxford = function(items, limit, limitStr) {
+  oxford = function(items, limit, limitStr) {
     var extra, limitIndex, numItems;
     numItems = items.length;
     if (numItems < 2) {
@@ -287,7 +285,7 @@
       extra = numItems - limit;
       limitIndex = limit;
       if (limitStr == null) {
-        limitStr = ", and " + extra + " " + (Humanize.pluralize(extra, 'other'));
+        limitStr = ", and " + extra + " " + (pluralize(extra, 'other'));
       }
     } else {
       limitIndex = -1;
@@ -296,7 +294,7 @@
     return items.slice(0, limitIndex).join(', ') + limitStr;
   };
 
-  Humanize.dictionary = function(object, joiner, separator) {
+  dictionary = function(object, joiner, separator) {
     var defs, key, result, val;
     if (joiner == null) {
       joiner = ' is ';
@@ -316,13 +314,13 @@
     return result;
   };
 
-  Humanize.frequency = function(list, verb) {
-    var len, str, times;
+  frequency = function(list, verb) {
+    var len, str;
     if (!isArray(list)) {
       return;
     }
     len = list.length;
-    times = Humanize.times(len);
+    times = times(len);
     if (len === 0) {
       str = "" + times + " " + verb;
     } else {
@@ -331,13 +329,13 @@
     return str;
   };
 
-  Humanize.pace = function(value, intervalMs, unit) {
+  pace = function(value, intervalMs, unit) {
     var f, prefix, rate, relativePace, roundedPace, timeUnit, _i, _len;
     if (unit == null) {
       unit = 'time';
     }
     if (value === 0 || intervalMs === 0) {
-      return "No " + (Humanize.pluralize(unit));
+      return "No " + (pluralize(unit));
     }
     prefix = 'Approximately';
     timeUnit = null;
@@ -356,38 +354,38 @@
       timeUnit = timeFormats[timeFormats.length - 1].name;
     }
     roundedPace = Math.round(relativePace);
-    unit = Humanize.pluralize(roundedPace, unit);
+    unit = pluralize(roundedPace, unit);
     return "" + prefix + " " + roundedPace + " " + unit + " per " + timeUnit;
   };
 
-  Humanize.nl2br = function(string, replacement) {
+  nl2br = function(string, replacement) {
     if (replacement == null) {
       replacement = '<br/>';
     }
     return string.replace(/\n/g, replacement);
   };
 
-  Humanize.br2nl = function(string, replacement) {
+  br2nl = function(string, replacement) {
     if (replacement == null) {
       replacement = '\r\n';
     }
     return string.replace(/\<br\s*\/?\>/g, replacement);
   };
 
-  Humanize.capitalize = function(string, downCaseTail) {
+  capitalize = function(string, downCaseTail) {
     if (downCaseTail == null) {
       downCaseTail = false;
     }
     return "" + (string.charAt(0).toUpperCase()) + (downCaseTail ? string.slice(1).toLowerCase() : string.slice(1));
   };
 
-  Humanize.capitalizeAll = function(string) {
+  capitalizeAll = function(string) {
     return string.replace(/(?:^|\s)\S/g, function(a) {
       return a.toUpperCase();
     });
   };
 
-  Humanize.titlecase = Humanize.titleCase = function(string) {
+  titlecase = titleCase = function(string) {
     var doTitleCase, internalCaps, smallWords, splitOnHyphensRegex, splitOnWhiteSpaceRegex,
       _this = this;
     smallWords = /\b(a|an|and|at|but|by|de|en|for|if|in|of|on|or|the|to|via|vs?\.?)\b/i;
@@ -411,7 +409,7 @@
           continue;
         }
         if (firstOrLast && (index === 0 || index === stringArray.length - 1)) {
-          titleCasedArray.push(internalCaps.test(word) ? word : Humanize.capitalize(word));
+          titleCasedArray.push(internalCaps.test(word) ? word : capitalize(word));
           continue;
         }
         if (internalCaps.test(word)) {
@@ -419,7 +417,7 @@
         } else if (smallWords.test(word)) {
           titleCasedArray.push(word.toLowerCase());
         } else {
-          titleCasedArray.push(Humanize.capitalize(word));
+          titleCasedArray.push(capitalize(word));
         }
       }
       return titleCasedArray.join(hyphenated ? '-' : ' ');
@@ -427,10 +425,38 @@
     return doTitleCase(string);
   };
 
-  this.Humanize = Humanize;
+  this.Humanize = {
+    intword: intword,
+    compactInteger: compactInteger,
+    intcomma: intcomma,
+    intComma: intComma,
+    filesize: filesize,
+    fileSize: fileSize,
+    formatNumber: formatNumber,
+    toFixed: toFixed,
+    normalizePrecision: normalizePrecision,
+    ordinal: ordinal,
+    times: times,
+    pluralize: pluralize,
+    truncate: truncate,
+    truncatewords: truncatewords,
+    truncateWords: truncateWords,
+    truncatenumber: truncatenumber,
+    boundedNumber: boundedNumber,
+    oxford: oxford,
+    dictionary: dictionary,
+    frequency: frequency,
+    pace: pace,
+    nl2br: nl2br,
+    br2nl: br2nl,
+    capitalize: capitalize,
+    capitalizeAll: capitalizeAll,
+    titlecase: titlecase,
+    titleCase: titleCase
+  };
 
   if (typeof module !== "undefined" && module !== null) {
-    module.exports = Humanize;
+    module.exports = this.Humanize;
   }
 
 }).call(this);
