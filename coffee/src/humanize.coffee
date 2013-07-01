@@ -30,7 +30,7 @@ timeFormats = [
 
 class Humanize
 
-# Converts a large integer to a friendly text representation.
+    # Converts a large integer to a friendly text representation.
     intword: (number, charWidth, decimals=2) =>
         ###
         # This method is deprecated. Please use compactInteger instead.
