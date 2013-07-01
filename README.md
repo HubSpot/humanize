@@ -340,6 +340,14 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ## Release Notes
 
+### 1.4.2
+
+- fix [#41](https://github.com/HubSpot/humanize/issues/41) 
+
+### 1.4.1
+
+- documentation update for npm
+
 ### 1.4.0
 
 - add optional `downCaseTail` argument to [Humanize.capitalize](https://github.com/HubSpot/humanize#capitalize)
@@ -358,11 +366,11 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 - [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README
 
 ### 1.3.4
-- fix [#33](https://github.com/HubSpot/humanize/issues/33) (affected users for version <= 1.3.3)
+- fix [#33](https://github.com/HubSpot/humanize/issues/33)
 
 ### 1.3.3
 
-- fix [#27](https://github.com/HubSpot/humanize/issues/27) (affected node users for version <= 1.3.2)
+- fix [#27](https://github.com/HubSpot/humanize/issues/27)
 
 ## License
 Copyright (c) 2013 HubSpotDev
