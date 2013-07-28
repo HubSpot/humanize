@@ -264,7 +264,7 @@ Humanize.oxford(items, 3)
 
 // Pluralizes properly too!
 Humanize.oxford(items, 4)
-// "apple, orange, banana, and 1 other"
+// "apple, orange, banana, pear, and 1 other"
 
 Humanize.oxford(items, 3, "and some other fruits")
 // "apple, orange, banana, and some other fruits"
