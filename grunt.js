@@ -13,8 +13,8 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            files: {
-                files: '<config:coffee.src>',
+            scripts: {
+                files: '<config:coffee.app.src>',
                 tasks: 'coffee'
             }
         },
@@ -22,12 +22,12 @@ module.exports = function(grunt) {
         min: {
             dist: {
                 src: 'public/src/*.js',
-                dest: 'public/src/humanize.min.js'
+                dest: 'public/dist/humanize.min.js'
             }
         },
 
         jasmine: {
-            src: 'public/src/*.js',
+            src: 'public/dist/humanize.min.js',
             specs: 'public/test/*.spec.js',
             timeout: 10000,
             phantomjs: {
@@ -40,5 +40,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jasmine-runner');
 
     grunt.registerTask('default', 'coffee min');
-    grunt.registerTask('test', 'coffee jasmine');
+    grunt.registerTask('test', 'coffee min jasmine');
 };

@@ -1,0 +1,9 @@
+node_modules/
+npm-debug.log
+build/
+_SpecRunner.html
+coffee/
+public/dist
+public/test
+grunt.js
+.npmignore
