@@ -2,7 +2,7 @@ extends base
 
 block content
 
-    .hs-marquee
+    .hs-doc-marquee
 
         .hs-page-width-normal
 
@@ -12,12 +12,16 @@ block content
 
                     h1= title
 
+                    //- TODO @zbloom let's get a legit subtitle here but use this as a fallback?
+                    h3 HubSpot Open Source Project
+
                 .span6
 
-                    h2 The most amazing Open Source Project
+                    //- TODO @zbloom uncomment once projectName in the context
+                    //- p
+                    //-     | Fork on <a href="http://github.com/HubSpot/!{ projectName }">GitHub</a>
 
-                    p Download on
-
-                        a(href) Github
+                    //- p
+                    //-     | Download <a href="http://github.com/HubSpot/!{ projectName }/archive/master.zip">ZIP</a>
 
     include includes/navigation-and-content
