@@ -1,6 +1,157 @@
-<html>
-    <head>
-        <meta HTTP-EQUIV="REFRESH" content="0; url=http://hubspot.github.com/#humanize">
-    </head>
-    <body></body>
-</html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>humanize</title><link rel="icon" href="http://static.hubspot.com/favicon.ico"><link type="text/css" rel="stylesheet" href="https://static2cdn.hubspot.com/hubspot_public_assets/static-1.112/shared/sass/hubspot_public_assets.css"><link type="text/css" rel="stylesheet" href="https://static.hubspot.com/bundles/navigation.css"><link rel="stylesheet" href="http://github.hubspot.com/documentation-example/css/print.css"><link rel="stylesheet" href="http://github.hubspot.com/documentation-example/css/navigation.css"><link rel="stylesheet" href="http://github.hubspot.com/documentation-example/css/documentation.css"><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><script type="text/javascript" src="//use.typekit.net/jbn8qxr.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}
+</script></head><body><div id="hs-nav-v3" class="nav-width-flex signed-out-nav">
+    <div class="hs-nav-section main-nav">
+        <div class="nav-section-inner">
+            <ul class="nav-links-left">
+                <li class="first"><a class="nav-logo" href="http://www.hubspot.com/"><img height="34" src="https://static.hubspot.com/style-guide/img/nav-sprocket.png" width="29"></a></li>
+                <li>
+                    <a href="http://hubspot.github.com">
+                        HubSpot Open Source
+                    </a>
+                </li>
+                <li>
+                    <a href="http://dev.hubspot.com">
+                        Development Team
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-links-right">
+                <li class="first">
+                    <a href="https://login.hubspot.com/login/" class="sign-in">Work for HubSpot</a>
+                </li>
+                <li>
+                    <span class="try-label">We're hiring:</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span12"><h1>humanize</h1></div></div><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class="current-nav-item"><a href="index.html">About</a></li><li><b>Annotated source</b><ul></ul></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1>Humanize</h1>
+<p>A simple utility library for making the web more humane.</p>
+<h2>Getting Started</h2>
+<p>Download the <a href="https://raw.github.com/HubSpot/humanize/master/public/src/humanize.min.js">minified version</a> or the <a href="https://raw.github.com/HubSpot/humanize/master/public/src/humanize.js">full version</a>.</p>
+<p>In your web page:</p>
+<pre><code class="lang-html">&lt;script src=&quot;public/humanize.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var capitalized = Humanize.capitalize(&quot;ten tiny ducklings.&quot;)
+// &quot;Ten tiny ducklings.&quot;
+&lt;/script&gt;</code></pre>
+<h3>API Methods</h3>
+<h5>formatNumber</h5>
+<p>Formats a number to a human-readable string. Localize by overriding the precision, thousand and decimal arguments.</p>
+<pre><code class="lang-javascript">Humanize.formatNumber(123456789, 2)
+// &quot;123,456,789.00&quot;</code></pre>
+<h5>intcomma</h5>
+<p>Converts an integer to a string containing commas every three digits.</p>
+<pre><code class="lang-javascript">Humanize.intcomma(123456789)
+// &quot;123,456,789&quot;</code></pre>
+<h5>intword</h5>
+<p>Converts a large integer to a friendly text representation.</p>
+<pre><code class="lang-javascript">Humanize.intword(123456789, 5)
+// &quot;123.4M&quot;
+
+Humanize.intword(123456789, 6)
+// &quot;123.45M&quot;
+
+Humanize.intword(123456789, 9)
+// &quot;123,456,789&quot;</code></pre>
+<h5>ordinal</h5>
+<p>Converts an integer to its ordinal as a string.</p>
+<pre><code class="lang-javascript">Humanize.ordinal(22)
+// &quot;22nd&quot;</code></pre>
+<h5>filesize</h5>
+<p>Formats the value like a &#39;human-readable&#39; file size (i.e. &#39;13 KB&#39;, &#39;4.1 MB&#39;, &#39;102 bytes&#39;, etc).</p>
+<pre><code class="lang-javascript">Humanize.filesize(1024 * 20)
+// &quot;20 Kb&quot;
+
+Humanize.filesize(1024 * 2000)
+// &quot;1.95 Mb&quot;
+
+Humanize.filesize(Math.pow(1000, 4))
+// &quot;931.32 Gb&quot;</code></pre>
+<h5>pluralize</h5>
+<p>Returns the plural version of a given word if the value is not 1. The default suffix is &#39;s&#39;.</p>
+<pre><code class="lang-javascript">Humanize.pluralize(1, &quot;duck&quot;)
+// &quot;duck&quot;
+
+Humanize.pluralize(3, &quot;duck&quot;)
+// &quot;ducks&quot;
+
+Humanize.pluralize(3, &quot;duck&quot;, &quot;duckies&quot;)
+// &quot;duckies&quot;</code></pre>
+<h5>truncate</h5>
+<p>Truncates a string if it is longer than the specified number of characters. Truncated strings will end with a translatable ellipsis sequence (&quot;…&quot;).</p>
+<pre><code class="lang-javascript">Humanize.truncate(&#39;long text is good for you&#39;)
+// &quot;long text is good for you&quot;
+
+Humanize.truncate(&#39;long text is good for you&#39;, 19)
+// &quot;long text is goo...&quot;
+
+Humanize.truncate(&#39;long text is good for you&#39;, 19, &#39;... etc&#39;)
+// &quot;long text is... etc&quot;</code></pre>
+<h5>truncatewords</h5>
+<p>Truncates a string after a certain number of words.</p>
+<pre><code class="lang-javascript">Humanize.truncatewords(&#39;long text is good for you&#39;, 5)
+// &quot;long text is good for ...&quot;</code></pre>
+<h5>oxford</h5>
+<p>Converts a list of items to a human readable string with an optional limit.</p>
+<pre><code class="lang-javascript">items = [&#39;apple&#39;, &#39;orange&#39;, &#39;banana&#39;, &#39;pear&#39;, &#39;pineapple&#39;]
+
+Humanize.oxford(items)
+// &quot;apple, orange, banana, pear, and pineapple&quot;
+
+Humanize.oxford(items, 3)
+// &quot;apple, orange, banana, and 2 others&quot;
+
+// Pluralizes properly too!
+Humanize.oxford(items, 4)
+// &quot;apple, orange, banana, and 1 other&quot;
+
+Humanize.oxford(items, 3, &quot;and some other fruits&quot;)
+// &quot;apple, orange, banana, and some other fruits&quot;</code></pre>
+<h5>nl2br and br2nl</h5>
+<p>Flexible conversion of <code>&lt;br/&gt;</code> tags to newlines and vice versa.</p>
+<pre><code class="lang-javascript">// Use your imagination</code></pre>
+<h4>capitalize</h4>
+<p>Capitalizes the first letter in a string.</p>
+<pre><code class="lang-javascript">Humanize.capitalize(&quot;some boring string&quot;)
+// &quot;Some boring string&quot;</code></pre>
+<h4>titlecase</h4>
+<p>Captializes the first letter of every word in a string.</p>
+<pre><code class="lang-javascript">Humanize.titlecase(&quot;some boring string&quot;)
+// &quot;Some Boring String&quot;</code></pre>
+<h3>Utility methods</h3>
+<h5>toFixed</h5>
+<p>Fixes binary rounding issues (eg. (0.615).toFixed(2) === &quot;0.61&quot;).</p>
+<pre><code class="lang-javascript">Humanize.toFixed(0.615, 2)
+// &quot;0.62&quot;</code></pre>
+<h5>normalizePrecision</h5>
+<p>Ensures precision value is a positive integer.</p>
+<pre><code class="lang-javascript">Humanize.normalizePrecision(-232.231)
+// 232</code></pre>
+<h2>Important notes</h2>
+<p>Please don&#39;t edit files in the <code>public</code> subdirectory as they are generated via grunt. You&#39;ll find source code in the <code>coffee</code> subdirectory!</p>
+<h2>Compiling</h2>
+<h3>Installing grunt</h3>
+<p><em>This assumes you have <a href="http://nodejs.org/">node.js</a> and <a href="http://npmjs.org/">npm</a> installed already.</em></p>
+<ol>
+<li>From the root directory of this project, run <code>npm install</code> to install the project&#39;s dependencies.</li>
+</ol>
+<p>And that&#39;s it!</p>
+<p>Once grunt is installed, just run &quot;grunt&quot; in the root directory of the project to compile the CoffeeScript files into the public/ subdirectory.</p>
+<h2>Testing</h2>
+<h3>Installing PhantomJS</h3>
+<p>In order for the test task to work properly, <a href="http://www.phantomjs.org/">PhantomJS</a> must be installed and in the system PATH (if you can run &quot;phantomjs&quot; at the command line, this task should work).</p>
+<p>Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. There are a number of ways to install PhantomJS.</p>
+<ul>
+<li><a href="http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html">PhantomJS and Mac OS X</a></li>
+<li><a href="http://code.google.com/p/phantomjs/wiki/Installation">PhantomJS Installation</a> (PhantomJS wiki)</li>
+</ul>
+<p>Note that the <code>phantomjs</code> executable needs to be in the system <code>PATH</code> for grunt to see it.</p>
+<ul>
+<li><a href="http://www.computerhope.com/issues/ch000549.htm">How to set the path and environment variables in Windows</a></li>
+<li><a href="http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard">Where does $PATH get set in OS X 10.6 Snow Leopard?</a></li>
+<li><a href="https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux">How do I change the PATH variable in Linux</a></li>
+</ul>
+<h2>License</h2>
+<p>Copyright (c) 2013 HubSpotDev<br>Licensed under the MIT license.</p>
+</div></div></div></div><div class="hs3-public-footer"><div class="row-fluid hs-page-width-normal"><div class="span3 hidden-phone"><h3>HubSpot</h3><ul><li><a href="http://www.hubspot.com">Home</a></li><li><a href="http://www.hubspot.com/software">Products</a></li><li><a href="http://www.hubspot.com/internet-marketing-company/">About</a></li></ul></div><div class="span3"><h3>Projects</h3><ul><li><a href="http://github.hubspot.com/messenger">Messenger</a></li><li><a href="http://github.hubspot.com/facewall">Facewall</a></li><li><a href="http://github.hubspot.com/jquery-zoomer">jQuery Zoomer</a></li><li><a href="http://github.hubspot.com/humanize">Humanize</a></li><li><a href="http://github.hubspot.com/teeble">Teeble</a></li></ul></div><div class="span3"><h3>Development Team</h3><ul><li><a href="http://dev.hubspot.com">Home</a></li><li><a href="http://dev.hubspot.com/teams">Teams</a></li><li><a href="http://dev.hubspot.com/people">People</a></li><li><a href="http://dev.hubspot.com/jobs">Jobs</a></li></ul></div><div class="span3 hidden-phone"><h3>Developer API</h3><ul><li><a href="http://developers.hubspot.com/">Developer Documentation</a></li></ul></div></div></div></body></html>
