@@ -10,18 +10,25 @@ block content
 
                 .span6
 
-                    h1= title
+                    h1= name
 
-                    //- TODO @zbloom let's get a legit subtitle here but use this as a fallback?
-                    h3 HubSpot Open Source Project
+                    h3.hs-doc-marquee-description= desc
+
+                    p.hs-doc-marquee-release= package.release
+
+                    p.hs-doc-marquee-stars
+
+                        | <iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&repo=jquery-zoomer&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="240" height="30"></iframe>
 
                 .span6
 
-                    //- TODO @zbloom uncomment once projectName in the context
-                    //- p
-                    //-     | Fork on <a href="http://github.com/HubSpot/!{ projectName }">GitHub</a>
+                    .hs-doc-marquee-buttons
 
-                    //- p
-                    //-     | Download <a href="http://github.com/HubSpot/!{ projectName }/archive/master.zip">ZIP</a>
+                        | <a class="hs-doc-marquee-button" href="http://#{ repo.host }/#{ repo.user }/#{ repo.name }">Fork on GitHub</a>
+
+                        if package && package.release
+                            | <a class="hs-doc-marquee-button" href="http://#{ repo.host }/#{ repo.user }/#{ repo.name }/archive/v#{ package.release }.zip">Download ZIP (v#{ package.release })</a>
+                        else
+                            | <a class="hs-doc-marquee-button" href="http://#{ repo.host }/#{ repo.user }/#{ repo.name }/archive/master.zip">Download ZIP</a>
 
     include includes/navigation-and-content
