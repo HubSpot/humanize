@@ -10,7 +10,7 @@ Humanize Plus is available via node package manager.
 
 Or download the [minified version][min] or the [full version][max].
 
-[min]: https://raw.github.com/HubSpot/humanize/master/public/src/humanize.min.js
+[min]: https://raw.github.com/HubSpot/humanize/master/public/dist/humanize.min.js
 [max]: https://raw.github.com/HubSpot/humanize/master/public/src/humanize.js
 
 In your web page:
