@@ -115,7 +115,7 @@ Humanize.formatNumber = (number, precision=0, thousand=",", decimal=".") ->
     commas = (number, thousand, position) ->
         number.substr(position).replace /(\d{3})(?=\d)/g, "$1" + thousand
 
-    decimals = (number, decimal, usePrecision) =>
+    decimals = (number, decimal, usePrecision) ->
         if usePrecision then decimal + Humanize.toFixed(Math.abs(number), usePrecision).split(".")[1] else ""
 
     usePrecision = Humanize.normalizePrecision precision
