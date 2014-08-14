@@ -51,8 +51,6 @@ Humanize.compactInteger = (input, decimals=0) ->
 
     # small numbers
     if unsignedNumber < 1000
-        if decimals > 0
-            unsignedNumberString += ".#{ Array(decimals + 1).join('0') }"
         return "#{ signString }#{ unsignedNumberString }"
 
     # really big numbers

@@ -64,9 +64,6 @@
     numberLengths = [13, 10, 7, 4];
     bigNumPrefixes = ['T', 'B', 'M', 'k'];
     if (unsignedNumber < 1000) {
-      if (decimals > 0) {
-        unsignedNumberString += "." + (Array(decimals + 1).join('0'));
-      }
       return "" + signString + unsignedNumberString;
     }
     if (numberLength > numberLengths[0] + 3) {
@@ -119,8 +116,7 @@
   };
 
   Humanize.formatNumber = function(number, precision, thousand, decimal) {
-    var base, commas, decimals, firstComma, mod, negative, usePrecision,
-      _this = this;
+    var base, commas, decimals, firstComma, mod, negative, usePrecision;
     if (precision == null) {
       precision = 0;
     }
