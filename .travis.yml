@@ -6,3 +6,5 @@ node_js:
     - "0.6"
 notifications:
     email: false
+before_script:
+    - npm update -g npm
