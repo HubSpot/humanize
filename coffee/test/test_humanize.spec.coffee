@@ -11,16 +11,16 @@ describe 'Millions as word', ->
         expect(Humanize).toBeDefined()
         expect(Humanize.intword(123456789, 'this is a nop', 2)).toEqual('123.46M')
         expect(Humanize.intword(123456789, 'this is a nop', 1)).toEqual('123.5M')
-        expect(Humanize.intword(100)).toEqual('100.00')
+        expect(Humanize.intword(100)).toEqual('100')
         expect(Humanize.intword(100, 'this is a nop', 0)).toEqual('100')
 
 describe 'compactInteger tests', ->
     it 'should string small numbers', ->
         expect(Humanize).toBeDefined()
         expect(Humanize.compactInteger(999)).toEqual('999')
-        expect(Humanize.compactInteger(999, 2)).toEqual('999.00')
+        expect(Humanize.compactInteger(999, 2)).toEqual('999')
         expect(Humanize.compactInteger(-999)).toEqual('-999')
-        expect(Humanize.compactInteger(-0, 1)).toEqual('0.0')
+        expect(Humanize.compactInteger(-0, 1)).toEqual('0')
         expect(Humanize.compactInteger(15, 0)).toEqual('15')
         expect(Humanize.compactInteger(7832186132456328967, 2)).toEqual('7.83x10^18')
         expect(Humanize.compactInteger(-7832186132456328967, 4)).toEqual('-7.8322x10^18')
