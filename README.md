@@ -69,11 +69,11 @@ Humanize.intword(123456789, 'this is a nop', 3)
 // "123.457M"
 
 Humanize.intword(10, 'still a nop', 1)
-// "10.0"
+// "10"
 ```
 
 ##### compactInteger
-Converts an integer into its most compact representation.
+Converts an integer into its most compact representation. Decimal precision is ignored for all integers, n, such that abs(n) < 1000.
 
 ```javascript
 Humanize.compactInteger(123456789, 1)
@@ -84,7 +84,7 @@ Humanize.compactInteger(-7832186132456328967, 4)
 // "-7.8322x10^18"
 
 Humanize.compactInteger(-100, 2)
-// "-100.00"
+// "-100"
 ```
 
 ##### boundedNumber
