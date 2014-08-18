@@ -26,7 +26,7 @@ var capitalized = Humanize.capitalize("ten tiny ducklings.")
 In your node package.json:
 ```javascript
 "dependencies": {
-  "humanize-plus": "1.4.x"
+  "humanize-plus": "1.5.x"
 }
 ```
 
@@ -339,6 +339,11 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 * [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
 ## Release Notes
+
+### 1.5.0
+
+- fix [#52](https://github.com/HubSpot/humanize/issues/52)
+- remove support for node 0.6.x
 
 ### 1.4.2
 
