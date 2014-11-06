@@ -139,24 +139,27 @@
 
   describe('Filesize tests for nerds', function() {
     it('should append byte if it is exactly 1 byte', function() {
+      expect(Humanize.fileSize(0)).toEqual('0 bytes');
       expect(Humanize.filesize(1)).toEqual('1 byte');
-      return expect(Humanize.fileSize(1)).toEqual('1 byte');
+      return expect(Humanize.filesize(2)).toEqual('2 bytes');
     });
     it('should append bytes if it is less than 1024 bytes', function() {
-      expect(Humanize.filesize(512)).toEqual('512 bytes');
-      return expect(Humanize.fileSize(512)).toEqual('512 bytes');
+      return expect(Humanize.filesize(512)).toEqual('512 bytes');
     });
     it('should return a file in KB if it is more than 1024 bytes', function() {
-      expect(Humanize.filesize(1080)).toEqual('1 KB');
-      return expect(Humanize.fileSize(1080)).toEqual('1 KB');
+      return expect(Humanize.filesize(1080)).toEqual('1 KB');
     });
     it('should return a file in MB if it is more than a 1024 * 1024 bytes', function() {
-      expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
-      return expect(Humanize.fileSize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
+      return expect(Humanize.filesize(2.22 * 1024 * 1024)).toEqual('2.22 MB');
     });
-    return it('should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', function() {
-      expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
-      return expect(Humanize.fileSize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
+    it('should return a file in GB if it is more than a 1024 * 1024 * 1024 bytes', function() {
+      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024)).toEqual('2.22 GB');
+    });
+    it('should return a file in TB if it is more than a 2^40 bytes', function() {
+      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024 * 1024)).toEqual('2.22 TB');
+    });
+    return it('should return a file in PB if it is more than a 2^50 bytes', function() {
+      return expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024 * 1024 * 1024)).toEqual('2.22 PB');
     });
   });
 
