@@ -59,7 +59,7 @@ Alias for `intComma`
 Converts a large integer to a friendly text representation.
 This method is now a thin wrapper around compactInteger
 
-`Humanize.intword(num, ch, de) === Humanize(num, de)`
+`Humanize.intword(num, ch, de) === Humanize.compactInteger(num, de)`
 
 ```javascript
 Humanize.intword(123456789, 'nopnopnopnop', 1)
