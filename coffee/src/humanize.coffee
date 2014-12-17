@@ -87,18 +87,24 @@ Humanize.compactInteger = (input, decimals=0) ->
 # Converts an integer to a string containing commas every three digits.
 Humanize.intcomma = Humanize.intComma = (number, decimals=0) -> Humanize.formatNumber number, decimals
 
+
+LABELS_FOR_POWERS_OF_KILO = {
+    "P": Math.pow(2, 50),
+    "T": Math.pow(2, 40),
+    "G": Math.pow(2, 30),
+    "M": Math.pow(2, 20)
+}
+        
+
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 Humanize.filesize = Humanize.fileSize = (filesize) ->
-    if filesize >= 1073741824
-        sizeStr = Humanize.formatNumber(filesize / 1073741824, 2, "") + " GB"
-    else if filesize >= 1048576
-        sizeStr = Humanize.formatNumber(filesize / 1048576, 2, "") + " MB"
-    else if filesize >= 1024
-        sizeStr = Humanize.formatNumber(filesize / 1024, 0) + " KB"
-    else
-        sizeStr = Humanize.formatNumber(filesize, 0) + Humanize.pluralize filesize, " byte"
-
-    sizeStr
+    for label, minnum of LABELS_FOR_POWERS_OF_KILO
+        if filesize >= minnum
+            return Humanize.formatNumber(filesize / minnum, 2, "") + " " + label + "B"
+    if filesize >= 1024
+        return Humanize.formatNumber(filesize / 1024, 0) + " KB"
+        
+    return Humanize.formatNumber(filesize, 0) + Humanize.pluralize filesize, " byte"
 
 # Formats a number to a human-readable string.
 # Localize by overriding the precision, thousand and decimal arguments.

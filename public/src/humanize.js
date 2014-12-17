@@ -1,5 +1,5 @@
 (function() {
-  var Humanize, isArray, isFinite, isNaN, objectRef, timeFormats, toString;
+  var Humanize, LABELS_FOR_POWERS_OF_KILO, isArray, isFinite, isNaN, objectRef, timeFormats, toString;
 
   objectRef = new function() {};
 
@@ -101,18 +101,25 @@
     return Humanize.formatNumber(number, decimals);
   };
 
+  LABELS_FOR_POWERS_OF_KILO = {
+    "P": Math.pow(2, 50),
+    "T": Math.pow(2, 40),
+    "G": Math.pow(2, 30),
+    "M": Math.pow(2, 20)
+  };
+
   Humanize.filesize = Humanize.fileSize = function(filesize) {
-    var sizeStr;
-    if (filesize >= 1073741824) {
-      sizeStr = Humanize.formatNumber(filesize / 1073741824, 2, "") + " GB";
-    } else if (filesize >= 1048576) {
-      sizeStr = Humanize.formatNumber(filesize / 1048576, 2, "") + " MB";
-    } else if (filesize >= 1024) {
-      sizeStr = Humanize.formatNumber(filesize / 1024, 0) + " KB";
-    } else {
-      sizeStr = Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, " byte");
+    var label, minnum;
+    for (label in LABELS_FOR_POWERS_OF_KILO) {
+      minnum = LABELS_FOR_POWERS_OF_KILO[label];
+      if (filesize >= minnum) {
+        return Humanize.formatNumber(filesize / minnum, 2, "") + " " + label + "B";
+      }
     }
-    return sizeStr;
+    if (filesize >= 1024) {
+      return Humanize.formatNumber(filesize / 1024, 0) + " KB";
+    }
+    return Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, " byte");
   };
 
   Humanize.formatNumber = function(number, precision, thousand, decimal) {
