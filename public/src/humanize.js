@@ -246,6 +246,26 @@
     }
   };
 
+  Humanize.truncateNearestWord = function(str, length, ending) {
+    var i, notWordChar, shortStr;
+    if (ending == null) {
+      ending = '...';
+    }
+    if (str.length > length) {
+      shortStr = str.substring(0, length - ending.length);
+      notWordChar = /\W/;
+      i = shortStr.length - 1;
+      while (i >= 0) {
+        if (shortStr[i].match(notWordChar)) {
+          return shortStr.substring(0, i).concat(ending);
+        }
+        --i;
+      }
+    } else {
+      return str;
+    }
+  };
+
   Humanize.truncatewords = Humanize.truncateWords = function(string, length) {
     var array, i, result;
     array = string.split(" ");

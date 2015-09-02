@@ -94,7 +94,7 @@ LABELS_FOR_POWERS_OF_KILO = {
     "G": Math.pow(2, 30),
     "M": Math.pow(2, 20)
 }
-        
+
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
 Humanize.filesize = Humanize.fileSize = (filesize) ->
@@ -103,7 +103,7 @@ Humanize.filesize = Humanize.fileSize = (filesize) ->
             return Humanize.formatNumber(filesize / minnum, 2, "") + " " + label + "B"
     if filesize >= 1024
         return Humanize.formatNumber(filesize / 1024, 0) + " KB"
-        
+
     return Humanize.formatNumber(filesize, 0) + Humanize.pluralize filesize, " byte"
 
 # Formats a number to a human-readable string.
@@ -192,6 +192,19 @@ Humanize.pluralize = (number, singular, plural) ->
 Humanize.truncate = (str, length=100, ending='...') ->
     if str.length > length
         str.substring(0, length - ending.length) + ending
+    else
+        str
+
+# Truncates a string if it is longer than the specified number of characters (inclusive). Truncated strings will end with a translatable ellipsis sequence ("…").
+Humanize.truncateNearestWord = (str, length, ending='...') ->
+    if str.length > length
+        shortStr = str.substring(0, length - ending.length)
+        notWordChar = /\W/
+        i = shortStr.length - 1
+        while i >= 0
+          if shortStr[i].match(notWordChar)
+            return shortStr.substring(0, i).concat(ending)
+          --i
     else
         str
 
