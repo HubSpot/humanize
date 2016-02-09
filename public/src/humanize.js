@@ -429,8 +429,10 @@
     };
     return doTitleCase(string);
   };
-
-  this.Humanize = Humanize;
+  
+  if (typeof this !== "undefined" && this !== null) {
+    this.Humanize = Humanize;  
+  }
 
   if (typeof module !== "undefined" && module !== null) {
     module.exports = Humanize;
