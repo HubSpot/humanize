@@ -139,7 +139,10 @@ describe 'Filesize tests for nerds', ->
 
     it 'should return a file in PB if it is more than a 2^50 bytes', ->
         expect(Humanize.filesize(2.22*1024*1024*1024*1024*1024)).toEqual('2.22 PB')
-        
+
+    it 'should return a file size if percision is specified', ->
+        expect(Humanize.filesize(2.22*1024*1024, 0)).toEqual('2 MB')
+
 describe 'Truncating objects to shorter versions', ->
     objs =
         str: 'abcdefghijklmnopqrstuvwxyz'

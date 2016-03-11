@@ -97,10 +97,10 @@ LABELS_FOR_POWERS_OF_KILO = {
         
 
 # Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
-Humanize.filesize = Humanize.fileSize = (filesize) ->
+Humanize.filesize = Humanize.fileSize = (filesize, precision=2) ->
     for label, minnum of LABELS_FOR_POWERS_OF_KILO
         if filesize >= minnum
-            return Humanize.formatNumber(filesize / minnum, 2, "") + " " + label + "B"
+            return Humanize.formatNumber(filesize / minnum, precision, "") + " " + label + "B"
     if filesize >= 1024
         return Humanize.formatNumber(filesize / 1024, 0) + " KB"
         

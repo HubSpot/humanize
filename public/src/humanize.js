@@ -108,12 +108,15 @@
     "M": Math.pow(2, 20)
   };
 
-  Humanize.filesize = Humanize.fileSize = function(filesize) {
+  Humanize.filesize = Humanize.fileSize = function(filesize, precision) {
     var label, minnum;
+    if (precision == null) {
+      precision = 2;
+    }
     for (label in LABELS_FOR_POWERS_OF_KILO) {
       minnum = LABELS_FOR_POWERS_OF_KILO[label];
       if (filesize >= minnum) {
-        return Humanize.formatNumber(filesize / minnum, 2, "") + " " + label + "B";
+        return Humanize.formatNumber(filesize / minnum, precision, "") + " " + label + "B";
       }
     }
     if (filesize >= 1024) {
