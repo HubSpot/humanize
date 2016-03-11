@@ -26,11 +26,11 @@ var capitalized = Humanize.capitalize("ten tiny ducklings.")
 In your node package.json:
 ```javascript
 "dependencies": {
-  "humanize-plus": "1.5.x"
+  "humanize-plus": "^1.6.0"
 }
 ```
 
-For recent changes, see the [Release Notes](https://github.com/HubSpot/humanize#release-notes) section.
+For recent changes, see the [changelog](https://github.com/HubSpot/humanize/blob/master/CHANGELOG.md).
 
 ## API Methods
 
@@ -312,71 +312,17 @@ Please don't edit files in the `public` subdirectory as they are generated via g
 
 ## Compiling
 
-### Installing grunt
-_This assumes you have [node.js](http://nodejs.org/) and [npm](http://npmjs.org/) installed already._
-
-1. From the root directory of this project, run `npm install` to install the project's dependencies.
+`npm run install && npm run build`
 
 And that's it!
 
-Once grunt is installed, just run "grunt" in the root directory of the project to compile the CoffeeScript files into the public/ subdirectory.
+The project will compile the CoffeeScript files into the public/ subdirectory.
 
 ## Testing
 
-### Installing PhantomJS
+`npm run test`
 
-In order for the test task to work properly, [PhantomJS](http://www.phantomjs.org/) must be installed and in the system PATH (if you can run "phantomjs" at the command line, this task should work).
-
-Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. There are a number of ways to install PhantomJS.
-
-* [PhantomJS and Mac OS X](http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html)
-* [PhantomJS Installation](http://code.google.com/p/phantomjs/wiki/Installation) (PhantomJS wiki)
-
-Note that the `phantomjs` executable needs to be in the system `PATH` for grunt to see it.
-
-* [How to set the path and environment variables in Windows](http://www.computerhope.com/issues/ch000549.htm)
-* [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
-* [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
-
-## Release Notes
-
-### 1.5.0
-
-- fix [#52](https://github.com/HubSpot/humanize/issues/52)
-- remove support for node 0.6.x
-
-### 1.4.2
-
-- fix [#41](https://github.com/HubSpot/humanize/issues/41) 
-
-### 1.4.1
-
-- documentation update for npm
-
-### 1.4.0
-
-- add optional `downCaseTail` argument to [Humanize.capitalize](https://github.com/HubSpot/humanize#capitalize)
-- add camelCase aliases
-   - `intComma`       -> `intcomma`
-   - `fileSize`       -> `filesize`
-   - `truncateWords`  -> `truncatewords`
-   - `boundedNumber`  -> `truncatenumber`
-   - `titleCase`      -> `titlecase`
-
-- optimize internal `doTitleCase` method
-- remove unused helper methods
-- add default arguments for `truncate`
-
-### 1.3.5
-- [Release Notes](https://github.com/HubSpot/humanize/tree/master#release-notes) added to README
-
-### 1.3.4
-- fix [#33](https://github.com/HubSpot/humanize/issues/33)
-
-### 1.3.3
-
-- fix [#27](https://github.com/HubSpot/humanize/issues/27)
 
 ## License
-Copyright (c) 2013 HubSpotDev
+Copyright (c) 2013-2016 HubSpotDev
 Licensed under the MIT license.

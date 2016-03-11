@@ -1,50 +1,57 @@
 {
-    "name": "humanize-plus",
-    "title": "Humanize",
-    "description": "A simple utility library for making the web more humane.",
-    "version": "1.5.0",
-    "homepage": "https://github.com/HubSpot/humanize",
-    "main": "./public/src/humanize.js",
-    "author": {
-        "name": "HubSpotDev",
-        "email": "devteam@hubspot.com",
-        "url": "dev.hubspot.com"
+  "name": "humanize-plus",
+  "title": "Humanize",
+  "description": "A simple utility library for making the web more humane.",
+  "version": "1.6.0",
+  "homepage": "https://github.com/HubSpot/humanize",
+  "main": "./public/src/humanize.js",
+  "author": {
+    "name": "HubSpotDev",
+    "email": "devteam@hubspot.com",
+    "url": "dev.hubspot.com"
+  },
+  "maintainers": [
+    {
+      "name": "Jonathan Kim",
+      "email": "me@jonathan-kim.com",
+      "web": "http://jonathan-kim.com"
     },
-    "maintainers":[ {
-        "name": "Jonathan Kim",
-        "email": "me@jonathan-kim.com",
-        "web": "http://jonathan-kim.com"
-    }, {
-        "name": "Bryan Ash",
-        "email": "ashbryanct@gmail.com",
-        "web": "http://github.com/b-ash"
-    }, {
-        "name": "Andy Aylward",
-        "email": "aaylward@gmail.com",
-        "web": "http://github.com/aaylward"
-    }],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/HubSpot/humanize.git"
+    {
+      "name": "Bryan Ash",
+      "email": "ashbryanct@gmail.com",
+      "web": "http://github.com/b-ash"
     },
-    "publishConfig": {
-        "registry": "http://registry.npmjs.org"
-    },
-    "bugs": {
-        "url": "https://github.com/HubSpot/humanize/issues"
-    },
-    "engines": {
-        "node": ">= 0.8.0"
-    },
-    "scripts": {
-        "test": "grunt jasmine"
-    },
-    "dependencies": {
-    },
-    "readmeFilename": "README.md",
-    "devDependencies": {
-        "grunt": "~0.3.15",
-        "grunt-coffee": "0.0.x",
-        "grunt-jasmine-runner": "0.6.x"
+    {
+      "name": "Andy Aylward",
+      "email": "aaylward@gmail.com",
+      "web": "http://github.com/aaylward"
     }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HubSpot/humanize.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "bugs": {
+    "url": "https://github.com/HubSpot/humanize/issues"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "clean": "del public",
+    "coffee": "coffee -o public -c coffee ",
+    "preuglify": "mkdir -p public/dist",
+    "uglify": "uglifyjs -cmo public/dist/humanize.min.js public/src/humanize.js",
+    "build": "npm run clean && npm run coffee && npm run uglify",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "del-cli": "^0.2.0",
+    "jasmine": "^2.4.1",
+    "uglify-js": "^2.6.2"
+  }
 }

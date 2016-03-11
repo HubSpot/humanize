@@ -337,5 +337,5 @@ Humanize.titlecase = Humanize.titleCase = (string) ->
         titleCasedArray.join(if hyphenated then '-' else ' ')
     doTitleCase(string)
 
-@Humanize = Humanize
+@?.Humanize = Humanize
 module?.exports = Humanize

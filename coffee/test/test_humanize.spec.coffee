@@ -1,6 +1,8 @@
+Humanize = require('../src/Humanize')
+
 describe 'When using method via destructured assignment', ->
     it 'should properly reference other Humanize methods', ->
-        spyOn(Humanize, 'capitalize').andCallThrough()
+        spyOn(Humanize, 'capitalize').and.callThrough()
 
         {titlecase} = Humanize
         expect(titlecase('ship it')).toEqual('Ship It')
@@ -47,7 +49,7 @@ describe 'Ordinal value of numbers Test Suite', ->
     describe 'Ordinal value for numbers ending in one', ->
         it 'should end in st for numbers not ending in 11', ->
             expect(Humanize.ordinal(1)).toEqual('1st')
-            expect(Humanize.ordinal(11)).toNotEqual('11st')
+            expect(Humanize.ordinal(11)).not.toEqual('11st')
             expect(Humanize.ordinal(21)).toEqual('21st')
 
         it 'should be 11th for numbers ending in 11', ->
@@ -57,7 +59,7 @@ describe 'Ordinal value of numbers Test Suite', ->
     describe 'Ordinal value for numbers ending in two', ->
         it 'should end in nd for numbers not ending in 12', ->
             expect(Humanize.ordinal(2)).toEqual('2nd')
-            expect(Humanize.ordinal(12)).toNotEqual('12nd')
+            expect(Humanize.ordinal(12)).not.toEqual('12nd')
             expect(Humanize.ordinal(22)).toEqual('22nd')
 
         it 'should be 12th for numbers ending in 12', ->
@@ -67,7 +69,7 @@ describe 'Ordinal value of numbers Test Suite', ->
     describe 'Ordinal value for numbers ending in three', ->
         it 'should end in rd for numbers not ending in 13', ->
             expect(Humanize.ordinal(3)).toEqual('3rd')
-            expect(Humanize.ordinal(13)).toNotEqual('13rd')
+            expect(Humanize.ordinal(13)).not.toEqual('13rd')
             expect(Humanize.ordinal(23)).toEqual('23rd')
 
         it 'should be 13th for numbers ending in 13', ->

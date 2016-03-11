@@ -2,11 +2,11 @@ module.exports = function(grunt) {
     grunt.initConfig({
         coffee: {
             app: {
-                src: 'coffee/**/*.coffee',
-                dest: 'public/',
+              src: './coffee/**/*.coffee',
+                dest: './public/',
                 options: {
                     preserve_dirs: true,
-                    base_path: 'coffee/',
+                    base_path: './coffee/',
                     bare: false
                 }
             }
@@ -21,14 +21,14 @@ module.exports = function(grunt) {
 
         min: {
             dist: {
-                src: 'public/src/*.js',
-                dest: 'public/dist/humanize.min.js'
+              src: './public/src/*.js',
+              dest: './public/dist/humanize.min.js'
             }
         },
 
         jasmine: {
-            src: 'public/dist/humanize.min.js',
-            specs: 'public/test/*.spec.js',
+          src: './public/dist/humanize.min.js',
+          specs: './public/test/*.spec.js',
             timeout: 10000,
             phantomjs: {
                 'ignore-ssl-errors': true
@@ -36,9 +36,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-coffee');
-    grunt.loadNpmTasks('grunt-jasmine-runner');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-    grunt.registerTask('default', 'coffee min');
-    grunt.registerTask('test', 'coffee min jasmine');
+    grunt.registerTask('default', ['coffee']);
+    grunt.registerTask('test', ['coffee', 'min', 'jasmine']);
 };
