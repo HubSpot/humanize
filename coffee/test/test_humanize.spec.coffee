@@ -139,16 +139,20 @@ describe 'Filesize tests for nerds', ->
 
     it 'should return a file in PB if it is more than a 2^50 bytes', ->
         expect(Humanize.filesize(2.22*1024*1024*1024*1024*1024)).toEqual('2.22 PB')
-        
+
 describe 'Truncating objects to shorter versions', ->
     objs =
         str: 'abcdefghijklmnopqrstuvwxyz'
         num: 1234567890
         arr: [1, 2, 3, 4, 5]
+        sentence: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
     it 'should truncate a long string with ellipsis', ->
         expect(Humanize.truncate(objs.str, 14)).toEqual('abcdefghijk...')
         expect(Humanize.truncate(objs.str, 14, '...kidding')).toEqual('abcd...kidding')
+        expect(Humanize.truncateWords(objs.sentence, 3)).toEqual('Lorem ipsum dolor ...')
+        expect(Humanize.truncateNearestWord(objs.sentence, 16)).toEqual('Lorem ipsum...')
+        expect(Humanize.truncateNearestWord(objs.sentence, 16, " ...")).toEqual('Lorem ipsum ...')
 
     it 'should truncate a number to an upper bound', ->
         expect(Humanize.truncatenumber(objs.num, 500)).toEqual('500+')

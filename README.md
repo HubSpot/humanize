@@ -193,6 +193,18 @@ Humanize.truncate('long text is good for you', 19, '... etc')
 // "long text is... etc"
 ```
 
+##### truncateNearestWord
+Truncates a string to the nearest full word if it is longer than the specified number of characters.
+
+```javascript
+
+Humanize.truncateNearestWord('Lorem ipsum dolor sit amet', 16)
+// "Lorem ipsum..."
+
+Humanize.truncateNearestWord('Lorem ipsum dolor sit amet', 16, " ...")
+// "Lorem ipsum ..."
+```
+
 ##### truncateWords
 Truncates a string after a certain number of words.
 
@@ -347,7 +359,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ### 1.4.2
 
-- fix [#41](https://github.com/HubSpot/humanize/issues/41) 
+- fix [#41](https://github.com/HubSpot/humanize/issues/41)
 
 ### 1.4.1
 
