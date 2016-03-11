@@ -117,7 +117,7 @@
       }
     }
     if (filesize >= 1024) {
-      return Humanize.formatNumber(filesize / 1024, 0) + " KB";
+      return Humanize.formatNumber(filesize / 1024, 0) + " kB";
     }
     return Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, " byte");
   };
