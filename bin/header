@@ -12,7 +12,7 @@ function header(file) {
 }
 
 glob(
-  path.join(__dirname, '../public/**/*.js'),
+  path.join(__dirname, '../dist/**/*.js'),
   function (err, files) {
     if (err) throw err;
     files.forEach(function(file) {
