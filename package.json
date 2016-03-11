@@ -45,12 +45,14 @@
     "coffee": "coffee -o public -c coffee ",
     "preuglify": "mkdir -p public/dist",
     "uglify": "uglifyjs -cmo public/dist/humanize.min.js public/src/humanize.js",
-    "build": "npm run clean && npm run coffee && npm run uglify",
+    "header": "./bin/header",
+    "build": "./bin/build",
     "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
     "del-cli": "^0.2.0",
+    "glob": "^7.0.3",
     "jasmine": "^2.4.1",
     "uglify-js": "^2.6.2"
   }
