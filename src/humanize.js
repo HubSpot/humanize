@@ -433,7 +433,8 @@ const Humanize = {
     const splitOnWhiteSpaceRegex = /\s+/;
     const splitOnHyphensRegex = /-/;
 
-    const doTitleCase = (_string, hyphenated = false, firstOrLast = true) => {
+    let doTitleCase;
+    doTitleCase = (_string, hyphenated = false, firstOrLast = true) => {
       const titleCasedArray = [];
       const stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
 

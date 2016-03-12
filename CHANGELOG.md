@@ -1,4 +1,8 @@
-### 1.6.0
+### 1.7.1
+- deprecate node v0.8
+- fix undefined recursive function for older node versions
+
+### 1.7.0
 - replace coffeescript with ES2016
 - UMD wrap library
 

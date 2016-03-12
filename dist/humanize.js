@@ -1,4 +1,4 @@
-/* humanize.js - v1.7.0 */
+/* humanize.js - v1.7.1 */
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -477,7 +477,8 @@ var Humanize = {
     var splitOnWhiteSpaceRegex = /\s+/;
     var splitOnHyphensRegex = /-/;
 
-    var doTitleCase = function doTitleCase(_string) {
+    var _doTitleCase = void 0;
+    _doTitleCase = function doTitleCase(_string) {
       var hyphenated = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
       var firstOrLast = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
 
@@ -487,7 +488,7 @@ var Humanize = {
       for (var index = 0; index < stringArray.length; ++index) {
         var word = stringArray[index];
         if (word.indexOf('-') !== -1) {
-          titleCasedArray.push(doTitleCase(word, true, index === 0 || index === stringArray.length - 1));
+          titleCasedArray.push(_doTitleCase(word, true, index === 0 || index === stringArray.length - 1));
           continue;
         }
 
@@ -508,7 +509,7 @@ var Humanize = {
       return titleCasedArray.join(hyphenated ? '-' : ' ');
     };
 
-    return doTitleCase(string);
+    return _doTitleCase(string);
   },
   titlecase: function titlecase() {
     return Humanize.titleCase.apply(Humanize, arguments);

@@ -2,7 +2,7 @@
   "name": "humanize-plus",
   "title": "Humanize",
   "description": "A simple utility library for making the web more humane.",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "homepage": "https://github.com/HubSpot/humanize",
   "main": "./dist/humanize.js",
   "author": {
