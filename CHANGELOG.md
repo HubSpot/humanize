@@ -1,4 +1,8 @@
 ### 1.6.0
+- replace coffeescript with ES2016
+- UMD wrap library
+
+### 1.6.0
 - update build process
 
 ### 1.5.0

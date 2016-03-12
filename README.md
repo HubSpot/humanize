@@ -10,8 +10,8 @@ Humanize Plus is available via node package manager.
 
 Or download the [minified version][min] or the [full version][max].
 
-[min]: https://raw.github.com/HubSpot/humanize/master/public/dist/humanize.min.js
-[max]: https://raw.github.com/HubSpot/humanize/master/public/src/humanize.js
+[min]: https://raw.github.com/HubSpot/humanize/master/dist/humanize.min.js
+[max]: https://raw.github.com/HubSpot/humanize/master/src/humanize.js
 
 In your web page:
 
@@ -26,7 +26,7 @@ var capitalized = Humanize.capitalize("ten tiny ducklings.")
 In your node package.json:
 ```javascript
 "dependencies": {
-  "humanize-plus": "^1.6.0"
+  "humanize-plus": "^1.7.0"
 }
 ```
 
@@ -308,7 +308,7 @@ Humanize.normalizePrecision(-232.231)
 ```
 
 ## Important notes
-Please don't edit files in the `public` subdirectory as they are generated via grunt. You'll find source code in the `coffee` subdirectory!
+Please don't edit files in the `dist` subdirectory as they are generated through compilation. You'll find source code in the `src` subdirectory!
 
 ## Compiling
 
@@ -316,7 +316,7 @@ Please don't edit files in the `public` subdirectory as they are generated via g
 
 And that's it!
 
-The project will compile the CoffeeScript files into the public/ subdirectory.
+The project will compile the CoffeeScript files into the `dist` subdirectory.
 
 ## Testing
 

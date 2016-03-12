@@ -2,9 +2,9 @@
   "name": "humanize-plus",
   "title": "Humanize",
   "description": "A simple utility library for making the web more humane.",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "homepage": "https://github.com/HubSpot/humanize",
-  "main": "./public/src/humanize.js",
+  "main": "./dist/humanize.js",
   "author": {
     "name": "HubSpotDev",
     "email": "devteam@hubspot.com",
@@ -25,14 +25,16 @@
       "name": "Andy Aylward",
       "email": "aaylward@gmail.com",
       "web": "http://github.com/aaylward"
+    },
+    {
+      "name": "Nicholas Hwang",
+      "email": "geek@nicholashwang.com",
+      "web": "http://github.com/geekjuice"
     }
   ],
   "repository": {
     "type": "git",
     "url": "git://github.com/HubSpot/humanize.git"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org"
   },
   "bugs": {
     "url": "https://github.com/HubSpot/humanize/issues"
@@ -41,16 +43,20 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "clean": "del public",
-    "coffee": "coffee -o public -c coffee ",
-    "preuglify": "mkdir -p public/dist",
-    "uglify": "uglifyjs -cmo public/dist/humanize.min.js public/src/humanize.js",
+    "reinstall": "del node_modules && npm install",
+    "clean": "del dist",
+    "preuglify": "mkdir -p dist",
+    "uglify": "uglifyjs -co dist/humanize.min.js dist/humanize.js",
+    "watch": "babel --watch src -d dist",
+    "babel": "babel src -d dist",
     "header": "./bin/header",
     "build": "./bin/build",
-    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
+    "test": "node __tests__/runner.js"
   },
   "devDependencies": {
-    "coffee-script": "^1.10.0",
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.2",
+    "babel-preset-es2015-riot": "^1.0.3",
     "del-cli": "^0.2.0",
     "glob": "^7.0.3",
     "jasmine": "^2.4.1",

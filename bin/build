@@ -15,8 +15,8 @@ fi
 printf "\n${BLUE}[Humanize]${RESET} Wiping build directory...\n"
 npm run clean
 
-printf "\n${BLUE}[Humanize]${RESET} Compiling coffee files...\n"
-npm run coffee
+printf "\n${BLUE}[Humanize]${RESET} Compiling ES6 files...\n"
+npm run babel
 
 printf "\n${BLUE}[Humanize]${RESET} Compressing compiled files...\n"
 npm run uglify
