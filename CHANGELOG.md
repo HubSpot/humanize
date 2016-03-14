@@ -1,3 +1,6 @@
+### 1.8.1
+- Compress minified file with mangling
+
 ### 1.8.0
 - Add precision parameter to fileSize [#70]
 - Update tests to use source file and not distribution
