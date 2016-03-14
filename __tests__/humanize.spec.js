@@ -1,6 +1,6 @@
 /* eslint-env jasmine */
 
-import Humanize from '../dist/humanize.min';
+import Humanize from '../src/humanize';
 
 describe('When using method via destructured assignment', () => {
   it('should properly reference other Humanize methods', () => {
