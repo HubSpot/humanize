@@ -1,4 +1,9 @@
-# Humanize Plus [![Build Status](https://travis-ci.org/HubSpot/humanize.png?branch=master)](https://travis-ci.org/HubSpot/humanize)
+# Humanize Plus
+
+[![npm version](https://img.shields.io/npm/v/humanize-plus.svg?style=flat-square)](https://www.npmjs.com/package/humanize-plus)
+[![build status](https://img.shields.io/travis/HubSpot/humanize/master.svg?style=flat-square)](https://travis-ci.org/HubSpot/humanize)
+[![npm downloads](https://img.shields.io/npm/dm/humanize-plus.svg?style=flat-square)](https://www.npmjs.com/package/humanize-plus)
+
 
 A simple utility library for making the web more humane.
 
