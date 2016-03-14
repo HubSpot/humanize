@@ -1,3 +1,7 @@
+### 1.8.0
+- Add precision parameter to fileSize [#70]
+- Update tests to use source file and not distribution
+
 ### 1.7.1
 - deprecate node v0.8
 - fix undefined recursive function for older node versions

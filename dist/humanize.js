@@ -1,4 +1,4 @@
-/* humanize.js - v1.7.1 */
+/* humanize.js - v1.8.0 */
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -150,11 +150,13 @@ var Humanize = {
 
   // Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
   fileSize: function fileSize(filesize) {
+    var precision = arguments.length <= 1 || arguments[1] === undefined ? 2 : arguments[1];
+
     for (var label in LABELS_FOR_POWERS_OF_KILO) {
       if (LABELS_FOR_POWERS_OF_KILO.hasOwnProperty(label)) {
         var minnum = LABELS_FOR_POWERS_OF_KILO[label];
         if (filesize >= minnum) {
-          return Humanize.formatNumber(filesize / minnum, 2, '') + ' ' + label + 'B';
+          return Humanize.formatNumber(filesize / minnum, precision, '') + ' ' + label + 'B';
         }
       }
     }
