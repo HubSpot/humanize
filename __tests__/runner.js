@@ -8,7 +8,7 @@ var jasmine = new Jasmine();
 jasmine.loadConfig({
   spec_dir: '__tests__',
   spec_files: [
-    '**/*-spec.js'
+    '**/*.spec.js'
   ],
   stopSpecOnExpectationFailure: true
 });
