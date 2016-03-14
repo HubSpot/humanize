@@ -175,6 +175,18 @@ describe('Filesize tests for nerds', () => {
   it('should return a file in PB if it is more than a 2^50 bytes', () => {
     expect(Humanize.filesize(2.22 * 1024 * 1024 * 1024 * 1024 * 1024)).toEqual('2.22 PB');
   });
+
+  it('should ignore precision when filesize is less than units', () => {
+    expect(Humanize.filesize(512, 4)).toEqual('512 bytes');
+  });
+
+  it('should respect precision with filesize is greater than units', () => {
+    expect(Humanize.filesize(2.22 * 1024 * 1024, 0)).toEqual('2 MB');
+  });
+
+  it('should respect greater precision when specified', () => {
+    expect(Humanize.filesize(2.2222 * 1024 * 1024, 3)).toEqual('2.222 MB');
+  });
 });
 
 describe('Truncating objects to shorter versions', () => {
