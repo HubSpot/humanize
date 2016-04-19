@@ -286,8 +286,8 @@ aznPics = [
 ]
 bigfootPics = []
 
-"Asians " + Humanize.frequency(aznPics, "took pictures of food")
-// "Asians took pictures of food 3 times"
+"Instagrammers " + Humanize.frequency(aznPics, "took pictures of food")
+// "Instagrammers took pictures of food 3 times"
 
 "Bigfoot " + Humanize.frequency(bigfootPics, "took pictures of food")
 // "Bigfoot never took pictures of food"
