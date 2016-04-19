@@ -1,3 +1,6 @@
+### 1.8.2
+- Close Humanize in UMD wrapper to prevent global variables
+
 ### 1.8.1
 - Compress minified file with mangling
 
