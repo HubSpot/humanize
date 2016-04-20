@@ -146,20 +146,20 @@
     },
 
     // Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
-    fileSize(filesize, precision = 2) {
+    fileSize(filesize, precision = 2, thousand = ',', decimal = '.') {
       for (const label in LABELS_FOR_POWERS_OF_KILO) {
         if (LABELS_FOR_POWERS_OF_KILO.hasOwnProperty(label)) {
           const minnum = LABELS_FOR_POWERS_OF_KILO[label];
           if (filesize >= minnum) {
-            return `${Humanize.formatNumber(filesize / minnum, precision, '')} ${label}B`;
+            return `${Humanize.formatNumber(filesize / minnum, precision, thousand, decimal)} ${label}B`;
           }
         }
       }
       if (filesize >= 1024) {
-        return `${Humanize.formatNumber(filesize / 1024, 0)} KB`;
+        return `${Humanize.formatNumber(filesize / 1024, 0, thousand, decimal)} KB`;
       }
 
-      return Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, ' byte');
+      return Humanize.formatNumber(filesize, 0, thousand, decimal) + Humanize.pluralize(filesize, ' byte');
     },
 
     filesize(...args) {
