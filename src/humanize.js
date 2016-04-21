@@ -404,7 +404,7 @@
 
       // Use the last time unit if there is nothing smaller
       if (!timeUnit) {
-        prefix = 'Less than';
+        prefix = 'Fewer than';
         relativePace = 1;
         timeUnit = TIME_FORMATS[TIME_FORMATS.length - 1].name;
       }
