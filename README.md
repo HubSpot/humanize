@@ -8,7 +8,7 @@
 
 A simple utility library to Humanize the web.
 
-At its core, Humanize harmonizes a group of smaller tasks that are generally time & painstaking to include in a project and yet make a big difference to your output being more readable by your fellow humans...you are human, right? 
+At its core, Humanize harmonizes a group of smaller tasks that once included in a project make a big difference to your output being more readable by your fellow humans...you are human, right? 
 
 Here are some examples of what you can do with Humanize: 
 
