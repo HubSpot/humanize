@@ -256,7 +256,7 @@ Alias for `titleCase`
 ### Arrays
 
 ##### oxford
-Converts a list of items to a human readable string with an optional limit.
+Converts a list of items to a human readable string with an optional limit, limit string, and conjunction.
 
 ```javascript
 items = ['apple', 'orange', 'banana', 'pear', 'pineapple']
@@ -264,6 +264,7 @@ items = ['apple', 'orange', 'banana', 'pear', 'pineapple']
 Humanize.oxford(items)
 // "apple, orange, banana, pear, and pineapple"
 
+// Limit items shown
 Humanize.oxford(items, 3)
 // "apple, orange, banana, and 2 others"
 
@@ -271,8 +272,17 @@ Humanize.oxford(items, 3)
 Humanize.oxford(items, 4)
 // "apple, orange, banana, pear, and 1 other"
 
+// Specify a limit string
 Humanize.oxford(items, 3, "and some other fruits")
 // "apple, orange, banana, and some other fruits"
+
+// Pick a conjunction (defaults to 'and')
+Humanize.oxford(items, null, null, "or")
+// "apple, orange, banana, pear, or pineapple"
+
+// Also works with a limit
+Humanize.oxford(items, 3, null, "with")
+// "apple, orange, banana, with 2 others"
 ```
 
 ##### frequency
@@ -317,7 +327,7 @@ Please don't edit files in the `dist` subdirectory as they are generated through
 
 ## Compiling
 
-`npm run install && npm run build`
+`npm install && npm run build`
 
 And that's it!
 
