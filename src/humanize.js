@@ -220,10 +220,6 @@
     ordinal(value) {
       const number = parseInt(value, 10);
 
-      if (number === 0) {
-        return value;
-      }
-
       const specialCase = number % 100;
       if ([11, 12, 13].indexOf(specialCase) >= 0) {
         return `${ number }th`;
