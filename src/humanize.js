@@ -217,8 +217,13 @@
     },
 
     // Converts an integer to its ordinal as a string.
-    ordinal(value) {
+    ordinal(value, options = {}) {
+      const { zeroth = false } = options;
       const number = parseInt(value, 10);
+
+      if (number === 0 && !zeroth) {
+        return value;
+      }
 
       const specialCase = number % 100;
       if ([11, 12, 13].indexOf(specialCase) >= 0) {
