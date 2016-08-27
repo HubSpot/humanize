@@ -10,7 +10,7 @@
     "Nicholas Hwang <geek@nicholashwang.com> (http://github.com/geekjuice)"
   ],
   "description": "A simple utility library for making the web more humane.",
-  "main": "./src/humanize.js",
+  "main": "./dist/humanize.js",
   "keywords": [
     "humanize",
     "format"
