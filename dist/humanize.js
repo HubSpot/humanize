@@ -1,7 +1,7 @@
 /* humanize.js - v1.8.2 */
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
  * Copyright 2013-2016 HubSpotDev
@@ -77,9 +77,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var Humanize = {
 
     // Converts a large integer to a friendly text representation.
-
     intword: function intword(number, charWidth) {
-      var decimals = arguments.length <= 2 || arguments[2] === undefined ? 2 : arguments[2];
+      var decimals = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
 
       /*
       * This method is deprecated. Please use compactInteger instead.
@@ -91,7 +90,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Converts an integer into its most compact representation
     compactInteger: function compactInteger(input) {
-      var decimals = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+      var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
       decimals = Math.max(decimals, 0);
       var number = parseInt(input, 10);
@@ -150,7 +149,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Converts an integer to a string containing commas every three digits.
     intComma: function intComma(number) {
-      var decimals = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+      var decimals = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
       return Humanize.formatNumber(number, decimals);
     },
@@ -161,7 +160,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
     fileSize: function fileSize(filesize) {
-      var precision = arguments.length <= 1 || arguments[1] === undefined ? 2 : arguments[1];
+      var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
       for (var label in LABELS_FOR_POWERS_OF_KILO) {
         if (LABELS_FOR_POWERS_OF_KILO.hasOwnProperty(label)) {
@@ -185,9 +184,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     // Formats a number to a human-readable string.
     // Localize by overriding the precision, thousand and decimal arguments.
     formatNumber: function formatNumber(number) {
-      var precision = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-      var thousand = arguments.length <= 2 || arguments[2] === undefined ? ',' : arguments[2];
-      var decimal = arguments.length <= 3 || arguments[3] === undefined ? '.' : arguments[3];
+      var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var thousand = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ',';
+      var decimal = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '.';
 
       // Create some private utility functions to make the computational
       // code that follows much easier to read.
@@ -268,7 +267,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Interprets numbers as occurences. Also accepts an optional array/map of overrides.
     times: function times(value) {
-      var overrides = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+      var overrides = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (isFiniteNumber(value) && value >= 0) {
         var number = parseFloat(value);
@@ -299,8 +298,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     // Truncates a string if it is longer than the specified number of characters (inclusive).
     // Truncated strings will end with a translatable ellipsis sequence ("…").
     truncate: function truncate(str) {
-      var length = arguments.length <= 1 || arguments[1] === undefined ? 100 : arguments[1];
-      var ending = arguments.length <= 2 || arguments[2] === undefined ? '...' : arguments[2];
+      var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+      var ending = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '...';
 
       if (str.length > length) {
         return str.substring(0, length - ending.length) + ending;
@@ -312,21 +311,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     // Truncates a string after a certain number of words.
     truncateWords: function truncateWords(string, length) {
       var array = string.split(' ');
-      var result = '';
-      var i = 0;
-
-      while (i < length) {
-        if (exists(array[i])) {
-          result += array[i] + ' ';
-        }
-        i++;
-      }
 
       if (array.length > length) {
+        var result = '';
+        var i = 0;
+        while (i < length) {
+          if (exists(array[i])) {
+            result += array[i] + ' ';
+          }
+          i++;
+        }
         return result + '...';
       }
-
-      return null;
+      return string;
     },
     truncatewords: function truncatewords() {
       return Humanize.truncateWords.apply(Humanize, arguments);
@@ -335,8 +332,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Truncates a number to an upper bound.
     boundedNumber: function boundedNumber(num) {
-      var bound = arguments.length <= 1 || arguments[1] === undefined ? 100 : arguments[1];
-      var ending = arguments.length <= 2 || arguments[2] === undefined ? '+' : arguments[2];
+      var bound = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+      var ending = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '+';
 
       var result = void 0;
 
@@ -377,8 +374,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Converts an object to a definition-like string
     dictionary: function dictionary(object) {
-      var joiner = arguments.length <= 1 || arguments[1] === undefined ? ' is ' : arguments[1];
-      var separator = arguments.length <= 2 || arguments[2] === undefined ? ', ' : arguments[2];
+      var joiner = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ' is ';
+      var separator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ', ';
 
       var result = '';
 
@@ -414,7 +411,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return verb + ' ' + times;
     },
     pace: function pace(value, intervalMs) {
-      var unit = arguments.length <= 2 || arguments[2] === undefined ? 'time' : arguments[2];
+      var unit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'time';
 
       if (value === 0 || intervalMs === 0) {
         // Needs a better string than this...
@@ -453,7 +450,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Converts newlines to <br/> tags
     nl2br: function nl2br(string) {
-      var replacement = arguments.length <= 1 || arguments[1] === undefined ? '<br/>' : arguments[1];
+      var replacement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '<br/>';
 
       return string.replace(/\n/g, replacement);
     },
@@ -461,7 +458,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Converts <br/> tags to newlines
     br2nl: function br2nl(string) {
-      var replacement = arguments.length <= 1 || arguments[1] === undefined ? '\r\n' : arguments[1];
+      var replacement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '\r\n';
 
       return string.replace(/\<br\s*\/?\>/g, replacement);
     },
@@ -469,7 +466,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     // Capitalizes first letter in a string
     capitalize: function capitalize(string) {
-      var downCaseTail = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+      var downCaseTail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
       return '' + string.charAt(0).toUpperCase() + (downCaseTail ? string.slice(1).toLowerCase() : string.slice(1));
     },
@@ -492,8 +489,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       var _doTitleCase = void 0;
       _doTitleCase = function doTitleCase(_string) {
-        var hyphenated = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-        var firstOrLast = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+        var hyphenated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        var firstOrLast = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
         var titleCasedArray = [];
         var stringArray = _string.split(hyphenated ? splitOnHyphensRegex : splitOnWhiteSpaceRegex);
