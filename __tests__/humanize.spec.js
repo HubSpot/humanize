@@ -193,12 +193,17 @@ describe('Truncating objects to shorter versions', () => {
   const objs = {
     str: 'abcdefghijklmnopqrstuvwxyz',
     num: 1234567890,
-    arr: [1, 2, 3, 4, 5]
+    arr: [1, 2, 3, 4, 5],
+    wrd: 'hello world'
   };
 
   it('should truncate a long string with ellipsis', () => {
     expect(Humanize.truncate(objs.str, 14)).toEqual('abcdefghijk...');
     expect(Humanize.truncate(objs.str, 14, '...kidding')).toEqual('abcd...kidding');
+  });
+
+  it('should truncate a string of words with ellipsis', () => {
+    expect(Humanize.truncateWords(objs.wrd, 1)).toEqual('hello ...');
   });
 
   it('should truncate a number to an upper bound', () => {
@@ -210,6 +215,7 @@ describe('Truncating objects to shorter versions', () => {
     expect(Humanize.truncate(objs.str, objs.str.length + 1)).toEqual(objs.str);
     expect(Humanize.truncatenumber(objs.num, objs.num + 1)).toEqual(String(objs.num));
     expect(Humanize.boundedNumber(objs.num, objs.num + 1)).toEqual(String(objs.num));
+    expect(Humanize.truncateWords(objs.wrd, 3)).toEqual('hello world');
   });
 });
 

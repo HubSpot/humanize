@@ -287,21 +287,19 @@
     // Truncates a string after a certain number of words.
     truncateWords(string, length) {
       const array = string.split(' ');
-      let result = '';
-      let i = 0;
-
-      while (i < length) {
-        if (exists(array[i])) {
-          result += `${array[i]} `;
-        }
-        i++;
-      }
 
       if (array.length > length) {
+        let result = '';
+        let i = 0;
+        while (i < length) {
+          if (exists(array[i])) {
+            result += `${array[i]} `;
+          }
+          i++;
+        }
         return `${result}...`;
       }
-
-      return null;
+      return string;
     },
 
     truncatewords(...args) {
