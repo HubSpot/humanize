@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/HubSpot/humanize",
   "main": "./dist/humanize.js",
+  "types": "index.d.ts",
   "author": {
     "name": "HubSpotDev",
     "email": "devteam@hubspot.com",
