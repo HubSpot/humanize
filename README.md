@@ -321,7 +321,7 @@ Please don't edit files in the `dist` subdirectory as they are generated through
 
 And that's it!
 
-The project will compile the CoffeeScript files into the `dist` subdirectory.
+The project will compile the ES files into the `dist` subdirectory.
 
 ## Testing
 
