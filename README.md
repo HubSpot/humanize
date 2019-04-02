@@ -279,14 +279,14 @@ Humanize.oxford(items, 3, "and some other fruits")
 Describes how many times an item appears in a list
 
 ```javascript
-aznPics = [
+instaPics = [
   'http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg',
   'http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg',
   'http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg'
 ]
 bigfootPics = []
 
-"Instagrammers " + Humanize.frequency(aznPics, "took pictures of food")
+"Instagrammers " + Humanize.frequency(instaPics, "took pictures of food")
 // "Instagrammers took pictures of food 3 times"
 
 "Bigfoot " + Humanize.frequency(bigfootPics, "took pictures of food")
