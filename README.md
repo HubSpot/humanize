@@ -84,7 +84,7 @@ Converts an integer into its most compact representation. Decimal precision is i
 Humanize.compactInteger(123456789, 1)
 // "123.5M"
 
-// Switch to scientific notation for trillons, because no one knows those abbreviations.
+// Switch to scientific notation for trillions, because no one knows those abbreviations.
 Humanize.compactInteger(-7832186132456328967, 4)
 // "-7.8322x10^18"
 
@@ -115,7 +115,7 @@ Humanize.ordinal(22)
 ```
 
 ##### times
-Interprets numbers as occurences. Also accepts an optional array/map of overrides.
+Interprets numbers as occurrences. Also accepts an optional array/map of overrides.
 
 ```javascript
 for (i=0; i<5; i++) {
@@ -231,7 +231,7 @@ Humanize.capitalize("wHoOaA!", true)
 ```
 
 ##### capitalizeAll
-Captializes the first letter of every word in a string.
+Capitalizes the first letter of every word in a string.
 
 ```javascript
 Humanize.capitalizeAll("some boring string")
