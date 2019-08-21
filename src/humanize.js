@@ -147,7 +147,7 @@
 
     // Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
     fileSize(filesize, precision = 2) {
-      for (const label in LABELS_FOR_POWERS_OF_KILO) {
+      for (let label in LABELS_FOR_POWERS_OF_KILO) {
         if (LABELS_FOR_POWERS_OF_KILO.hasOwnProperty(label)) {
           const minnum = LABELS_FOR_POWERS_OF_KILO[label];
           if (filesize >= minnum) {
@@ -352,7 +352,7 @@
 
       if (exists(object) && typeof object === 'object' && !isArray(object)) {
         const defs = [];
-        for (const key in object) {
+        for (let key in object) {
           if (object.hasOwnProperty(key)) {
             const val = object[key];
             defs.push(`${ key }${ joiner }${ val }`);
