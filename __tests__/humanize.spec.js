@@ -45,8 +45,16 @@ describe('compactInteger tests', () => {
 
 describe('Ordinal value of numbers Test Suite', () => {
   describe('Ordinal value for numbers ending in zero', () => {
-    it('should return 0 if the number is 0 (cos 0th doesnt read very well)', () => {
+    it('should return 0 if the number is 0', () => {
       expect(Humanize.ordinal(0)).toEqual(0);
+    });
+
+    it('should return the input if the number is 0', () => {
+      expect(Humanize.ordinal('0.')).toEqual('0.');
+    });
+
+    it('should return 0th if the number is 0, and the zeroth option is passed', () => {
+      expect(Humanize.ordinal(0, {zeroth: true})).toEqual('0th');
     });
 
     it('should return the number with suffix th', () => {

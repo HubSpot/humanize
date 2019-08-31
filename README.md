@@ -114,6 +114,17 @@ Humanize.ordinal(22)
 // "22nd"
 ```
 
+By default returns the input if it evaluates to 0, this can be overridden by passing the option `zeroth`:
+
+```javascript
+Humanize.ordinal(0)
+// 0
+Humanize.ordinal('0.')
+// "0."
+Humanize.ordinal(0, {zeroth: true})
+// "0th"
+```
+
 ##### times
 Interprets numbers as occurences. Also accepts an optional array/map of overrides.
 
