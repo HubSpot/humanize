@@ -162,20 +162,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     // Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
     fileSize: function fileSize(filesize) {
       var precision = arguments.length <= 1 || arguments[1] === undefined ? 2 : arguments[1];
+      var thousand = arguments.length <= 2 || arguments[2] === undefined ? ',' : arguments[2];
+      var decimal = arguments.length <= 3 || arguments[3] === undefined ? '.' : arguments[3];
 
       for (var label in LABELS_FOR_POWERS_OF_KILO) {
         if (LABELS_FOR_POWERS_OF_KILO.hasOwnProperty(label)) {
           var minnum = LABELS_FOR_POWERS_OF_KILO[label];
           if (filesize >= minnum) {
-            return Humanize.formatNumber(filesize / minnum, precision, '') + ' ' + label + 'B';
+            return Humanize.formatNumber(filesize / minnum, precision, thousand, decimal) + ' ' + label + 'B';
           }
         }
       }
       if (filesize >= 1024) {
-        return Humanize.formatNumber(filesize / 1024, 0) + ' KB';
+        return Humanize.formatNumber(filesize / 1024, 0, thousand, decimal) + ' KB';
       }
 
-      return Humanize.formatNumber(filesize, 0) + Humanize.pluralize(filesize, ' byte');
+      return Humanize.formatNumber(filesize, 0, thousand, decimal) + Humanize.pluralize(filesize, ' byte');
     },
     filesize: function filesize() {
       return Humanize.fileSize.apply(Humanize, arguments);
