@@ -4,8 +4,22 @@
 [![build status](https://img.shields.io/travis/HubSpot/humanize/master.svg?style=flat-square)](https://travis-ci.org/HubSpot/humanize)
 [![npm downloads](https://img.shields.io/npm/dm/humanize-plus.svg?style=flat-square)](https://www.npmjs.com/package/humanize-plus)
 
+## Introduction
 
-A simple utility library for making the web more humane.
+A simple utility library to Humanize the web.
+
+At its core, Humanize harmonizes a group of smaller tasks that once included in a project make a big difference to your output being more readable by your fellow humans...you are human, right? 
+
+Here are some examples of what you can do with Humanize: 
+
+* Making a number such as 123456789 more human readable by simply adding in the correct commas "123,456,789" and decimals "123,456,789.00".
+
+* Making a larger number more compact 123456789 converts to "123.5M".
+
+* Make file sizes more understandable a file size of 1024 * 2000 can show as "1.95 Mb".
+
+* Make a plural with pluralize 1 "duck", 2 "ducks", 3 "duckies"
+
 
 ## Getting Started
 
