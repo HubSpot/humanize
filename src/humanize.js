@@ -326,21 +326,21 @@
     },
 
     // Converts a list of items to a human readable string with an optional limit.
-    oxford(items, limit, limitStr) {
+    oxford(items, limit, limitStr, conjunction = 'and') {
       const numItems = items.length;
 
       let limitIndex;
       if (numItems < 2) {
         return String(items);
       } else if (numItems === 2) {
-        return items.join(' and ');
+        return items.join(` ${conjunction} `);
       } else if (exists(limit) && numItems > limit) {
         const extra = numItems - limit;
         limitIndex = limit;
-        limitStr = exists(limitStr) ? limitStr : `, and ${extra} ${Humanize.pluralize(extra, 'other')}`;
+        limitStr = exists(limitStr) ? limitStr : `, ${conjunction} ${extra} ${Humanize.pluralize(extra, 'other')}`;
       } else {
         limitIndex = -1;
-        limitStr = `, and ${items[numItems - 1]}`;
+        limitStr = `, ${conjunction} ${items[numItems - 1]}`;
       }
 
       return items.slice(0, limitIndex).join(', ') + limitStr;

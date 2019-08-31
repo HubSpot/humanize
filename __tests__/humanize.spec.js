@@ -243,6 +243,15 @@ describe('Converting a list to a readable, oxford commafied string', () => {
     expect(Humanize.oxford(items.slice(0), 3, limitStr)).toEqual(`apple, orange, banana${limitStr}`);
     expect(Humanize.oxford(items.slice(0, 3), 3, limitStr)).toEqual('apple, orange, and banana');
   });
+
+  it('should accept custom conjunctions', () => {
+    const conjunction = 'or';
+    const limitStr = ', and some other fruits';
+
+    expect(Humanize.oxford(items.slice(0), null, null, conjunction)).toEqual(`apple, orange, banana, pear, ${conjunction} pineapple`);
+    expect(Humanize.oxford(items.slice(0), 3, limitStr, conjunction)).toEqual(`apple, orange, banana${limitStr}`);
+    expect(Humanize.oxford(items.slice(0), 3, null, conjunction)).toEqual(`apple, orange, banana, ${conjunction} 2 others`);
+  })
 });
 
 describe('Converting a hashmap to a dictionary-like string', () => {
