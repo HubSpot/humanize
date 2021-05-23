@@ -148,7 +148,7 @@ Humanize.pace(4, week)
 // Approximately 4 times per week
 
 Humanize.pace(1, decade, "life crisis")
-// Less than 1 life crisis per week
+// Less than 1 life crisis per decade
 ```
 
 ##### fileSize
