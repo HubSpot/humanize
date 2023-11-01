@@ -82,6 +82,11 @@
 
     // Converts an integer into its most compact representation
     compactInteger(input, decimals = 0) {
+
+      if (!Number.isInteger(input)) {
+        throw new Error('Input is not an integer.');
+      }
+
       decimals = Math.max(decimals, 0);
       const number = parseInt(input, 10);
       const signString = number < 0 ? '-' : '';

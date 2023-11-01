@@ -40,6 +40,12 @@ describe('compactInteger tests', () => {
     expect(Humanize.compactInteger(100)).toEqual('100');
     expect(Humanize.compactInteger(123456789, 1)).toEqual('123.5M');
   });
+  it('should fail for non-integer', () => {
+    const nonIntegerInput = '2.3'; // Example non-integer input
+    expect(() => {
+      Humanize.compactInteger(nonIntegerInput);
+    }).toThrowError('Input is not an integer.');
+  });
 });
 
 
